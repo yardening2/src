@@ -18,11 +18,11 @@ namespace WiiSyScreen
         private Wiimote m_WiiMote;
         private Mutex m_StateChangedMutex;
 
-        private event WiimoteStateChangedEventHandler InfraRedAppeared;
-        private event WiimoteStateChangedEventHandler InfraRedDisppeared;
-        private event WiimoteStateChangedEventHandler InfraRedMoved;
-        private event WiiMoteValueChangedEventHandler BatteryStateChanged;
-        private event WiiMoteValueChangedEventHandler VisibleIRDotsChanged;
+        private event WiimoteStateChangedEventHandler InfraRedAppearedEvent;
+        private event WiimoteStateChangedEventHandler InfraRedDisppearedEvent;
+        private event WiimoteStateChangedEventHandler InfraRedMovedEvent;
+        private event WiiMoteValueChangedEventHandler BatteryStateChangedEvent;
+        private event WiiMoteValueChangedEventHandler VisibleIRDotsChangedEvent;
         private event EventHandler AButtonPressed;
         private event EventHandler BButtonPressed;
 
@@ -54,9 +54,9 @@ namespace WiiSyScreen
 
         private void fireBattteryEvents ()
         {
-            if (isBatteryStateChanged() && BatteryStateChanged != null)
+            if (isBatteryStateChanged() && BatteryStateChangedEvent != null)
             {
-                BatteryStateChanged(this.m_WiiMote, m_CurrentWiiMoteState.Battery);
+                BatteryStateChangedEvent(this.m_WiiMote, m_CurrentWiiMoteState.Battery);
             }
         }
 
@@ -67,29 +67,29 @@ namespace WiiSyScreen
 
         private void fireInfraRedEvents()
         {
-            if (isInfraRedAppeard() && InfraRedAppeared != null)
+            if (isInfraRedAppeard() && InfraRedAppearedEvent != null)
             {
-                InfraRedAppeared(this.m_WiiMote, m_CurrentWiiMoteState);
+                InfraRedAppearedEvent(this.m_WiiMote, m_CurrentWiiMoteState);
                 fireIRCountChanged();
             }
 
-            if (isInfraRedDisappeard() && InfraRedDisppeared != null)
+            if (isInfraRedDisappeard() && InfraRedDisppearedEvent != null)
             {
-                InfraRedDisppeared(this.m_WiiMote, m_CurrentWiiMoteState);
+                InfraRedDisppearedEvent(this.m_WiiMote, m_CurrentWiiMoteState);
                 fireIRCountChanged();
             }
 
-            if (isInfraRedMoved() && InfraRedMoved != null)
+            if (isInfraRedMoved() && InfraRedMovedEvent != null)
             {
-                InfraRedMoved(this.m_WiiMote, m_CurrentWiiMoteState);
+                InfraRedMovedEvent(this.m_WiiMote, m_CurrentWiiMoteState);
             }
         }
 
         private void fireIRCountChanged()
         {
-            if (VisibleIRDotsChanged != null)
+            if (VisibleIRDotsChangedEvent != null)
             {
-                VisibleIRDotsChanged(this.m_WiiMote, countVisibleIRDots());
+                VisibleIRDotsChangedEvent(this.m_WiiMote, countVisibleIRDots());
             }
         }
 
