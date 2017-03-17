@@ -1,0 +1,11 @@
+D/bin///////
+D/obj///////
+D/Properties///////
+/readme.txt////*///
+/WiimoteLib.csproj////*///
+/DataTypes.cs////*///
+/Events.cs////*///
+/HIDImports.cs////*///
+/NetworkServer.cs////*///
+/Wiimote.cs////*///
+/WiimoteLib.csproj.user////*///
