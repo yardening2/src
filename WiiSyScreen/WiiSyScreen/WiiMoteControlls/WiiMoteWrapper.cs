@@ -5,7 +5,7 @@ using System.Text;
 using WiimoteLib;
 using System.Threading;
 
-namespace WiiSyScreen
+namespace WiiSyScreen.WiiMoteControlls
 {
 
     public class WiiMoteWrapper
@@ -18,13 +18,13 @@ namespace WiiSyScreen
         private Wiimote m_WiiMote;
         private Mutex m_StateChangedMutex;
 
-        private event WiimoteStateChangedEventHandler InfraRedAppearedEvent;
-        private event WiimoteStateChangedEventHandler InfraRedDisppearedEvent;
-        private event WiimoteStateChangedEventHandler InfraRedMovedEvent;
-        private event WiiMoteValueChangedEventHandler BatteryStateChangedEvent;
-        private event WiiMoteValueChangedEventHandler VisibleIRDotsChangedEvent;
-        private event EventHandler AButtonPressed;
-        private event EventHandler BButtonPressed;
+        public event WiimoteStateChangedEventHandler InfraRedAppearedEvent;
+        public event WiimoteStateChangedEventHandler InfraRedDisppearedEvent;
+        public event WiimoteStateChangedEventHandler InfraRedMovedEvent;
+        public event WiiMoteValueChangedEventHandler BatteryStateChangedEvent;
+        public event WiiMoteValueChangedEventHandler VisibleIRDotsChangedEvent;
+        public event EventHandler AButtonPressed;
+        public event EventHandler BButtonPressed;
 
         public WiiMoteWrapper()
         {
