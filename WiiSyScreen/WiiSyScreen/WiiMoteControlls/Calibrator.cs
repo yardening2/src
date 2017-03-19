@@ -64,15 +64,20 @@ namespace WiiSyScreen.WiiMoteControlls
                     calibrationPoint = getBottomLeftCalibrationPoint();
                     break;
                 case 4:
-                    m_WiiMoteWrapper.InfraRedAppearedEvent -= buildInfraRedCalibrationArray;
-                    setCalibratedWarperData();
-                    m_IsCalibrated = true;
-                    break;
+                    endCalibrationProcess();
+                    return;
                 default:
                     break;
             }
             m_StaticCalibrationArrayX[m_CurrentCalibrationCounter] = calibrationPoint.X;
             m_StaticCalibrationArrayY[m_CurrentCalibrationCounter] = calibrationPoint.Y;
+        }
+
+        private void endCalibrationProcess()
+        {
+            m_WiiMoteWrapper.InfraRedAppearedEvent -= buildInfraRedCalibrationArray;
+            setCalibratedWarperData();
+            m_IsCalibrated = true;
         }
 
         private void buildInfraRedCalibrationArray(object i_WiiMote, WiimoteState i_State)
