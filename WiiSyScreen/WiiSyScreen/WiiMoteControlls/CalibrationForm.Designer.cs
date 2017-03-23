@@ -73,6 +73,7 @@
             this.BiggerCalibrationButtom.TabIndex = 3;
             this.BiggerCalibrationButtom.Text = "+";
             this.BiggerCalibrationButtom.UseVisualStyleBackColor = true;
+            this.BiggerCalibrationButtom.Click += new System.EventHandler(this.BiggerCalibrationButtom_Click);
             // 
             // CalibrationSizePanel
             // 

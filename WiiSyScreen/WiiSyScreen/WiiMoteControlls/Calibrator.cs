@@ -59,7 +59,13 @@ namespace WiiSyScreen.WiiMoteControlls
             m_CurrentCalibrationCounter = 0;
             buildStaticCalibrationArray();
             i_WiiMoteWrapper.InfraRedAppearedEvent += buildInfraRedCalibrationArray;
+            m_CalibratorForm.CalibrationHeightChangedEvent += onCalibrationAreaChanged;
             new Thread(() => { m_CalibratorForm.Show(); }).Start();
+        }
+
+        private void onCalibrationAreaChanged(object i_CalibrationForm, EventArgs i_EventArgs)
+        {
+
         }
 
         private void buildStaticCalibrationArray()
