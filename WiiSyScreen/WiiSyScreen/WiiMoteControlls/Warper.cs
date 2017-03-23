@@ -196,7 +196,7 @@ namespace WiiSyScreen.WiiMoteControlls
         {
             float[] result = new float[4];
             float z = 0;
-            PointF warpedCoordinate;
+            PointF warpedCoordinate = new PointF();
             result[0] = (float)(srcX * mat[0] + srcY * mat[4] + z * mat[8] + 1 * mat[12]);
             result[1] = (float)(srcX * mat[1] + srcY * mat[5] + z * mat[9] + 1 * mat[13]);
             result[2] = (float)(srcX * mat[2] + srcY * mat[6] + z * mat[10] + 1 * mat[14]);

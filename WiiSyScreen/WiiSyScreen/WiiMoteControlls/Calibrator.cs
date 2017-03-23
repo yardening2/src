@@ -5,36 +5,51 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using WiimoteLib;
+using System.Threading;
 
 namespace WiiSyScreen.WiiMoteControlls
 {
 
     class Calibrator
     {
-        private bool m_IsCalibrated = false;
+        private const float k_CalibrationMargin = .1f;
+
+        public bool IsCalibrated { get { return m_IsCalibrated; } }
+        
+        private bool m_IsCalibrated;
         private WiiMoteWrapper m_WiiMoteWrapper;
-        private int m_CurrentCalibrationCounter = 0;
-        private readonly int m_ScreenWidth = Screen.PrimaryScreen.Bounds.Width;
-        private readonly int m_ScreenHeight = Screen.PrimaryScreen.Bounds.Height;
-        private const float m_CalibrationMargin = .1f;
-        private readonly float[] m_StaticCalibrationArrayX = new float[4];
-        private readonly float[] m_StaticCalibrationArrayY = new float[4];
-        private readonly float[] m_InfraRedCalibrationArrayX = new float[4];
-        private readonly float[] m_InfraRedCalibrationArrayY = new float[4];
-        private readonly Warper m_Warper = new Warper();
+        private int m_CurrentCalibrationCounter;
+        private readonly int m_ScreenWidth;
+        private readonly int m_ScreenHeight;
+        private readonly float[] m_StaticCalibrationArrayX;
+        private readonly float[] m_StaticCalibrationArrayY;
+        private readonly float[] m_InfraRedCalibrationArrayX;
+        private readonly float[] m_InfraRedCalibrationArrayY;
+        private readonly Warper m_Warper;
+        private CalibrationForm m_CalibratorForm;
+
+        public Calibrator()
+        {
+            m_IsCalibrated = false;
+            m_CurrentCalibrationCounter = 0;
+            m_ScreenWidth = Screen.PrimaryScreen.Bounds.Width;
+            m_ScreenHeight = Screen.PrimaryScreen.Bounds.Height;
+            m_StaticCalibrationArrayX = new float[4];
+            m_StaticCalibrationArrayY = new float[4];
+            m_InfraRedCalibrationArrayX = new float[4];
+            m_InfraRedCalibrationArrayY = new float[4];
+            m_Warper = new Warper();
+            m_CalibratorForm = new CalibrationForm();
+        }
 
         public Warper getCalibratedWarper()
         {
-            if (m_IsCalibrated)
+            if (!m_IsCalibrated)
             {
-                return m_Warper;
+                throw new WarperNotCalibratedException();
             }
-            throw new WarperNotCalibratedException();
-        }
 
-        public bool IsCalibrated()
-        {
-            return m_IsCalibrated;
+            return m_Warper;
         }
 
         public void CalibrateScreen(WiiMoteWrapper i_WiiMoteWrapper)
@@ -44,6 +59,7 @@ namespace WiiSyScreen.WiiMoteControlls
             m_CurrentCalibrationCounter = 0;
             buildStaticCalibrationArray();
             i_WiiMoteWrapper.InfraRedAppearedEvent += buildInfraRedCalibrationArray;
+            new Thread(() => { m_CalibratorForm.Show(); }).Start();
         }
 
         private void buildStaticCalibrationArray()
@@ -100,32 +116,32 @@ namespace WiiSyScreen.WiiMoteControlls
         private PointF getTopLeftCalibrationPoint()
         {
             PointF point = new PointF();
-            point.X = (int) (m_ScreenWidth * m_CalibrationMargin);
-            point.Y = (int) (m_ScreenHeight * m_CalibrationMargin);
+            point.X = (int) (m_ScreenWidth * k_CalibrationMargin);
+            point.Y = (int) (m_ScreenHeight * k_CalibrationMargin);
             return point;
         }
 
         private PointF getBottomLeftCalibrationPoint()
         {
             PointF point = new PointF();
-            point.X = (int)(m_ScreenWidth * m_CalibrationMargin);
-            point.Y = m_ScreenHeight - (int)(m_ScreenHeight * m_CalibrationMargin);
+            point.X = (int)(m_ScreenWidth * k_CalibrationMargin);
+            point.Y = m_ScreenHeight - (int)(m_ScreenHeight * k_CalibrationMargin);
             return point;
         }
 
         private PointF getTopRightCalibrationPoint()
         {
             PointF point = new PointF();
-            point.X = m_ScreenWidth - (int)(m_ScreenWidth * m_CalibrationMargin);
-            point.Y = (int)(m_ScreenHeight * m_CalibrationMargin);
+            point.X = m_ScreenWidth - (int)(m_ScreenWidth * k_CalibrationMargin);
+            point.Y = (int)(m_ScreenHeight * k_CalibrationMargin);
             return point;
         }
 
         private PointF getBottomRightCalibrationPoint()
         {
             PointF point = new PointF();
-            point.X = m_ScreenWidth - (int)(m_ScreenWidth * m_CalibrationMargin);
-            point.Y = m_ScreenHeight - (int)(m_ScreenHeight * m_CalibrationMargin);
+            point.X = m_ScreenWidth - (int)(m_ScreenWidth * k_CalibrationMargin);
+            point.Y = m_ScreenHeight - (int)(m_ScreenHeight * k_CalibrationMargin);
             return point;
         }
     }
