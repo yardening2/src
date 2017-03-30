@@ -120,7 +120,7 @@ namespace WiiSyScreen.WiiMoteControlls
         {
             if (CalibrationHeightChangedEvent != null)
             {
-                CalibrationHeightChangedEven(this, EventArgs.Empty);
+                CalibrationHeightChangedEvent(this, EventArgs.Empty);
             }
         }
 

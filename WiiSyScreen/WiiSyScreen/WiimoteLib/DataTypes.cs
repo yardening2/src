@@ -8,20 +8,11 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 using System;
+using System.Runtime.Serialization;
 
 // if we're building the MSRS version, we need to bring in the MSRS Attributes
 // if we're not doing the MSRS build then define some fake attribute classes for DataMember/DataContract
-#if MSRS
-	using Microsoft.Dss.Core.Attributes;
-#else
-	sealed class DataContract : Attribute
-	{
-	}
 
-	sealed class DataMember: Attribute
-	{
-	}
-#endif
 
 namespace WiimoteLib
 {
