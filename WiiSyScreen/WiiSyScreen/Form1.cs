@@ -18,7 +18,7 @@ namespace WiiSyScreen
         {
             InitializeComponent();
             m_WiiMoteWrapper = new WiiMoteWrapper();
-            m_Calibrator = new Calibrator();
+            m_Calibrator = new Calibrator(m_WiiMoteWrapper);
             m_Calibrator.CalibrateFinishedEvent += onCalibrationFinished;
         }
 
@@ -40,6 +40,7 @@ namespace WiiSyScreen
             this.Text = "Connected To Wii";
             connectToWiiMoteButton.Visible = false;
             CalibrateButton.Visible = true;
+            CalibrateButton.Focus();
             BatteryLevelTextLabel.Visible = true;
             BatteryLevelValueLabel.Visible = true;
             m_WiiMoteWrapper.VisibleIRDotsChangedEvent += test;

@@ -33,7 +33,7 @@ namespace WiiSyScreen.WiiMoteControlls
         public PointF GetSmoothedCursor(PointF i_coordinates)
         {
             addPointToSmoother(i_coordinates);
-            int start = m_SmoothingBufferindex - SmoothingAmount;
+            int start = m_SmoothingBufferindex - SmoothingAmount - 1;
             start = start < 0 ? 0 : start;
             return calculateCurserAverage(start);
         }

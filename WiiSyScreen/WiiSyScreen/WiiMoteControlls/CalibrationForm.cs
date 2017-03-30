@@ -56,16 +56,16 @@ namespace WiiSyScreen.WiiMoteControlls
             switch (m_StepCounter)
             {
                 case 0:
-                    drawCross(new Point((int)(Width * k_DefaultMargin), Height - (int)(r_ScreenHeight * k_DefaultMargin)));
+                    drawCross(new Point(Width - (int)(Width * k_DefaultMargin), (int)(r_ScreenHeight * k_DefaultMargin)));
                     break;
                 case 1:
-                    drawCross(new Point(Width - (int)(Width * k_DefaultMargin), (int)(r_ScreenHeight * k_DefaultMargin)));
+                    drawCross(new Point((int)(Width * k_DefaultMargin), Height - (int)(r_ScreenHeight * k_DefaultMargin)));
                     break;
                 case 2:
                     drawCross(new Point(Width - (int)(Width * k_DefaultMargin), Height - (int)(r_ScreenHeight * k_DefaultMargin)));
                     break;
                 case 3:
-                    this.Close();
+                    this.Invoke(new Action(() => { this.Close(); }));
                     break;
             }
 
@@ -84,7 +84,7 @@ namespace WiiSyScreen.WiiMoteControlls
             m_StepCounter = 0;
             CrossPictureBox.Size = new Size(Width, Height);
             drawCross(new Point((int)(Width * k_DefaultMargin), (int)(r_ScreenHeight * k_DefaultMargin)));
-            this.TopMost = true;
+            this.TopMost = false;
         }
 
         public void drawCross(Point i_Location)

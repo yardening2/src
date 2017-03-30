@@ -16,6 +16,7 @@ namespace WiiSyScreen.WiiMoteControlls
 
         public bool IsCalibrated { get { return m_IsCalibrated; } }
         public event EventHandler CalibrateFinishedEvent;
+        private float m_TopCalibrationMargin;
         private bool m_IsCalibrated;
         private WiiMoteWrapper m_WiiMoteWrapper;
         private int m_CurrentCalibrationCounter;
@@ -28,10 +29,11 @@ namespace WiiSyScreen.WiiMoteControlls
         private readonly Warper m_Warper;
         private CalibrationForm m_CalibratorForm;
 
-        public Calibrator()
+        public Calibrator(WiiMoteWrapper i_WiiMoteWraper)
         {
             m_IsCalibrated = false;
             m_CurrentCalibrationCounter = 0;
+            m_TopCalibrationMargin = k_CalibrationMargin;
             m_ScreenWidth = Screen.PrimaryScreen.Bounds.Width;
             m_ScreenHeight = Screen.PrimaryScreen.Bounds.Height;
             m_StaticCalibrationArrayX = new float[4];
@@ -39,7 +41,8 @@ namespace WiiSyScreen.WiiMoteControlls
             m_InfraRedCalibrationArrayX = new float[4];
             m_InfraRedCalibrationArrayY = new float[4];
             m_Warper = new Warper();
-            m_CalibratorForm = new CalibrationForm();
+            m_WiiMoteWrapper = i_WiiMoteWraper;
+            m_CalibratorForm = new CalibrationForm(m_WiiMoteWrapper);
         }
 
         public Warper getCalibratedWarper()
@@ -65,7 +68,7 @@ namespace WiiSyScreen.WiiMoteControlls
 
         private void onCalibrationAreaChanged(object i_CalibrationForm, EventArgs i_EventArgs)
         {
-
+            m_TopCalibrationMargin = m_CalibratorForm.CalibrationTopMargin;
         }
 
         private void buildStaticCalibrationArray()
@@ -77,13 +80,13 @@ namespace WiiSyScreen.WiiMoteControlls
                     calibrationPoint = getTopLeftCalibrationPoint();
                     break;
                 case 1:
-                    calibrationPoint = getBottomLeftCalibrationPoint();
-                    break;
-                case 2:
                     calibrationPoint = getTopRightCalibrationPoint();
                     break;
-                case 3:
+                case 2:
                     calibrationPoint = getBottomLeftCalibrationPoint();
+                    break;
+                case 3:
+                    calibrationPoint = getBottomRightCalibrationPoint();
                     break;
                 case 4:
                     endCalibrationProcess();
@@ -127,7 +130,7 @@ namespace WiiSyScreen.WiiMoteControlls
         {
             PointF point = new PointF();
             point.X = (int) (m_ScreenWidth * k_CalibrationMargin);
-            point.Y = (int) (m_ScreenHeight * k_CalibrationMargin);
+            point.Y = (int) (m_ScreenHeight * m_TopCalibrationMargin);
             return point;
         }
 
@@ -143,7 +146,7 @@ namespace WiiSyScreen.WiiMoteControlls
         {
             PointF point = new PointF();
             point.X = m_ScreenWidth - (int)(m_ScreenWidth * k_CalibrationMargin);
-            point.Y = (int)(m_ScreenHeight * k_CalibrationMargin);
+            point.Y = (int)(m_ScreenHeight * m_TopCalibrationMargin);
             return point;
         }
 
