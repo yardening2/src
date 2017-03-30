@@ -12,12 +12,14 @@ namespace WiiSyScreen
 {
     public partial class Form1 : Form
     {
-        WiiMoteWrapper m_WiiMoteWrapper;
-
+        private WiiMoteWrapper m_WiiMoteWrapper;
+        private Calibrator m_Calibrator;
         public Form1()
         {
             InitializeComponent();
             m_WiiMoteWrapper = new WiiMoteWrapper();
+            m_Calibrator = new Calibrator();
+            m_Calibrator.CalibrateFinishedEvent += onCalibrationFinished;
         }
 
         private void connectToWiiMoteButton_Click(object sender, EventArgs e)
@@ -47,12 +49,16 @@ namespace WiiSyScreen
         private void test(object sender, int lala){
             this.Invoke(new Action(() => { Text = "visibleDots = " + lala; }));
         }
-
+        
         private void CalibrateButton_Click(object sender, EventArgs e)
         {
-            Calibrator cal = new Calibrator();
-            cal.CalibrateScreen(m_WiiMoteWrapper);
-            new CalibrationForm(m_WiiMoteWrapper).Show();
+            m_Calibrator.CalibrateScreen(m_WiiMoteWrapper);
         }
+
+        private void onCalibrationFinished(object i_Sender, EventArgs i_EventArgs)
+        {
+            WiiMoteToMouseCoverter m = new WiiMoteToMouseCoverter(m_Calibrator.getCalibratedWarper(), m_WiiMoteWrapper);
+        }
+
     }
 }

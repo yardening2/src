@@ -26,8 +26,6 @@ namespace WiiSyScreen.WiiMoteControlls
         public event EventHandler AButtonPressed;
         public event EventHandler BButtonPressed;
 
-        private Object WiiChangeLock = new Object();
-
         public WiimoteState CurrentWiiMoteState { get { return m_CurrentWiiMoteState; } }
         public int BatteryLevel { get { return (100*m_CurrentWiiMoteState.Battery)/192; } }
         public WiiMoteWrapper()
@@ -48,14 +46,13 @@ namespace WiiSyScreen.WiiMoteControlls
 
         private void onWiimoteChanged(object i_WiiMote, WiimoteChangedEventArgs i_WiimoteChangedEventArgs)
         {
-            lock (WiiChangeLock)
-            {
-                m_CurrentWiiMoteState = i_WiimoteChangedEventArgs.WiimoteState;
-                fireInfraRedEvents();
-                fireButtonsEvents();
-                fireBattteryEvents();
-                m_PreviousWiiMoteState = copyWiiMoteState(m_CurrentWiiMoteState);
-            }
+            m_StateChangedMutex.WaitOne();
+            m_CurrentWiiMoteState = i_WiimoteChangedEventArgs.WiimoteState;
+            fireInfraRedEvents();
+            fireButtonsEvents();
+            fireBattteryEvents();
+            m_PreviousWiiMoteState = copyWiiMoteState(m_CurrentWiiMoteState);
+            m_StateChangedMutex.ReleaseMutex();
         }
 
         private void fireBattteryEvents ()

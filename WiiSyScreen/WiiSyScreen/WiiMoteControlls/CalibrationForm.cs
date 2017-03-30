@@ -35,7 +35,7 @@ namespace WiiSyScreen.WiiMoteControlls
             m_WiiMoteWrapper.InfraRedAppearedEvent += nextCalibrationStep;
             m_FormTopMargin = k_DefaultMargin;
             CrossPictureBox.Left = CrossPictureBox.Top = 0;
-            CalibrationSizePanel.Location = new Point(Width - (CalibrationSizePanel.Width / 2), Height - (CalibrationSizePanel.Height / 2)*2);
+            CalibrationSizePanel.Location = new Point(Width / 2 - (CalibrationSizePanel.Width / 2), Height - CalibrationSizePanel.Height*2);
         }
 
         /// This ctor is for testing only!!
@@ -48,7 +48,6 @@ namespace WiiSyScreen.WiiMoteControlls
             m_StepCounter = 0;
             m_FormTopMargin = k_DefaultMargin;
             CrossPictureBox.Left = CrossPictureBox.Top = 0;
-            CalibrationSizePanel.Location = new Point(Width / 2 - (CalibrationSizePanel.Width / 2), Height - CalibrationSizePanel.Height*2);
         }
         /// -----------------------------------------------------------------------------
         
@@ -66,6 +65,7 @@ namespace WiiSyScreen.WiiMoteControlls
                     drawCross(new Point(Width - (int)(Width * k_DefaultMargin), Height - (int)(r_ScreenHeight * k_DefaultMargin)));
                     break;
                 case 3:
+                    this.Close();
                     break;
             }
 
