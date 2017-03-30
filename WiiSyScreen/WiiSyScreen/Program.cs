@@ -16,7 +16,7 @@ namespace WiiSyScreen
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new CalibrationForm());
+            Application.Run(new Form1());
         }
     }
 }

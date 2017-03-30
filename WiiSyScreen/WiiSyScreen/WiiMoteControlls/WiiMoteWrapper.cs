@@ -26,6 +26,10 @@ namespace WiiSyScreen.WiiMoteControlls
         public event EventHandler AButtonPressed;
         public event EventHandler BButtonPressed;
 
+        private Object WiiChangeLock = new Object();
+
+        public WiimoteState CurrentWiiMoteState { get { return m_CurrentWiiMoteState; } }
+        public int BatteryLevel { get { return (100*m_CurrentWiiMoteState.Battery)/192; } }
         public WiiMoteWrapper()
         {
             m_WiiMote = new Wiimote();
@@ -37,26 +41,28 @@ namespace WiiSyScreen.WiiMoteControlls
             m_WiiMote.Connect();
             m_WiiMote.SetReportType(Wiimote.InputReport.IRAccel, true);
             m_WiiMote.SetLEDs(true, false, false, false);
-            m_PreviousWiiMoteState = m_CurrentWiiMoteState = m_WiiMote.WiimoteState;
+            m_CurrentWiiMoteState = m_WiiMote.WiimoteState;
+            m_PreviousWiiMoteState = copyWiiMoteState(m_CurrentWiiMoteState);
             m_WiiMote.WiimoteChanged += onWiimoteChanged;
         }
 
         private void onWiimoteChanged(object i_WiiMote, WiimoteChangedEventArgs i_WiimoteChangedEventArgs)
         {
-            m_StateChangedMutex.WaitOne();
-            m_CurrentWiiMoteState = i_WiimoteChangedEventArgs.WiimoteState;
-            fireInfraRedEvents();
-            fireButtonsEvents();
-            fireBattteryEvents();
-            m_PreviousWiiMoteState = m_CurrentWiiMoteState;
-            m_StateChangedMutex.ReleaseMutex();
+            lock (WiiChangeLock)
+            {
+                m_CurrentWiiMoteState = i_WiimoteChangedEventArgs.WiimoteState;
+                fireInfraRedEvents();
+                fireButtonsEvents();
+                fireBattteryEvents();
+                m_PreviousWiiMoteState = copyWiiMoteState(m_CurrentWiiMoteState);
+            }
         }
 
         private void fireBattteryEvents ()
         {
             if (isBatteryStateChanged() && BatteryStateChangedEvent != null)
             {
-                BatteryStateChangedEvent(this.m_WiiMote, m_CurrentWiiMoteState.Battery);
+                BatteryStateChangedEvent(this.m_WiiMote, this.BatteryLevel);
             }
         }
 
@@ -70,36 +76,37 @@ namespace WiiSyScreen.WiiMoteControlls
             if (isInfraRedAppeard() && InfraRedAppearedEvent != null)
             {
                 InfraRedAppearedEvent(this.m_WiiMote, m_CurrentWiiMoteState);
-                fireIRCountChanged();
             }
 
             if (isInfraRedDisappeard() && InfraRedDisppearedEvent != null)
             {
                 InfraRedDisppearedEvent(this.m_WiiMote, m_CurrentWiiMoteState);
-                fireIRCountChanged();
             }
 
             if (isInfraRedMoved() && InfraRedMovedEvent != null)
             {
                 InfraRedMovedEvent(this.m_WiiMote, m_CurrentWiiMoteState);
             }
+            fireIRCountChanged();
         }
 
         private void fireIRCountChanged()
         {
-            if (VisibleIRDotsChangedEvent != null)
+            int currentVisibleIR = countVisibleIRDots(m_CurrentWiiMoteState);
+            int previousVisibleIR = countVisibleIRDots(m_PreviousWiiMoteState);
+            if (currentVisibleIR != previousVisibleIR && VisibleIRDotsChangedEvent != null)
             {
-                VisibleIRDotsChangedEvent(this.m_WiiMote, countVisibleIRDots());
+                VisibleIRDotsChangedEvent(this.m_WiiMote, currentVisibleIR);
             }
         }
 
-        private int countVisibleIRDots()
+        private int countVisibleIRDots(WiimoteState i_WiiMoteState)
         {
             int IRDotsCount = 0;
-            IRDotsCount += m_CurrentWiiMoteState.IRState.Found1 ? 1 : 0;
-            IRDotsCount += m_CurrentWiiMoteState.IRState.Found2 ? 1 : 0;
-            IRDotsCount += m_CurrentWiiMoteState.IRState.Found3 ? 1 : 0;
-            IRDotsCount += m_CurrentWiiMoteState.IRState.Found4 ? 1 : 0;
+            IRDotsCount += i_WiiMoteState.IRState.Found1 ? 1 : 0;
+            IRDotsCount += i_WiiMoteState.IRState.Found2 ? 1 : 0;
+            IRDotsCount += i_WiiMoteState.IRState.Found3 ? 1 : 0;
+            IRDotsCount += i_WiiMoteState.IRState.Found4 ? 1 : 0;
             return IRDotsCount;
         }
 
@@ -116,6 +123,11 @@ namespace WiiSyScreen.WiiMoteControlls
 
         private bool isInfraRedAppeard()
         {
+            int test = 0;
+            if (m_CurrentWiiMoteState.IRState.Found1)
+            {
+                test = 1;
+            }
             return m_CurrentWiiMoteState.IRState.Found1 && !m_PreviousWiiMoteState.IRState.Found1;
         }
 
@@ -145,6 +157,48 @@ namespace WiiSyScreen.WiiMoteControlls
         private bool isBButtonPressed()
         {
             return !m_PreviousWiiMoteState.ButtonState.B && m_CurrentWiiMoteState.ButtonState.B;
+        }
+
+        private WiimoteState copyWiiMoteState(WiimoteState i_WiiMoteState)
+        {
+            WiimoteState resultState = new WiimoteState();
+            resultState.AccelCalibrationInfo.X0 = i_WiiMoteState.AccelCalibrationInfo.X0;
+            resultState.AccelCalibrationInfo.XG = i_WiiMoteState.AccelCalibrationInfo.XG;
+            resultState.AccelCalibrationInfo.Y0 = i_WiiMoteState.AccelCalibrationInfo.Y0;
+            resultState.AccelCalibrationInfo.YG = i_WiiMoteState.AccelCalibrationInfo.Y0;
+            resultState.AccelState.RawX = i_WiiMoteState.AccelState.RawX;
+            resultState.AccelState.RawY = i_WiiMoteState.AccelState.RawY;
+            resultState.AccelState.RawZ = i_WiiMoteState.AccelState.RawZ;
+            resultState.AccelState.X = i_WiiMoteState.AccelState.X;
+            resultState.AccelState.Y = i_WiiMoteState.AccelState.Y;
+            resultState.AccelState.Z = i_WiiMoteState.AccelState.Z;
+            resultState.Battery = i_WiiMoteState.Battery;
+            resultState.ButtonState.A = i_WiiMoteState.ButtonState.A;
+            resultState.ButtonState.B = i_WiiMoteState.ButtonState.B;
+            resultState.ButtonState.Down = i_WiiMoteState.ButtonState.Down;
+            resultState.ButtonState.Up = i_WiiMoteState.ButtonState.Up;
+            resultState.ButtonState.Left = i_WiiMoteState.ButtonState.Left;
+            resultState.ButtonState.Right = i_WiiMoteState.ButtonState.Right;
+            resultState.ButtonState.Minus = i_WiiMoteState.ButtonState.Minus;
+            resultState.ButtonState.Plus = i_WiiMoteState.ButtonState.Plus;
+            resultState.ButtonState.Home = i_WiiMoteState.ButtonState.Home;
+            resultState.ButtonState.One = i_WiiMoteState.ButtonState.One;
+            resultState.ButtonState.Two = i_WiiMoteState.ButtonState.Two;
+            resultState.Extension = i_WiiMoteState.Extension;
+            resultState.ExtensionType = i_WiiMoteState.ExtensionType;
+            resultState.IRState.Found1 = i_WiiMoteState.IRState.Found1;
+            resultState.IRState.RawX1 = i_WiiMoteState.IRState.RawX1;
+            resultState.IRState.RawY1 = i_WiiMoteState.IRState.RawY1;
+            resultState.IRState.Found2 = i_WiiMoteState.IRState.Found2;
+            resultState.IRState.RawX2 = i_WiiMoteState.IRState.RawX2;
+            resultState.IRState.RawY2 = i_WiiMoteState.IRState.RawY2;
+            resultState.IRState.Found3 = i_WiiMoteState.IRState.Found3;
+            resultState.IRState.RawX3 = i_WiiMoteState.IRState.RawX3;
+            resultState.IRState.RawY3 = i_WiiMoteState.IRState.RawY3;
+            resultState.IRState.Found4 = i_WiiMoteState.IRState.Found4;
+            resultState.IRState.RawX4 = i_WiiMoteState.IRState.RawX4;
+            resultState.IRState.RawY4 = i_WiiMoteState.IRState.RawY4;
+            return resultState;
         }
     }
 }
