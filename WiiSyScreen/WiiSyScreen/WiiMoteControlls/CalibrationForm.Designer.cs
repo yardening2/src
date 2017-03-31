@@ -97,7 +97,6 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "CalibrationForm";
             this.Text = "Calibrating...";
-            this.TopMost = true;
             ((System.ComponentModel.ISupportInitialize)(this.CrossPictureBox)).EndInit();
             this.CalibrationSizePanel.ResumeLayout(false);
             this.ResumeLayout(false);

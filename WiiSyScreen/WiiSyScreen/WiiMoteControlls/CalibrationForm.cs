@@ -33,7 +33,7 @@ namespace WiiSyScreen.WiiMoteControlls
             r_ScreenHeight = this.Height = Screen.PrimaryScreen.Bounds.Height;
             m_StepCounter = 0;
             m_WiiMoteWrapper.InfraRedAppearedEvent += nextCalibrationStep;
-            m_FormTopMargin = k_DefaultMargin;
+            m_FormTopMargin = 0;
             CrossPictureBox.Left = CrossPictureBox.Top = 0;
             CalibrationSizePanel.Location = new Point(Width / 2 - (CalibrationSizePanel.Width / 2), Height - CalibrationSizePanel.Height*2);
         }
@@ -46,7 +46,7 @@ namespace WiiSyScreen.WiiMoteControlls
             r_ScreenHeight = this.Height = Screen.PrimaryScreen.Bounds.Height;
             m_Pen = new Pen(Color.Blue);
             m_StepCounter = 0;
-            m_FormTopMargin = k_DefaultMargin;
+            m_FormTopMargin = 0;
             CrossPictureBox.Left = CrossPictureBox.Top = 0;
         }
         /// -----------------------------------------------------------------------------
@@ -56,10 +56,10 @@ namespace WiiSyScreen.WiiMoteControlls
             switch (m_StepCounter)
             {
                 case 0:
-                    drawCross(new Point(Width - (int)(Width * k_DefaultMargin), (int)(r_ScreenHeight * k_DefaultMargin)));
+                    drawCross(new Point((int)(Width * k_DefaultMargin), Height - (int)(r_ScreenHeight * k_DefaultMargin)));
                     break;
                 case 1:
-                    drawCross(new Point((int)(Width * k_DefaultMargin), Height - (int)(r_ScreenHeight * k_DefaultMargin)));
+                    drawCross(new Point(Width - (int)(Width * k_DefaultMargin), (int)(r_ScreenHeight * k_DefaultMargin)));
                     break;
                 case 2:
                     drawCross(new Point(Width - (int)(Width * k_DefaultMargin), Height - (int)(r_ScreenHeight * k_DefaultMargin)));
@@ -80,11 +80,9 @@ namespace WiiSyScreen.WiiMoteControlls
 
         private void resetCalibration()
         {
-            this.TopMost = false;
             m_StepCounter = 0;
             CrossPictureBox.Size = new Size(Width, Height);
             drawCross(new Point((int)(Width * k_DefaultMargin), (int)(r_ScreenHeight * k_DefaultMargin)));
-            this.TopMost = false;
         }
 
         public void drawCross(Point i_Location)

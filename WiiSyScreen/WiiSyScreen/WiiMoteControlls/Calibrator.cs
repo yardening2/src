@@ -80,10 +80,10 @@ namespace WiiSyScreen.WiiMoteControlls
                     calibrationPoint = getTopLeftCalibrationPoint();
                     break;
                 case 1:
-                    calibrationPoint = getTopRightCalibrationPoint();
+                    calibrationPoint = getBottomLeftCalibrationPoint();
                     break;
                 case 2:
-                    calibrationPoint = getBottomLeftCalibrationPoint();
+                    calibrationPoint = getTopRightCalibrationPoint();
                     break;
                 case 3:
                     calibrationPoint = getBottomRightCalibrationPoint();
@@ -113,8 +113,31 @@ namespace WiiSyScreen.WiiMoteControlls
         {
             m_InfraRedCalibrationArrayX[m_CurrentCalibrationCounter] = i_State.IRState.RawX1;
             m_InfraRedCalibrationArrayY[m_CurrentCalibrationCounter] = i_State.IRState.RawY1;
+            if (m_CurrentCalibrationCounter == 1 || m_CurrentCalibrationCounter == 3)
+            {
+                fixTopPoint();
+            }
             m_CurrentCalibrationCounter++;
             buildStaticCalibrationArray();
+        }
+
+        private void fixTopPoint()
+        {
+            PointF fixedPoint = new PointF();
+
+            float ratio = (1 - 2 * k_CalibrationMargin - m_TopCalibrationMargin) / (1 - 2 * k_CalibrationMargin);
+            if (m_TopCalibrationMargin >= k_CalibrationMargin)
+            {
+                fixedPoint.X = calculateValueByTales(m_InfraRedCalibrationArrayX[m_CurrentCalibrationCounter], m_InfraRedCalibrationArrayX[m_CurrentCalibrationCounter - 1], ratio);
+                fixedPoint.Y = calculateValueByTales(m_InfraRedCalibrationArrayY[m_CurrentCalibrationCounter], m_InfraRedCalibrationArrayY[m_CurrentCalibrationCounter - 1], ratio);
+                m_InfraRedCalibrationArrayX[m_CurrentCalibrationCounter - 1] = fixedPoint.X;
+                m_InfraRedCalibrationArrayY[m_CurrentCalibrationCounter - 1] = fixedPoint.Y;
+            }
+        }
+
+        private float calculateValueByTales(float i_Start, float i_End, float i_Ratio)
+        {
+            return (Math.Abs(i_Start - i_End) / i_Ratio) + i_Start;
         }
 
         private void setCalibratedWarperData()
@@ -130,7 +153,7 @@ namespace WiiSyScreen.WiiMoteControlls
         {
             PointF point = new PointF();
             point.X = (int) (m_ScreenWidth * k_CalibrationMargin);
-            point.Y = (int) (m_ScreenHeight * m_TopCalibrationMargin);
+            point.Y = (int)(m_ScreenHeight * k_CalibrationMargin);
             return point;
         }
 
@@ -146,7 +169,7 @@ namespace WiiSyScreen.WiiMoteControlls
         {
             PointF point = new PointF();
             point.X = m_ScreenWidth - (int)(m_ScreenWidth * k_CalibrationMargin);
-            point.Y = (int)(m_ScreenHeight * m_TopCalibrationMargin);
+            point.Y = (int)(m_ScreenHeight * k_CalibrationMargin);
             return point;
         }
 
