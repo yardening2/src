@@ -27,15 +27,14 @@ namespace WiiSyScreen.WiiMoteControlls
         public CalibrationForm(WiiMoteWrapper i_WiiMoteWrapper)
         {
             InitializeComponent();
-            m_Pen = new Pen(Color.Blue);
-            m_WiiMoteWrapper = i_WiiMoteWrapper;
-            this.Width = Screen.PrimaryScreen.Bounds.Width;
             r_ScreenHeight = this.Height = Screen.PrimaryScreen.Bounds.Height;
+            m_WiiMoteWrapper = i_WiiMoteWrapper;
             m_StepCounter = 0;
-            m_WiiMoteWrapper.InfraRedAppearedEvent += nextCalibrationStep;
             m_FormTopMargin = 0;
+            m_Pen = new Pen(Color.Blue);
+            this.Width = Screen.PrimaryScreen.Bounds.Width;
             CrossPictureBox.Left = CrossPictureBox.Top = 0;
-            CalibrationSizePanel.Location = new Point(Width / 2 - (CalibrationSizePanel.Width / 2), Height - CalibrationSizePanel.Height*2);
+            CalibrationSizePanel.Location = new Point(Width / 2 - (CalibrationSizePanel.Width / 2), Height - CalibrationSizePanel.Height * 2);
         }
 
         /// This ctor is for testing only!!
@@ -53,6 +52,7 @@ namespace WiiSyScreen.WiiMoteControlls
         
         private void nextCalibrationStep(object i_WiiMoteWrapper, WiimoteState i_WiiMoteState)
         {
+            this.Invoke(new Action(() => { CalibrationSizePanel.Visible = false; }));
             switch (m_StepCounter)
             {
                 case 0:
@@ -75,7 +75,21 @@ namespace WiiSyScreen.WiiMoteControlls
         protected override void OnShown(EventArgs e)
         {
             base.OnShown(e);
+            m_WiiMoteWrapper.InfraRedAppearedEvent += nextCalibrationStep;
+            m_WiiMoteWrapper.BButtonPressed += onBButtonPressed;
+            m_WiiMoteWrapper.MinusButtonPressed += SmallerCalibrationButtom_Click;
+            m_WiiMoteWrapper.PlusButtonPressed += BiggerCalibrationButtom_Click;
+            this.TopMost = true;
             resetCalibration();
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            m_WiiMoteWrapper.InfraRedAppearedEvent -= nextCalibrationStep;
+            m_WiiMoteWrapper.BButtonPressed -= onBButtonPressed;
+            m_WiiMoteWrapper.MinusButtonPressed -= SmallerCalibrationButtom_Click;
+            m_WiiMoteWrapper.PlusButtonPressed -= BiggerCalibrationButtom_Click;
+            base.OnClosed(e);
         }
 
         private void resetCalibration()
@@ -105,13 +119,16 @@ namespace WiiSyScreen.WiiMoteControlls
 
         private void SmallerCalibrationButtom_Click(object sender, EventArgs e)
         {
-            int HeightDelta = (int)(.1f * Screen.PrimaryScreen.Bounds.Height);
-            this.Size = new Size(this.Size.Width, this.Size.Height - HeightDelta);
-            Location = new Point(Location.X, Location.Y + HeightDelta);
-            CalibrationSizePanel.Location = new Point(Width / 2 - (CalibrationSizePanel.Width / 2), Height - CalibrationSizePanel.Height*2);
-            m_FormTopMargin += .1f;
-            resetCalibration();
-            fireHeightChangeEvent();
+            this.Invoke(new Action(() =>
+            {
+                int HeightDelta = (int)(.1f * Screen.PrimaryScreen.Bounds.Height);
+                this.Size = new Size(this.Size.Width, this.Size.Height - HeightDelta);
+                Location = new Point(Location.X, Location.Y + HeightDelta);
+                CalibrationSizePanel.Location = new Point(Width / 2 - (CalibrationSizePanel.Width / 2), Height - CalibrationSizePanel.Height * 2);
+                m_FormTopMargin += .1f;
+                resetCalibration();
+                fireHeightChangeEvent();
+            }));
         }
 
         private void fireHeightChangeEvent()
@@ -124,16 +141,34 @@ namespace WiiSyScreen.WiiMoteControlls
 
         private void BiggerCalibrationButtom_Click(object sender, EventArgs e)
         {
-            int HeightDelta = (int)(.1f * r_ScreenHeight);
-            if (this.Size.Height + HeightDelta <= r_ScreenHeight)
+            this.Invoke(new Action(() =>
             {
-                this.Size = new Size(this.Size.Width, this.Size.Height + HeightDelta);
-                Location = new Point(Location.X, Location.Y - HeightDelta);
-                CalibrationSizePanel.Location = new Point(Width / 2 - (CalibrationSizePanel.Width / 2), Height - CalibrationSizePanel.Height * 2);
-                m_FormTopMargin -= .1f;
-                resetCalibration();
-                fireHeightChangeEvent();
+                int HeightDelta = (int)(.1f * r_ScreenHeight);
+                if (this.Size.Height + HeightDelta <= r_ScreenHeight)
+                {
+                    this.Size = new Size(this.Size.Width, this.Size.Height + HeightDelta);
+                    Location = new Point(Location.X, Location.Y - HeightDelta);
+                    CalibrationSizePanel.Location = new Point(Width / 2 - (CalibrationSizePanel.Width / 2), Height - CalibrationSizePanel.Height * 2);
+                    m_FormTopMargin -= .1f;
+                    resetCalibration();
+                    fireHeightChangeEvent();
+                }
+            }));
+        }
+
+        private void onBButtonPressed(object i_Sender, EventArgs i_Args)
+        {
+            this.Invoke(new Action(() => { this.Close(); }));
+        }
+
+        protected override bool ProcessDialogKey(Keys keyData)
+        {
+            if(keyData == Keys.Escape)
+            {
+                this.Close();
+                return true;
             }
+            return base.ProcessDialogKey(keyData);
         }
     }
 }

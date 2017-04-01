@@ -5,7 +5,6 @@ using System.Text;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using WiimoteLib;
-using System.Drawing;
 
 namespace WiiSyScreen.WiiMoteControlls
 {

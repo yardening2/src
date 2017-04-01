@@ -10,11 +10,11 @@ using WiiSyScreen.WiiMoteControlls;
 
 namespace WiiSyScreen
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         private WiiMoteWrapper m_WiiMoteWrapper;
         private Calibrator m_Calibrator;
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
             m_WiiMoteWrapper = new WiiMoteWrapper();
@@ -26,12 +26,22 @@ namespace WiiSyScreen
         {
             try
             {
+                connectToWiiMoteButton.Enabled = false;
+                ConnectingLabel.Visible = true;
+                this.Enabled = false;
                 m_WiiMoteWrapper.ConnectToWiimote();
                 updateComponents();
             }
             catch (Exception i_Exception)
             {
                 MessageBox.Show(i_Exception.Message);
+            }
+            finally
+            {
+                connectToWiiMoteButton.Enabled = true;
+                ConnectingLabel.Visible = false;
+                this.Enabled = true;
+                CalibrateButton.Focus();
             }
         }
 
@@ -40,20 +50,25 @@ namespace WiiSyScreen
             this.Text = "Connected To Wii";
             connectToWiiMoteButton.Visible = false;
             CalibrateButton.Visible = true;
-            CalibrateButton.Focus();
             BatteryLevelTextLabel.Visible = true;
             BatteryLevelValueLabel.Visible = true;
-            m_WiiMoteWrapper.VisibleIRDotsChangedEvent += test;
+            VisibleIRDotsLabel.Visible = true;
+            IRDotsDataLabel.Visible = true;
+            CalibrateButton.Focus();
+            m_WiiMoteWrapper.VisibleIRDotsChangedEvent += updateIRDotsCount;
+            m_WiiMoteWrapper.AButtonPressed += CalibrateButton_Click;
             BatteryLevelValueLabel.Text = m_WiiMoteWrapper.BatteryLevel.ToString();
+
         }
 
-        private void test(object sender, int lala){
-            this.Invoke(new Action(() => { Text = "visibleDots = " + lala; }));
+        private void updateIRDotsCount(object i_Sender, int i_VisibleIRDots)
+        {
+            IRDotsDataLabel.Invoke(new Action(() => { IRDotsDataLabel.Text = i_VisibleIRDots.ToString(); }));
         }
         
         private void CalibrateButton_Click(object sender, EventArgs e)
         {
-            m_Calibrator.CalibrateScreen(m_WiiMoteWrapper);
+            this.Invoke(new Action(() => { m_Calibrator.CalibrateScreen(m_WiiMoteWrapper); }));
         }
 
         private void onCalibrationFinished(object i_Sender, EventArgs i_EventArgs)

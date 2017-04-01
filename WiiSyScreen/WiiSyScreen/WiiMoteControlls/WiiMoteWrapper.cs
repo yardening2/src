@@ -25,6 +25,8 @@ namespace WiiSyScreen.WiiMoteControlls
         public event WiiMoteValueChangedEventHandler VisibleIRDotsChangedEvent;
         public event EventHandler AButtonPressed;
         public event EventHandler BButtonPressed;
+        public event EventHandler MinusButtonPressed;
+        public event EventHandler PlusButtonPressed;
 
         public WiimoteState CurrentWiiMoteState { get { return m_CurrentWiiMoteState; } }
         public int BatteryLevel { get { return (100*m_CurrentWiiMoteState.Battery)/192; } }
@@ -120,11 +122,6 @@ namespace WiiSyScreen.WiiMoteControlls
 
         private bool isInfraRedAppeard()
         {
-            int test = 0;
-            if (m_CurrentWiiMoteState.IRState.Found1)
-            {
-                test = 1;
-            }
             return m_CurrentWiiMoteState.IRState.Found1 && !m_PreviousWiiMoteState.IRState.Found1;
         }
 
@@ -144,6 +141,26 @@ namespace WiiSyScreen.WiiMoteControlls
             {
                 BButtonPressed(this.m_WiiMote, EventArgs.Empty);
             }
+
+            if (isMinusButtonPressed() && MinusButtonPressed != null)
+            {
+                MinusButtonPressed(this.m_WiiMote, EventArgs.Empty);
+            }
+
+            if (isPlusButtonPressed() && PlusButtonPressed!= null)
+            {
+                PlusButtonPressed(this.m_WiiMote, EventArgs.Empty);
+            }
+        }
+
+        private bool isMinusButtonPressed()
+        {
+            return !m_PreviousWiiMoteState.ButtonState.Minus && m_CurrentWiiMoteState.ButtonState.Minus;
+        }
+
+        private bool isPlusButtonPressed()
+        {
+            return !m_PreviousWiiMoteState.ButtonState.Plus && m_CurrentWiiMoteState.ButtonState.Plus;
         }
 
         private bool isAButtonPressed()

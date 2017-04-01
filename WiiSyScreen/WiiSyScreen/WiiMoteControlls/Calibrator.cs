@@ -42,7 +42,7 @@ namespace WiiSyScreen.WiiMoteControlls
             m_InfraRedCalibrationArrayY = new float[4];
             m_Warper = new Warper();
             m_WiiMoteWrapper = i_WiiMoteWraper;
-            m_CalibratorForm = new CalibrationForm(m_WiiMoteWrapper);
+            m_CalibratorForm = null;
         }
 
         public Warper getCalibratedWarper()
@@ -57,13 +57,24 @@ namespace WiiSyScreen.WiiMoteControlls
 
         public void CalibrateScreen(WiiMoteWrapper i_WiiMoteWrapper)
         {
-            m_IsCalibrated = false;
-            m_WiiMoteWrapper = i_WiiMoteWrapper;
-            m_CurrentCalibrationCounter = 0;
-            buildStaticCalibrationArray();
-            i_WiiMoteWrapper.InfraRedAppearedEvent += buildInfraRedCalibrationArray;
-            m_CalibratorForm.CalibrationHeightChangedEvent += onCalibrationAreaChanged;
-            m_CalibratorForm.Show();
+            if (m_CalibratorForm == null)
+            {
+                m_IsCalibrated = false;
+                m_WiiMoteWrapper = i_WiiMoteWrapper;
+                m_CurrentCalibrationCounter = 0;
+                buildStaticCalibrationArray();
+                m_CalibratorForm = new CalibrationForm(m_WiiMoteWrapper);
+                m_WiiMoteWrapper.InfraRedAppearedEvent += buildInfraRedCalibrationArray;
+                m_CalibratorForm.FormClosed += onCalibrationFormClosed;
+                m_CalibratorForm.CalibrationHeightChangedEvent += onCalibrationAreaChanged;
+                m_CalibratorForm.Show();
+            }
+        }
+
+        private void onCalibrationFormClosed(object i_Sender, EventArgs i_Args)
+        {
+            m_WiiMoteWrapper.InfraRedAppearedEvent -= buildInfraRedCalibrationArray;
+            m_CalibratorForm = null;
         }
 
         private void onCalibrationAreaChanged(object i_CalibrationForm, EventArgs i_EventArgs)
@@ -100,6 +111,7 @@ namespace WiiSyScreen.WiiMoteControlls
 
         private void endCalibrationProcess()
         {
+            m_CalibratorForm = null;
             m_WiiMoteWrapper.InfraRedAppearedEvent -= buildInfraRedCalibrationArray;
             setCalibratedWarperData();
             m_IsCalibrated = true;
@@ -117,6 +129,7 @@ namespace WiiSyScreen.WiiMoteControlls
             {
                 fixTopPoint();
             }
+
             m_CurrentCalibrationCounter++;
             buildStaticCalibrationArray();
         }
