@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 
-namespace WiiSyScreen.WiiMoteControlls
+namespace WiisyScreen.WiiMoteControlls
 {
     public class Smoother
     {

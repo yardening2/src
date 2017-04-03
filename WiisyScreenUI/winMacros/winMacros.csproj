@@ -31,7 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="InputSimulator">
-      <HintPath>..\..\PrintScreenApp\InputSimulator.0.1.0.0-bin\Release\InputSimulator.dll</HintPath>
+      <HintPath>..\Dlls\InputSimulator.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

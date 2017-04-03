@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using WiimoteLib;
 using System.Threading;
 
-namespace WiiSyScreen.WiiMoteControlls
+namespace WiisyScreen.WiiMoteControlls
 {
 
     class Calibrator
@@ -33,7 +33,7 @@ namespace WiiSyScreen.WiiMoteControlls
         {
             m_IsCalibrated = false;
             m_CurrentCalibrationCounter = 0;
-            m_TopCalibrationMargin = k_CalibrationMargin;
+            m_TopCalibrationMargin = 0;
             m_ScreenWidth = Screen.PrimaryScreen.Bounds.Width;
             m_ScreenHeight = Screen.PrimaryScreen.Bounds.Height;
             m_StaticCalibrationArrayX = new float[4];

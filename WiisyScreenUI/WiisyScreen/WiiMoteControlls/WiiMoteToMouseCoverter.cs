@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using WiimoteLib;
 
-namespace WiiSyScreen.WiiMoteControlls
+namespace WiisyScreen.WiiMoteControlls
 {
     public class WiiMoteToMouseCoverter
     {

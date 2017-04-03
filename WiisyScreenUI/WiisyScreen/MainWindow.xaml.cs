@@ -16,7 +16,7 @@ using System.Windows.Forms;
 using ScreenSaver;
 using winMacros;
 using System.Threading;
-
+using WiisyScreen.WiiMoteControlls;
 
 namespace WiisyScreen
 {
@@ -25,11 +25,22 @@ namespace WiisyScreen
     /// </summary>
     public partial class MainWindow : Window
     {
+        private WiiMoteWrapper m_WiiMoteWrapper;
+        private Calibrator m_Calibrator;
+
         public MainWindow()
         {
             InitializeComponent();
             //this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
             //this.MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
+            m_WiiMoteWrapper = new WiiMoteWrapper();
+            m_Calibrator = new Calibrator(m_WiiMoteWrapper);
+            m_Calibrator.CalibrateFinishedEvent += onCalibrationFinished;
+        }
+
+        private void onCalibrationFinished(object i_Sender, EventArgs i_EventArgs)
+        {
+            WiiMoteToMouseCoverter m = new WiiMoteToMouseCoverter(m_Calibrator.getCalibratedWarper(), m_WiiMoteWrapper);
         }
 
         private void Window_Activated(object sender, EventArgs e)
@@ -187,6 +198,52 @@ namespace WiisyScreen
             Topmost = false;
             Macros.ShiftLastWindow(2);
             Topmost = true;
+        }
+
+        private void ButtonConnectToWiiMote_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ButtonConnectToWiiMote.IsEnabled = false;
+                ConnectingToWiiMoteLabel.Visibility = Visibility.Visible;
+                this.IsEnabled = false;
+                m_WiiMoteWrapper.ConnectToWiimote();
+                updateComponents();
+            }
+            catch (Exception i_Exception)
+            {
+                System.Windows.MessageBox.Show(i_Exception.Message);
+            }
+            finally
+            {
+                ButtonConnectToWiiMote.IsEnabled = true;
+                ConnectingToWiiMoteLabel.Visibility = Visibility.Hidden;
+                this.IsEnabled = true;
+            }
+        }
+
+        private void updateComponents()
+        {
+            ButtonConnectToWiiMote.Visibility = Visibility.Hidden;
+            ButtonCalibrateWiiMote.Visibility = Visibility.Visible;
+            BatteryLevelTextLabel.Visibility = Visibility.Visible;
+            BatteryLevelValueLabel.Visibility = Visibility.Visible;
+            VisibleIRDotsLabel.Visibility = Visibility.Visible;
+            IRDotsDataLabel.Visibility = Visibility.Visible;
+            m_WiiMoteWrapper.VisibleIRDotsChangedEvent += updateIRDotsCount;
+            m_WiiMoteWrapper.AButtonPressed += ButtonCalibrateWiiMote_Click;
+            BatteryLevelValueLabel.Content = m_WiiMoteWrapper.BatteryLevel.ToString();
+
+        }
+
+        private void ButtonCalibrateWiiMote_Click(object sender, EventArgs e)
+        {
+            this.Dispatcher.Invoke(new Action(() => { m_Calibrator.CalibrateScreen(m_WiiMoteWrapper); }));
+        }
+
+        private void updateIRDotsCount(object i_Sender, int i_VisibleIRDots)
+        {
+            IRDotsDataLabel.Dispatcher.Invoke(new Action(() => { IRDotsDataLabel.Content = i_VisibleIRDots.ToString(); }));
         }
     }
 

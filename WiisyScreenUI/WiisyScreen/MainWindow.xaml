@@ -28,10 +28,17 @@
                 <Button x:Name="buttonMacros" Content="Macros" Canvas.Left="645" Canvas.Top="79" Width="123" Height="40" Click="buttonMacros_Click" />
                 <Button x:Name="buttonBoard" Content="Board" Canvas.Left="645" Canvas.Top="39" Width="123" Height="40" Click="buttonBoard_Click"/>
             </StackPanel>
-            <Grid x:Name="gridCalibrate" Background="Blue" HorizontalAlignment="Stretch" Margin="123,0,0,0" Visibility="Hidden" >
+            <Grid x:Name="gridCalibrate" Background="Blue" HorizontalAlignment="Stretch" Margin="123,-1,0,1">
+                <Button x:Name="ButtonConnectToWiiMote" Content="Connect To Wiimote" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="124" Height="42" Click="ButtonConnectToWiiMote_Click"/>
+                <Label x:Name="ConnectingToWiiMoteLabel" Content="Connecting..." HorizontalAlignment="Left" Margin="190,26,0,0" VerticalAlignment="Top" Height="56" Width="252" FontSize="36" FontWeight="Bold" Visibility="Hidden"/>
+                <Button x:Name="ButtonCalibrateWiiMote" Content="CalibrateScreen" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="124" Height="42" Visibility="Hidden" Click="ButtonCalibrateWiiMote_Click"/>
+                <Label x:Name="BatteryLevelTextLabel" Content="Battery:" HorizontalAlignment="Left" Margin="197,15,0,0" VerticalAlignment="Top" Width="83" Visibility="Hidden"/>
+                <Label x:Name="BatteryLevelValueLabel" Content="" HorizontalAlignment="Left" Margin="248,15,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
+                <Label x:Name="VisibleIRDotsLabel" Content="Visible IR Dots:" HorizontalAlignment="Left" Margin="197,41,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
+                <Label x:Name="IRDotsDataLabel" Content="0" HorizontalAlignment="Left" Margin="291,41,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
 
             </Grid>
-            <Grid x:Name="gridMacros" Background="BlueViolet" HorizontalAlignment="Stretch" Margin="123,0,0,0">
+            <Grid x:Name="gridMacros" Background="BlueViolet" HorizontalAlignment="Stretch" Margin="123,0,0,0" Visibility="Hidden">
                 <Button x:Name="buttonWindows" Content="Alt+Tab" HorizontalAlignment="Left" Margin="97,51,0,0" VerticalAlignment="Top" Width="75" Click="buttonWindows_Click"/>
                 <Button x:Name="buttonDesktop" Content="Desktop" HorizontalAlignment="Left" Margin="10,90,0,0" VerticalAlignment="Top" Width="75" Click="buttonDesktop_Click"/>
                 <Button x:Name="buttonTskmgr" Content="Task manager" HorizontalAlignment="Left" Margin="188,51,0,0" VerticalAlignment="Top" Width="80" Click="buttonTskmgr_Click"/>
