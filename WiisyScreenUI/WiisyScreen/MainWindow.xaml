@@ -1,0 +1,65 @@
+﻿<Window x:Class="WiisyScreen.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WiisyScreen"
+        mc:Ignorable="d"
+        Title="MainWindow" Activated="Window_Activated" Deactivated="Window_Deactivated" Background="{x:Null}" Topmost="True"
+        WindowStyle="None" AllowsTransparency="True" Loaded="Window_Loaded"
+        >
+    <Grid Margin="0,0,0,0" >
+        <InkCanvas x:Name="inkCanvasBoard" Cursor="Arrow" ResizeEnabled="False" UseLayoutRounding="True">
+            <InkCanvas.Background>
+                <SolidColorBrush Color="white" Opacity="{Binding Value, ElementName=sliderOpacity}"/>
+            </InkCanvas.Background>
+            <InkCanvas.DefaultDrawingAttributes>
+                <DrawingAttributes IsHighlighter="True" StylusTip="Rectangle" FitToCurve="True" Color="#FF21B30B"/>
+            </InkCanvas.DefaultDrawingAttributes>
+        </InkCanvas>
+        <Button x:Name="button" Content="" HorizontalAlignment="Left" Height="15" VerticalAlignment="Bottom" Width="15" Margin="0,0,0,120" Panel.ZIndex="10000" BorderBrush="{x:Null}" Click="button_Click">
+            <Button.Background>
+                <ImageBrush ImageSource="images/delete-error-exit-remove-stop-x-cross-icon--28.png"/>
+            </Button.Background>
+        </Button>
+        <Grid x:Name="gridToolBard" Margin="0,0,0,0" VerticalAlignment="Bottom" Height="120px" Background="Bisque">
+            <StackPanel x:Name="ControlButtonsStackPanel" HorizontalAlignment="Left" >
+                <Button x:Name="buttonCalibrate" Content="Calibrate" Canvas.Left="645" Width="123" Height="40" Canvas.Top="-1" Click="buttonCalibrate_Click"/>
+                <Button x:Name="buttonMacros" Content="Macros" Canvas.Left="645" Canvas.Top="79" Width="123" Height="40" Click="buttonMacros_Click" />
+                <Button x:Name="buttonBoard" Content="Board" Canvas.Left="645" Canvas.Top="39" Width="123" Height="40" Click="buttonBoard_Click"/>
+            </StackPanel>
+            <Grid x:Name="gridCalibrate" Background="Blue" HorizontalAlignment="Stretch" Margin="123,0,0,0" Visibility="Hidden" >
+
+            </Grid>
+            <Grid x:Name="gridMacros" Background="BlueViolet" HorizontalAlignment="Stretch" Margin="123,0,0,0">
+                <Button x:Name="buttonWindows" Content="Alt+Tab" HorizontalAlignment="Left" Margin="97,51,0,0" VerticalAlignment="Top" Width="75" Click="buttonWindows_Click"/>
+                <Button x:Name="buttonDesktop" Content="Desktop" HorizontalAlignment="Left" Margin="10,90,0,0" VerticalAlignment="Top" Width="75" Click="buttonDesktop_Click"/>
+                <Button x:Name="buttonTskmgr" Content="Task manager" HorizontalAlignment="Left" Margin="188,51,0,0" VerticalAlignment="Top" Width="80" Click="buttonTskmgr_Click"/>
+                <Button x:Name="buttonKeyboard" Content="Keyboard" HorizontalAlignment="Left" Margin="291,51,0,0" VerticalAlignment="Top" Width="75" Click="buttonKeyboard_Click"/>
+                <Button x:Name="buttonMaximaze" Content="Maximaze" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="389,51,0,0" Click="buttonMaximaze_Click"/>
+                <Grid HorizontalAlignment="Left" Height="100" Margin="533,10,0,0" VerticalAlignment="Top" Width="102" Background="#FFBC57EC">
+                    <Label x:Name="labelShifting" Content="Shifting" HorizontalAlignment="Left" Margin="28,64,0,0" VerticalAlignment="Top"/>
+                </Grid>
+                <Button x:Name="buttonShift0" HorizontalAlignment="Left" Margin="533,10,0,0" VerticalAlignment="Top" Width="34" Height="27" Click="buttonShift0_Click"/>
+                <Button x:Name="buttonShift1" HorizontalAlignment="Left" Margin="567,10,0,0" VerticalAlignment="Top" Width="34" Height="27" Click="buttonShift1_Click"/>
+                <Button x:Name="buttonShift2" HorizontalAlignment="Left" Margin="601,10,0,0" VerticalAlignment="Top" Width="34" Height="27" Click="buttonShift2_Click"/>
+
+            </Grid>
+            <Grid x:Name="gridBoard" Background="CadetBlue" HorizontalAlignment="Stretch" Margin="123,0,0,0" Visibility="Hidden">
+                <Slider x:Name="sliderOpacity" Minimum="0" Maximum="1" HorizontalAlignment="Right" Margin="0,92,20,0" VerticalAlignment="Top" Width="115"/>
+                <Button x:Name="ButtonSaveScreen" Content="Save Screen" HorizontalAlignment="Left" Margin="47,25,0,0" VerticalAlignment="Top" Width="75" Click="ButtonSaveScreen_Click"/>
+                <Button x:Name="buttonGeneratePDF" Content="Generate PDF" HorizontalAlignment="Left" Margin="47,65,0,0" VerticalAlignment="Top" Width="75" Click="buttonGeneratePDF_Click"/>
+                <Button x:Name="buttonEraser"  Content="" HorizontalAlignment="Left" Margin="252,65,0,0" VerticalAlignment="Top" Width="25" Foreground="Black" BorderBrush="{x:Null}" Click="buttonEraser_Click" Height="19">
+                    <Button.Background>
+                        <ImageBrush ImageSource="images/Eraser.png"/>
+                    </Button.Background>
+                </Button>
+                <Button x:Name="buttonPencil" Content="" HorizontalAlignment="Left" Margin="302,65,0,0" VerticalAlignment="Top" Width="25" Height="19" Click="buttonPencil_Click">
+                    <Button.Background>
+                        <ImageBrush ImageSource="images/Pencil.png"/>
+                    </Button.Background>
+                </Button>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
