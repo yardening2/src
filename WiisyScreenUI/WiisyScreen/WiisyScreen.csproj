@@ -36,9 +36,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ScreenSaver">
-      <HintPath>..\Dlls\ScreenSaver.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -124,6 +121,10 @@
     <Resource Include="images\delete-error-exit-remove-stop-x-cross-icon--28.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ScreenSaver\ScreenSaver.csproj">
+      <Project>{be50391a-6f9f-487e-ae5e-590006dd7213}</Project>
+      <Name>ScreenSaver</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WiimoteLib\WiimoteLib.csproj">
       <Project>{37a555df-7012-4b99-8a47-1c922a361e52}</Project>
       <Name>WiimoteLib</Name>
