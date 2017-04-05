@@ -9,7 +9,7 @@
         WindowStyle="None" AllowsTransparency="True" Loaded="Window_Loaded"
         >
     <Grid Margin="0,0,0,0" >
-        <InkCanvas x:Name="inkCanvasBoard" Cursor="Arrow" ResizeEnabled="False" UseLayoutRounding="True">
+        <InkCanvas x:Name="inkCanvasBoard" Cursor="Arrow" ResizeEnabled="False" UseLayoutRounding="True" Opacity="0">
             <InkCanvas.Background>
                 <SolidColorBrush Color="white" Opacity="{Binding Value, ElementName=sliderOpacity}"/>
             </InkCanvas.Background>

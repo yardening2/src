@@ -31,7 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="itextsharp">
-      <HintPath>..\..\..\..\Visual Studio 2017\Projects\WiisyScreen\WiisyScreen\packages\itextsharp.dll</HintPath>
+      <HintPath>..\..\..\..\Visual Studio 2015\Projects\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
