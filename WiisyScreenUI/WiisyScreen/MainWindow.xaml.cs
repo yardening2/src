@@ -27,6 +27,7 @@ namespace WiisyScreen
     {
         private WiiMoteWrapper m_WiiMoteWrapper;
         private Calibrator m_Calibrator;
+        private Point deltaPos= new Point();
 
         public MainWindow()
         {
@@ -245,6 +246,30 @@ namespace WiisyScreen
         {
             IRDotsDataLabel.Dispatcher.Invoke(new Action(() => { IRDotsDataLabel.Content = i_VisibleIRDots.ToString(); }));
         }
+      
+
+        private void centerBubble_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            centerBubble.CaptureMouse();
+            deltaPos.X = e.GetPosition(container).X - translate.X;
+            deltaPos.Y = e.GetPosition(container).Y - translate.Y;
+            e.Handled = true;
+        }
+
+        private void centerBubble_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            if (centerBubble.IsMouseCaptured)
+            {
+                translate.X = e.GetPosition(container).X - deltaPos.X;
+                translate.Y = e.GetPosition(container).Y - deltaPos.Y;
+            }
+        }
+
+        private void centerBubble_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            centerBubble.ReleaseMouseCapture();
+        }
+
     }
 
 }

@@ -58,6 +58,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="UIUtils\ActionBubble.cs" />
     <Compile Include="WiiMoteControlls\CalibrationForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -137,5 +138,6 @@
   <ItemGroup>
     <None Include="Resources\WiiSyScreen.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

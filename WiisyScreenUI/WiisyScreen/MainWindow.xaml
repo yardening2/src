@@ -8,21 +8,78 @@
         Title="MainWindow" Activated="Window_Activated" Deactivated="Window_Deactivated" Background="{x:Null}" Topmost="True"
         WindowStyle="None" AllowsTransparency="True" Loaded="Window_Loaded"
         >
-    <Grid Margin="0,0,0,0" >
-        <InkCanvas x:Name="inkCanvasBoard" Cursor="Arrow" ResizeEnabled="False" UseLayoutRounding="True" Opacity="0">
+    <Grid Margin="0,0,0,0" x:Name="container">
+        <Canvas x:Name="mainAppCanvas"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="300" Height="300" Margin="0,0,0,0" >
+            <Ellipse x:Name="centerBubble" HorizontalAlignment="Left" Height="100" Stroke="Black" VerticalAlignment="Top" Width="100" Canvas.Left="162" Canvas.Top="99" MouseDown="centerBubble_MouseDown" MouseMove="centerBubble_MouseMove" MouseUp="centerBubble_MouseUp">
+                <Ellipse.Fill>
+                    <RadialGradientBrush>
+                        <GradientStop Color="Black" Offset="1"/>
+                        <GradientStop Color="White" Offset="0.009"/>
+                    </RadialGradientBrush>
+                </Ellipse.Fill>
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform x:Name="ST" />
+                        <TranslateTransform x:Name="test" />
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse x:Name="actionBubble1" Height="47" Canvas.Left="162" Stroke="Black" Canvas.Top="52" Width="46">
+                <Ellipse.Fill>
+                    <RadialGradientBrush>
+                        <GradientStop Color="Black" Offset="1"/>
+                        <GradientStop Color="White"/>
+                    </RadialGradientBrush>
+                </Ellipse.Fill>
+            </Ellipse>
+            <Ellipse x:Name="actionBubble2" Height="47" Canvas.Left="116" Stroke="Black" Canvas.Top="89" Width="46">
+                <Ellipse.Fill>
+                    <RadialGradientBrush>
+                        <GradientStop Color="Black" Offset="0.988"/>
+                        <GradientStop Color="White"/>
+                    </RadialGradientBrush>
+                </Ellipse.Fill>
+            </Ellipse>
+            <Ellipse x:Name="actionBubble3" Height="48" Canvas.Left="116" Stroke="Black" Canvas.Top="151" Width="46">
+                <Ellipse.Fill>
+                    <RadialGradientBrush>
+                        <GradientStop Color="Black" Offset="0.997"/>
+                        <GradientStop Color="White"/>
+                    </RadialGradientBrush>
+                </Ellipse.Fill>
+            </Ellipse>
+            <Ellipse x:Name="actionBubble4" Height="47" Canvas.Left="162" Stroke="Black" Canvas.Top="199" Width="46">
+                <Ellipse.Fill>
+                    <RadialGradientBrush>
+                        <GradientStop Color="Black" Offset="1"/>
+                        <GradientStop Color="White"/>
+                    </RadialGradientBrush>
+                </Ellipse.Fill>
+            </Ellipse>
+            <Button x:Name="button" Content="" HorizontalAlignment="Left" Height="15" VerticalAlignment="Bottom" Width="15" Panel.ZIndex="10000" BorderBrush="{x:Null}" Click="button_Click" Canvas.Left="247" Canvas.Top="84">
+                <Button.Background>
+                    <ImageBrush ImageSource="images/delete-error-exit-remove-stop-x-cross-icon--28.png"/>
+                </Button.Background>
+            </Button>
+            <Canvas.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform x:Name="st" />
+                    <TranslateTransform x:Name="translate" />
+                </TransformGroup>
+            </Canvas.RenderTransform>
+        </Canvas>
+        <InkCanvas x:Name="inkCanvasBoard" Cursor="Arrow" ResizeEnabled="False" UseLayoutRounding="True" Opacity="0" Visibility="Hidden">
             <InkCanvas.Background>
                 <SolidColorBrush Color="white" Opacity="{Binding Value, ElementName=sliderOpacity}"/>
             </InkCanvas.Background>
             <InkCanvas.DefaultDrawingAttributes>
                 <DrawingAttributes IsHighlighter="True" StylusTip="Rectangle" FitToCurve="True" Color="#FF21B30B"/>
             </InkCanvas.DefaultDrawingAttributes>
+
+
         </InkCanvas>
-        <Button x:Name="button" Content="" HorizontalAlignment="Left" Height="15" VerticalAlignment="Bottom" Width="15" Margin="0,0,0,120" Panel.ZIndex="10000" BorderBrush="{x:Null}" Click="button_Click">
-            <Button.Background>
-                <ImageBrush ImageSource="images/delete-error-exit-remove-stop-x-cross-icon--28.png"/>
-            </Button.Background>
-        </Button>
-        <Grid x:Name="gridToolBard" Margin="0,0,0,0" VerticalAlignment="Bottom" Height="120px" Background="Bisque">
+
+        <Grid Visibility="Hidden" x:Name="gridToolBard" Margin="0,0,0,0" VerticalAlignment="Bottom" Height="120px" Background="Bisque">
             <StackPanel x:Name="ControlButtonsStackPanel" HorizontalAlignment="Left" >
                 <Button x:Name="buttonCalibrate" Content="Calibrate" Canvas.Left="645" Width="123" Height="40" Canvas.Top="-1" Click="buttonCalibrate_Click"/>
                 <Button x:Name="buttonMacros" Content="Macros" Canvas.Left="645" Canvas.Top="79" Width="123" Height="40" Click="buttonMacros_Click" />
@@ -68,5 +125,6 @@
                 </Button>
             </Grid>
         </Grid>
+        <Canvas HorizontalAlignment="Left" Height="100" Margin="-274,144,0,0" VerticalAlignment="Top" Width="100"/>
     </Grid>
 </Window>
