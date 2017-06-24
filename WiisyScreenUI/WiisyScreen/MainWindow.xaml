@@ -24,38 +24,10 @@
                     </TransformGroup>
                 </Ellipse.RenderTransform>
             </Ellipse>
-            <Ellipse x:Name="actionBubble1" Height="47" Canvas.Left="162" Stroke="Black" Canvas.Top="52" Width="46">
-                <Ellipse.Fill>
-                    <RadialGradientBrush>
-                        <GradientStop Color="Black" Offset="1"/>
-                        <GradientStop Color="White"/>
-                    </RadialGradientBrush>
-                </Ellipse.Fill>
-            </Ellipse>
-            <Ellipse x:Name="actionBubble2" Height="47" Canvas.Left="116" Stroke="Black" Canvas.Top="89" Width="46">
-                <Ellipse.Fill>
-                    <RadialGradientBrush>
-                        <GradientStop Color="Black" Offset="0.988"/>
-                        <GradientStop Color="White"/>
-                    </RadialGradientBrush>
-                </Ellipse.Fill>
-            </Ellipse>
-            <Ellipse x:Name="actionBubble3" Height="48" Canvas.Left="116" Stroke="Black" Canvas.Top="151" Width="46">
-                <Ellipse.Fill>
-                    <RadialGradientBrush>
-                        <GradientStop Color="Black" Offset="0.997"/>
-                        <GradientStop Color="White"/>
-                    </RadialGradientBrush>
-                </Ellipse.Fill>
-            </Ellipse>
-            <Ellipse x:Name="actionBubble4" Height="47" Canvas.Left="162" Stroke="Black" Canvas.Top="199" Width="46">
-                <Ellipse.Fill>
-                    <RadialGradientBrush>
-                        <GradientStop Color="Black" Offset="1"/>
-                        <GradientStop Color="White"/>
-                    </RadialGradientBrush>
-                </Ellipse.Fill>
-            </Ellipse>
+            <local:ActionBubble x:Name="actionBubble1" HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="162" Canvas.Top="52"/>
+            <local:ActionBubble x:Name="actionBubble2" HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="116" Canvas.Top="89"/>
+            <local:ActionBubble x:Name="actionBubble3" HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="116" Canvas.Top="151"/>
+            <local:ActionBubble x:Name="actionBubble4" HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="162" Canvas.Top="199"/>
             <Button x:Name="button" Content="" HorizontalAlignment="Left" Height="15" VerticalAlignment="Bottom" Width="15" Panel.ZIndex="10000" BorderBrush="{x:Null}" Click="button_Click" Canvas.Left="247" Canvas.Top="84">
                 <Button.Background>
                     <ImageBrush ImageSource="images/delete-error-exit-remove-stop-x-cross-icon--28.png"/>
@@ -126,5 +98,7 @@
             </Grid>
         </Grid>
         <Canvas HorizontalAlignment="Left" Height="100" Margin="-274,144,0,0" VerticalAlignment="Top" Width="100"/>
+
+
     </Grid>
 </Window>

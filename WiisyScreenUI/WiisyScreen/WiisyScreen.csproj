@@ -58,6 +58,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ActionBubble.xaml.cs">
+      <DependentUpon>ActionBubble.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WiiMoteControlls\CalibrationForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,6 +72,10 @@
     <Compile Include="WiiMoteControlls\Warper.cs" />
     <Compile Include="WiiMoteControlls\WiiMoteToMouseCoverter.cs" />
     <Compile Include="WiiMoteControlls\WiiMoteWrapper.cs" />
+    <Page Include="ActionBubble.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
