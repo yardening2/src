@@ -1,0 +1,78 @@
+﻿<Window x:Class="BoardApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BoardApp"
+        mc:Ignorable="d"
+        Background="{x:Null}" Topmost="True"
+        WindowStyle="None" AllowsTransparency="True"
+        Title="MainWindow"
+        Activated="Window_Activated"
+        Deactivated="Window_Deactivated"
+        Loaded="Window_Loaded" >
+
+    <Grid>
+        <InkCanvas x:Name="inkCanvasBoard" Cursor="Arrow" ResizeEnabled="False" UseLayoutRounding="True" >
+            <InkCanvas.Background>
+                <SolidColorBrush Color="white" Opacity="{Binding Value, ElementName=sliderOpacity}"/>
+            </InkCanvas.Background>
+            <InkCanvas.DefaultDrawingAttributes>
+                <DrawingAttributes IsHighlighter="True" StylusTip="Rectangle" FitToCurve="True" Color="#FF21B30B"/>
+            </InkCanvas.DefaultDrawingAttributes>
+        </InkCanvas>
+
+        <Grid Height="100" Margin="0,435,0,0.2" VerticalAlignment="Bottom" HorizontalAlignment="Center" >
+            <Border BorderBrush="#FF000000" BorderThickness="1,1,1,1" Background="#FF6162C7" CornerRadius="30,30,0,0" HorizontalAlignment="Center" Width="800" />
+            <Button x:Name="button" Content="Button" HorizontalAlignment="Center" Height="7" Margin="320,0" VerticalAlignment="Top" Width="128" Background="#FF4F4747">
+            </Button>
+            <Button x:Name="buttonEraser" Width="50" Height="50"  Content="" Margin="25,25,693,25" Foreground="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top" Click="buttonEraser_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="images/Eraser.png"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="buttonPointer"  Content="" Margin="153,25,0,0" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Left" Width="67" VerticalAlignment="Top" Height="75" Click="buttonPointer_Click">
+                <Button.Effect>
+                    <DropShadowEffect/>
+                </Button.Effect>
+                <Button.Background>
+                    <ImageBrush ImageSource="images/hand.png"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="buttonPencil" Width="50" Height="50"  Content="" Margin="98,25,620,25" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top" Click="buttonPencil_Click">
+                <Button.Effect>
+                    <DropShadowEffect/>
+                </Button.Effect>
+                <Button.Background>
+                    <ImageBrush ImageSource="images/Pencil.png"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="Pointer_Copy"  Content="" Margin="225,29,0,0" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Left" Width="50" VerticalAlignment="Top" Height="53">
+                <Button.Background>
+                    <ImageBrush ImageSource="images/laser.png" Stretch="Uniform"/>
+                </Button.Background>
+            </Button>
+            <Slider x:Name="sliderOpacity" Minimum="0.01" Maximum="1" HorizontalAlignment="Right" Margin="0,45,-10,0" VerticalAlignment="Top" Width="80" RenderTransformOrigin="0.5,0.5">
+                <Slider.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="270"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Slider.RenderTransform>
+            </Slider>
+            <Rectangle HorizontalAlignment="Right" Height="50" Margin="0,25,115,0" VerticalAlignment="Top" Width="50">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="images/Camera.png"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle HorizontalAlignment="Right" Height="50" Margin="0,25,48,0" VerticalAlignment="Top" Width="50">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="images/folder-images-icon.png"/>
+                </Rectangle.Fill>
+            </Rectangle>
+
+        </Grid>
+    </Grid>
+</Window>

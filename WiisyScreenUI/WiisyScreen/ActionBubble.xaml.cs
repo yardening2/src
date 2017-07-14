@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
 
@@ -9,6 +10,7 @@ namespace WiisyScreen
     /// </summary>
     public partial class ActionBubble : UserControl
     {
+       
         public ActionBubble()
         {
             InitializeComponent();

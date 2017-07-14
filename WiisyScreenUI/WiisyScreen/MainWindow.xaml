@@ -59,7 +59,7 @@
 
         </InkCanvas>
 
-        <Grid Visibility="Hidden" x:Name="gridToolBard" Margin="0,0,0,0" VerticalAlignment="Bottom" Height="120px" Background="Bisque">
+        <Grid Visibility="Visible" x:Name="gridToolBard" Margin="0,0,0,0" VerticalAlignment="Bottom" Height="120px" Background="Bisque">
             <StackPanel x:Name="ControlButtonsStackPanel" HorizontalAlignment="Left" >
                 <Button x:Name="buttonCalibrate" Content="Calibrate" Canvas.Left="645" Width="123" Height="40" Canvas.Top="-1" Click="buttonCalibrate_Click"/>
                 <Button x:Name="buttonMacros" Content="Macros" Canvas.Left="645" Canvas.Top="79" Width="123" Height="40" Click="buttonMacros_Click" />
@@ -89,7 +89,7 @@
                 <Button x:Name="buttonShift2" HorizontalAlignment="Left" Margin="601,10,0,0" VerticalAlignment="Top" Width="34" Height="27" Click="buttonShift2_Click"/>
 
             </Grid>
-            <Grid x:Name="gridBoard" Background="CadetBlue" HorizontalAlignment="Stretch" Margin="123,0,0,0" Visibility="Hidden">
+            <Grid x:Name="gridBoard" Background="CadetBlue" HorizontalAlignment="Stretch" Margin="123,0,0,0" Visibility="Visible">
                 <Slider x:Name="sliderOpacity" Minimum="0.01" Maximum="1" HorizontalAlignment="Right" Margin="0,92,20,0" VerticalAlignment="Top" Width="115"/>
                 <Button x:Name="ButtonSaveScreen" Content="Save Screen" HorizontalAlignment="Left" Margin="47,25,0,0" VerticalAlignment="Top" Width="75" Click="ButtonSaveScreen_Click"/>
                 <Button x:Name="buttonGeneratePDF" Content="Generate PDF" HorizontalAlignment="Left" Margin="47,65,0,0" VerticalAlignment="Top" Width="75" Click="buttonGeneratePDF_Click"/>
