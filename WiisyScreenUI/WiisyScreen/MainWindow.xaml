@@ -106,7 +106,5 @@
             </Grid>
         </Grid>
         <Canvas HorizontalAlignment="Left" Height="100" Margin="-274,144,0,0" VerticalAlignment="Top" Width="100"/>
-
-
     </Grid>
 </Window>
