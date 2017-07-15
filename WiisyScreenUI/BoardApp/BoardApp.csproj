@@ -33,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -113,6 +116,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\folder-images-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\delete-error-exit-remove-stop-x-cross-icon--28.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\ClearPage.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

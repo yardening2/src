@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WiisyScreen"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300" MouseDown="actionBubble_MouseDown" MouseUp="actionBubble_MouseUp">
     <Grid Width="{Binding Width, ElementName=userControl}" Height="{Binding Height, ElementName=actionBubble}">
         <Ellipse Panel.ZIndex="1" x:Name="back" HorizontalAlignment="Left" Height="{Binding Height, ElementName=actionBubble}" Stroke="Black" VerticalAlignment="Top" Width="{Binding Width, ElementName=actionBubble}">
             <Ellipse.Fill>

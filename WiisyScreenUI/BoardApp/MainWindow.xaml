@@ -10,7 +10,7 @@
         Title="MainWindow"
         Activated="Window_Activated"
         Deactivated="Window_Deactivated"
-        Loaded="Window_Loaded" >
+        Loaded="Window_Loaded" d:DesignWidth="979.2" d:DesignHeight="560.8" >
 
     <Grid>
         <InkCanvas x:Name="inkCanvasBoard" Cursor="Arrow" ResizeEnabled="False" UseLayoutRounding="True" >
@@ -22,16 +22,21 @@
             </InkCanvas.DefaultDrawingAttributes>
         </InkCanvas>
 
-        <Grid Height="100" Margin="0,435,0,0.2" VerticalAlignment="Bottom" HorizontalAlignment="Center" >
+        <Grid x:Name="gridBoardToolBar" Margin="0,435,0,0.2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="100" >
             <Border BorderBrush="#FF000000" BorderThickness="1,1,1,1" Background="#FF6162C7" CornerRadius="30,30,0,0" HorizontalAlignment="Center" Width="800" />
-            <Button x:Name="button" Content="Button" HorizontalAlignment="Center" Height="7" Margin="320,0" VerticalAlignment="Top" Width="128" Background="#FF4F4747">
+            <Button x:Name="buttonExit" Content="" HorizontalAlignment="Center" Height="20" VerticalAlignment="Top" Width="20" Panel.ZIndex="10000" BorderBrush="{x:Null}" Canvas.Left="247" Canvas.Top="84" Click="buttonExit_Click" Margin="12,0,736,0" VerticalContentAlignment="Top">
+                <Button.Background>
+                    <ImageBrush ImageSource="images/delete-error-exit-remove-stop-x-cross-icon--28.png"/>
+                </Button.Background>
             </Button>
-            <Button x:Name="buttonEraser" Width="50" Height="50"  Content="" Margin="25,25,693,25" Foreground="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top" Click="buttonEraser_Click">
+            <Button x:Name="buttonMinimize" Content="" HorizontalAlignment="Center" Height="20" Margin="320,0" VerticalAlignment="Top" Width="128" Background="#FF4F4747" Click="buttonMinimize_Click">
+            </Button>
+            <Button x:Name="buttonEraser" Width="50" Height="50"  Content="" Margin="80,25,0,0" Foreground="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top" Click="buttonEraser_Click">
                 <Button.Background>
                     <ImageBrush ImageSource="images/Eraser.png"/>
                 </Button.Background>
             </Button>
-            <Button x:Name="buttonPointer"  Content="" Margin="153,25,0,0" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Left" Width="67" VerticalAlignment="Top" Height="75" Click="buttonPointer_Click">
+            <Button x:Name="buttonPointer"  Content="" Margin="194,25,0,0" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Left" Width="67" VerticalAlignment="Top" Height="75" Click="buttonPointer_Click">
                 <Button.Effect>
                     <DropShadowEffect/>
                 </Button.Effect>
@@ -39,7 +44,7 @@
                     <ImageBrush ImageSource="images/hand.png"/>
                 </Button.Background>
             </Button>
-            <Button x:Name="buttonPencil" Width="50" Height="50"  Content="" Margin="98,25,620,25" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top" Click="buttonPencil_Click">
+            <Button x:Name="buttonPencil" Width="50" Height="50"  Content="" Margin="140,25,0,0" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top" Click="buttonPencil_Click">
                 <Button.Effect>
                     <DropShadowEffect/>
                 </Button.Effect>
@@ -47,12 +52,12 @@
                     <ImageBrush ImageSource="images/Pencil.png"/>
                 </Button.Background>
             </Button>
-            <Button x:Name="Pointer_Copy"  Content="" Margin="225,29,0,0" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Left" Width="50" VerticalAlignment="Top" Height="53">
+            <Button x:Name="buttonLaser"  Content="" Margin="257,29,0,0" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Left" Width="50" VerticalAlignment="Top" Height="53" Click="buttonLaser_Click">
                 <Button.Background>
                     <ImageBrush ImageSource="images/laser.png" Stretch="Uniform"/>
                 </Button.Background>
             </Button>
-            <Slider x:Name="sliderOpacity" Minimum="0.01" Maximum="1" HorizontalAlignment="Right" Margin="0,45,-10,0" VerticalAlignment="Top" Width="80" RenderTransformOrigin="0.5,0.5">
+            <Slider x:Name="sliderOpacity" Minimum="0.01" Maximum="1" HorizontalAlignment="Right" Margin="0,45,-10,0" VerticalAlignment="Top" Width="80" RenderTransformOrigin="0.5,0.5"  IsMoveToPointEnabled="True">
                 <Slider.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -62,16 +67,21 @@
                     </TransformGroup>
                 </Slider.RenderTransform>
             </Slider>
-            <Rectangle HorizontalAlignment="Right" Height="50" Margin="0,25,115,0" VerticalAlignment="Top" Width="50">
+            <Rectangle HorizontalAlignment="Right" Height="50" Margin="0,25,140,0" VerticalAlignment="Top" Width="50">
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="images/Camera.png"/>
                 </Rectangle.Fill>
             </Rectangle>
-            <Rectangle HorizontalAlignment="Right" Height="50" Margin="0,25,48,0" VerticalAlignment="Top" Width="50">
+            <Rectangle HorizontalAlignment="Right" Height="50" Margin="0,25,65,0" VerticalAlignment="Top" Width="50">
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="images/folder-images-icon.png"/>
                 </Rectangle.Fill>
             </Rectangle>
+            <Button x:Name="buttonClearPage"  Content="" Margin="27,29,0,0" BorderBrush="{x:Null}" Foreground="{x:Null}" HorizontalAlignment="Left" Width="43" VerticalAlignment="Top" Height="46" Click="buttonClearPage_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="images/ClearPage.png" Stretch="Uniform"/>
+                </Button.Background>
+            </Button>
 
         </Grid>
     </Grid>

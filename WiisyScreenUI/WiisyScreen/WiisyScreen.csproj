@@ -130,6 +130,10 @@
     <Resource Include="images\delete-error-exit-remove-stop-x-cross-icon--28.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BoardApp\BoardApp.csproj">
+      <Project>{12261239-45a8-4199-b6e3-5689afd5e2eb}</Project>
+      <Name>BoardApp</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ScreenSaver\ScreenSaver.csproj">
       <Project>{be50391a-6f9f-487e-ae5e-590006dd7213}</Project>
       <Name>ScreenSaver</Name>

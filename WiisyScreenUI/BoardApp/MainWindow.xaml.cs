@@ -20,7 +20,30 @@ namespace BoardApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private Boolean gridMinimized = false;
+        private static MainWindow boardApp = null;
+        private static readonly object sr_key = new object();
+
+        public static MainWindow Instance
+        {
+            get
+            {
+                if (boardApp == null)
+                {
+                    lock (sr_key)
+                    {
+                        if (boardApp == null)
+                        {
+                            boardApp = new MainWindow();
+                        }
+                    }
+                }
+
+                return boardApp;
+            }
+        } 
+
+        private MainWindow()
         {
             InitializeComponent();
         }
@@ -47,17 +70,56 @@ namespace BoardApp
 
         private void buttonEraser_Click(object sender, RoutedEventArgs e)
         {
+            setBoardToScetchable();
             inkCanvasBoard.EditingMode = InkCanvasEditingMode.EraseByStroke;
         }
 
         private void buttonPencil_Click(object sender, RoutedEventArgs e)
         {
+            setBoardToScetchable();
             inkCanvasBoard.EditingMode = InkCanvasEditingMode.Ink;
         }
 
         private void buttonPointer_Click(object sender, RoutedEventArgs e)
         {
-            throw new Exception("No implementation");
+            sliderOpacity.Value = sliderOpacity.Minimum = 0;
+            inkCanvasBoard.EditingMode = InkCanvasEditingMode.None;
+        }
+
+        private void buttonExit_Click(object sender, RoutedEventArgs e)
+        {
+            boardApp = null;
+            this.Close();
+        }
+
+        private void setBoardToScetchable()
+        {
+            sliderOpacity.Minimum = 0.01;
+        }
+
+        private void buttonMinimize_Click(object sender, RoutedEventArgs e)
+        {
+            if (gridMinimized)
+            {
+                gridBoardToolBar.Height = 100;
+                gridMinimized = false;
+            }
+            else
+            {
+                gridBoardToolBar.Height = 20;
+                gridMinimized = true;
+            }
+        }
+
+        private void buttonLaser_Click(object sender, RoutedEventArgs e)
+        {
+            setBoardToScetchable();
+            inkCanvasBoard.EditingMode = InkCanvasEditingMode.GestureOnly;
+        }
+
+        private void buttonClearPage_Click(object sender, RoutedEventArgs e)
+        {
+            inkCanvasBoard.Strokes.Clear();
         }
     }
 }

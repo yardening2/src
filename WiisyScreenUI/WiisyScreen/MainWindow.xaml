@@ -9,7 +9,7 @@
         WindowStyle="None" AllowsTransparency="True" Loaded="Window_Loaded"
         >
     <Grid Margin="0,0,0,0" x:Name="container">
-        <Canvas x:Name="mainAppCanvas"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="300" Height="300" Margin="0,0,0,0" >
+        <Canvas x:Name="mainAppCanvas"  HorizontalAlignment="Right" VerticalAlignment="Center" Width="300" Height="300" Margin="0,0,0,0" >
             <Ellipse x:Name="centerBubble" HorizontalAlignment="Left" Height="100" Stroke="Black" VerticalAlignment="Top" Width="100" Canvas.Left="162" Canvas.Top="99" MouseDown="centerBubble_MouseDown" MouseMove="centerBubble_MouseMove" MouseUp="centerBubble_MouseUp">
                 <Ellipse.Fill>
                     <RadialGradientBrush>
@@ -24,7 +24,7 @@
                     </TransformGroup>
                 </Ellipse.RenderTransform>
             </Ellipse>
-            <local:ActionBubble x:Name="actionBubble1" HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="162" Canvas.Top="52">
+            <local:ActionBubble x:Name="actionBubble1" HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="162" Canvas.Top="52" MouseUp="actionBubble1_MouseUp">
                 <local:ActionBubble.FrontBrush>
                     <ImageBrush ImageSource="images/Pencil.png" Stretch="Uniform"/>
                 </local:ActionBubble.FrontBrush>
@@ -59,7 +59,7 @@
 
         </InkCanvas>
 
-        <Grid Visibility="Visible" x:Name="gridToolBard" Margin="0,0,0,0" VerticalAlignment="Bottom" Height="120px" Background="Bisque">
+        <Grid Visibility="Hidden" x:Name="gridToolBard" Margin="0,0,0,0" VerticalAlignment="Bottom" Height="120px" Background="Bisque">
             <StackPanel x:Name="ControlButtonsStackPanel" HorizontalAlignment="Left" >
                 <Button x:Name="buttonCalibrate" Content="Calibrate" Canvas.Left="645" Width="123" Height="40" Canvas.Top="-1" Click="buttonCalibrate_Click"/>
                 <Button x:Name="buttonMacros" Content="Macros" Canvas.Left="645" Canvas.Top="79" Width="123" Height="40" Click="buttonMacros_Click" />

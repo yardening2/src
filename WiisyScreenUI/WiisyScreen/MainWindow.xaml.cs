@@ -270,6 +270,10 @@ namespace WiisyScreen
             centerBubble.ReleaseMouseCapture();
         }
 
+        private void actionBubble1_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            BoardApp.MainWindow.Instance.Show();
+        }
     }
 
 }
