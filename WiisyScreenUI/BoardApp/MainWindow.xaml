@@ -11,6 +11,13 @@
         Activated="Window_Activated"
         Deactivated="Window_Deactivated"
         Loaded="Window_Loaded" d:DesignWidth="979.2" d:DesignHeight="560.8" >
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Style.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid>
         <InkCanvas x:Name="inkCanvasBoard" Cursor="Arrow" ResizeEnabled="False" UseLayoutRounding="True" >
             <InkCanvas.Background>
@@ -33,22 +40,41 @@
                     <SolidColorBrush Color="Black" Opacity="0.7"/>
                 </Rectangle.OpacityMask>
             </Rectangle>
-            <Rectangle x:Name="buttonEraser" Width="50" Height="50" Margin="80,25,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" MouseUp="buttonEraser_Click">
+            <Rectangle x:Name="buttonEraser" Width="50" Height="50" Margin="82,29,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" MouseUp="buttonEraser_Click" >
+                <Rectangle.Stroke>
+                    <SolidColorBrush Color="Black" Opacity="0"/>
+                </Rectangle.Stroke>
+
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="images/Eraser.png"/>
                 </Rectangle.Fill>
             </Rectangle>
-            <Rectangle x:Name="buttonPointer" HorizontalAlignment="Left" Width="67" VerticalAlignment="Top" Height="75" MouseUp="buttonPointer_Click" Margin="193,25,0,0">
+            <Rectangle x:Name="buttonPointer" HorizontalAlignment="Left" Width="50" VerticalAlignment="Top" Height="50" MouseUp="buttonPointer_Click" Margin="204,29,0,0">
+                <Rectangle.Stroke>
+                    <SolidColorBrush Color="Black" Opacity="0"/>
+                </Rectangle.Stroke>
+                <Rectangle.BindingGroup>
+                    <BindingGroup Name="group1" ValidatesOnNotifyDataError="False"/>
+                </Rectangle.BindingGroup>
                 <Rectangle.Fill>
-                    <ImageBrush ImageSource="images/hand.png"/>
+                    <ImageBrush ImageSource="images/Hand.png" Stretch="UniformToFill"/>
                 </Rectangle.Fill>
             </Rectangle>
-            <Rectangle x:Name="buttonPencil" Width="50" Height="50" Margin="140,25,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" MouseUp="buttonPencil_Click">
+            <Rectangle x:Name="buttonPencil" Width="50" Height="50" Margin="143,29,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" MouseUp="buttonPencil_Click">
+                <Rectangle.Stroke>
+                    <SolidColorBrush Color="Black"/>
+                </Rectangle.Stroke>
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="images/Pencil.png"/>
                 </Rectangle.Fill>
             </Rectangle>
-            <Rectangle x:Name="buttonLaser" HorizontalAlignment="Left" Width="50" VerticalAlignment="Top" Height="53" MouseUp="buttonLaser_Click" Margin="260,25,0,0">
+            <Rectangle x:Name="buttonLaser" HorizontalAlignment="Left" Width="50" VerticalAlignment="Top" Height="50" MouseUp="buttonLaser_Click" Margin="260,27,0,0">
+                <Rectangle.Stroke>
+                    <SolidColorBrush Color="Black" Opacity="0"/>
+                </Rectangle.Stroke>
+                <Rectangle.BindingGroup>
+                    <BindingGroup Name="group1"/>
+                </Rectangle.BindingGroup>
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="images/laser.png" Stretch="Uniform"/>
                 </Rectangle.Fill>
@@ -73,7 +99,7 @@
                     <ImageBrush ImageSource="images/folder-images-icon.png"/>
                 </Rectangle.Fill>
             </Rectangle>
-            <Rectangle x:Name="buttonClearPage" Margin="27,29,0,0" HorizontalAlignment="Left" Width="43" VerticalAlignment="Top" Height="46" MouseUp="buttonClearPage_Click" >
+            <Rectangle x:Name="buttonClearPage" Margin="27,29,0,0" HorizontalAlignment="Left" Width="50" VerticalAlignment="Top" Height="50" MouseUp="buttonClearPage_Click" >
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="images/ClearPage.png" Stretch="Uniform"/>
                 </Rectangle.Fill>

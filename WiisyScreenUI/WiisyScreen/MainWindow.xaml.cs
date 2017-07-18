@@ -32,8 +32,6 @@ namespace WiisyScreen
         public MainWindow()
         {
             InitializeComponent();
-            //this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
-            //this.MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
             m_WiiMoteWrapper = new WiiMoteWrapper();
             m_Calibrator = new Calibrator(m_WiiMoteWrapper);
             m_Calibrator.CalibrateFinishedEvent += onCalibrationFinished;
@@ -103,7 +101,8 @@ namespace WiisyScreen
 
         private void ButtonSaveScreen_Click(object sender, RoutedEventArgs e)
         {
-            string dirToSaveTo = chooseFolder();
+            System.IO.Directory.CreateDirectory("tmp");
+            string dirToSaveTo = "tmp\\";
             System.Threading.Thread.Sleep(250);
             if (dirToSaveTo != null)
             {
@@ -135,17 +134,7 @@ namespace WiisyScreen
             }
         }
 
-        private void buttonEraser_Click(object sender, RoutedEventArgs e)
-        {
-            inkCanvasBoard.EditingMode = InkCanvasEditingMode.EraseByStroke;
-        }
-
-        private void buttonPencil_Click(object sender, RoutedEventArgs e)
-        {
-            inkCanvasBoard.EditingMode = InkCanvasEditingMode.Ink;
-        }
-
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void buttonExit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }

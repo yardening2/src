@@ -70,18 +70,21 @@ namespace BoardApp
 
         private void buttonEraser_Click(object sender, RoutedEventArgs e)
         {
+            markClickedModeButton(sender as Rectangle);
             setBoardToScetchable();
             inkCanvasBoard.EditingMode = InkCanvasEditingMode.EraseByStroke;
         }
 
         private void buttonPencil_Click(object sender, RoutedEventArgs e)
         {
+            markClickedModeButton(sender as Rectangle);
             setBoardToScetchable();
             inkCanvasBoard.EditingMode = InkCanvasEditingMode.Ink;
         }
 
         private void buttonPointer_Click(object sender, RoutedEventArgs e)
         {
+            markClickedModeButton(sender as Rectangle);
             sliderOpacity.Value = sliderOpacity.Minimum = 0;
             inkCanvasBoard.EditingMode = InkCanvasEditingMode.None;
         }
@@ -113,6 +116,7 @@ namespace BoardApp
 
         private void buttonLaser_Click(object sender, RoutedEventArgs e)
         {
+            markClickedModeButton(sender as Rectangle);
             setBoardToScetchable();
             inkCanvasBoard.EditingMode = InkCanvasEditingMode.GestureOnly;
         }
@@ -120,6 +124,20 @@ namespace BoardApp
         private void buttonClearPage_Click(object sender, RoutedEventArgs e)
         {
             inkCanvasBoard.Strokes.Clear();
+        }
+
+        private void markClickedModeButton(Rectangle sender)
+        {
+            removeStrokeFromModeIcons();
+            sender.Stroke.Opacity = 100;
+        }
+
+        private void removeStrokeFromModeIcons()
+        {
+            buttonEraser.Stroke.Opacity = 0;
+            buttonLaser.Stroke.Opacity = 0;
+            buttonPencil.Stroke.Opacity = 0;
+            buttonPointer.Stroke.Opacity = 0;
         }
     }
 }
