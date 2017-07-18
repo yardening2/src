@@ -27,7 +27,7 @@
                 <DrawingAttributes IsHighlighter="True" StylusTip="Rectangle" FitToCurve="True" Color="#FF21B30B"/>
             </InkCanvas.DefaultDrawingAttributes>
         </InkCanvas>
-
+        <StackPanel x:Name="savedPicsPanel" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="-10,0,-11,153" Width="1000" Height="155" Background="#FFC57575" Orientation="Horizontal"/>
         <Grid x:Name="gridBoardToolBar" Margin="0,435,0,0.2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="100" >
             <Border BorderBrush="#FF000000" BorderThickness="1,1,1,1" Background="#FF6162C7" CornerRadius="30,30,0,0" HorizontalAlignment="Center" Width="800" />
             <Rectangle x:Name="buttonExit" HorizontalAlignment="Center" Height="20" VerticalAlignment="Top" Width="20" Panel.ZIndex="10000" Canvas.Left="247" Canvas.Top="84" MouseUp="buttonExit_Click" Margin="12,0,736,0" >
@@ -89,7 +89,7 @@
                     </TransformGroup>
                 </Slider.RenderTransform>
             </Slider>
-            <Rectangle HorizontalAlignment="Right" Height="50" Margin="0,25,140,0" VerticalAlignment="Top" Width="50">
+            <Rectangle x:Name="buttonSaveScreen" HorizontalAlignment="Right" Height="50" Margin="0,25,140,0" VerticalAlignment="Top" Width="50" MouseUp="buttonSaveScreen_MouseUp">
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="images/Camera.png"/>
                 </Rectangle.Fill>

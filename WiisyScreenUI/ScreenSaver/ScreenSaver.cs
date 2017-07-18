@@ -16,16 +16,18 @@ namespace ScreenSaver
 {
     static public class ScreenSaver
     {
-        static public void SaveAsImage(string dirToSaveTo)
+        static public string SaveAsImage(string dirToSaveTo)
         {
             String[] filesInDirectory = Directory.GetFiles(dirToSaveTo);
-            
+            string imagePath = dirToSaveTo + "\\" + "screenshot" + filesInDirectory.Count() + ".png";
 
             Bitmap printscreen = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
             Graphics graphics = Graphics.FromImage(printscreen as System.Drawing.Image);
             graphics.CopyFromScreen(0, 0, 0, 0, printscreen.Size);
 
-            printscreen.Save(dirToSaveTo + "\\" + "screenshot" + filesInDirectory.Count() + ".png", ImageFormat.Png);
+            printscreen.Save(imagePath, ImageFormat.Png);
+
+            return imagePath;
         }
 
         

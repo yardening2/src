@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ScreenSaver;
 
 namespace BoardApp
 {
@@ -23,6 +24,7 @@ namespace BoardApp
         private Boolean gridMinimized = false;
         private static MainWindow boardApp = null;
         private static readonly object sr_key = new object();
+        public string ScreenShotsTempFolder { get; set; } = "tmp";
 
         public static MainWindow Instance
         {
@@ -126,6 +128,7 @@ namespace BoardApp
             inkCanvasBoard.Strokes.Clear();
         }
 
+<<<<<<< HEAD
         private void markClickedModeButton(Rectangle sender)
         {
             removeStrokeFromModeIcons();
@@ -138,6 +141,29 @@ namespace BoardApp
             buttonLaser.Stroke.Opacity = 0;
             buttonPencil.Stroke.Opacity = 0;
             buttonPointer.Stroke.Opacity = 0;
+=======
+        private void buttonSaveScreen_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            string theSavedPic;
+
+            System.IO.Directory.CreateDirectory(ScreenShotsTempFolder);
+            System.Threading.Thread.Sleep(250);
+            if (ScreenShotsTempFolder != null)
+            {
+                theSavedPic = ScreenSaver.ScreenSaver.SaveAsImage(ScreenShotsTempFolder);
+                addPicToScrollPanel(theSavedPic);
+            }
+        }
+
+        private void addPicToScrollPanel(string theSavedPic)
+        {
+            Image savedPicImage = new Image();
+            savedPicImage.Source = new BitmapImage(new Uri(System.IO.Path.GetFullPath(theSavedPic)));
+            savedPicImage.Width = savedPicImage.Height = 150;
+            savedPicImage.HorizontalAlignment = HorizontalAlignment.Left;
+            savedPicImage.Margin = new Thickness(30);
+            savedPicsPanel.Children.Add(savedPicImage);
+>>>>>>> adding screenshots
         }
     }
 }

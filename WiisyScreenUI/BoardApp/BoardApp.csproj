@@ -136,8 +136,11 @@
       <Name>ScreenSaver</Name>
     </ProjectReference>
   </ItemGroup>
+<<<<<<< HEAD
   <ItemGroup>
     <Resource Include="images\hand.png" />
   </ItemGroup>
+=======
+>>>>>>> adding screenshots
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

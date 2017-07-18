@@ -13,7 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Forms;
-using ScreenSaver;
 using winMacros;
 using System.Threading;
 using WiisyScreen.WiiMoteControlls;
@@ -101,17 +100,24 @@ namespace WiisyScreen
 
         private void ButtonSaveScreen_Click(object sender, RoutedEventArgs e)
         {
+<<<<<<< HEAD
             System.IO.Directory.CreateDirectory("tmp");
             string dirToSaveTo = "tmp\\";
+=======
+            /*
+            string dirToSaveTo = chooseFolder();
+>>>>>>> adding screenshots
             System.Threading.Thread.Sleep(250);
             if (dirToSaveTo != null)
             {
                 ScreenSaver.ScreenSaver.SaveAsImage(dirToSaveTo);
             }
+            */
         }
 
         private void buttonGeneratePDF_Click(object sender, RoutedEventArgs e)
         {
+            /*
             Microsoft.Win32.OpenFileDialog dlgImagesToPDF = new Microsoft.Win32.OpenFileDialog();
             
             dlgImagesToPDF.DefaultExt = ".png";
@@ -132,6 +138,7 @@ namespace WiisyScreen
                     ScreenSaver.ScreenSaver.CreatePDF(saveFileDialog.FileName, dlgImagesToPDF.FileNames);
                 }
             }
+            */
         }
 
         private void buttonExit_Click(object sender, RoutedEventArgs e)
