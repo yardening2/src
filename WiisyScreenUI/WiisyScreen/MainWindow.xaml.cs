@@ -100,10 +100,8 @@ namespace WiisyScreen
 
         private void ButtonSaveScreen_Click(object sender, RoutedEventArgs e)
         {
-<<<<<<< HEAD
             System.IO.Directory.CreateDirectory("tmp");
             string dirToSaveTo = "tmp\\";
-=======
             /*
             string dirToSaveTo = chooseFolder();
 >>>>>>> adding screenshots

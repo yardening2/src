@@ -128,7 +128,6 @@ namespace BoardApp
             inkCanvasBoard.Strokes.Clear();
         }
 
-<<<<<<< HEAD
         private void markClickedModeButton(Rectangle sender)
         {
             removeStrokeFromModeIcons();
@@ -141,7 +140,8 @@ namespace BoardApp
             buttonLaser.Stroke.Opacity = 0;
             buttonPencil.Stroke.Opacity = 0;
             buttonPointer.Stroke.Opacity = 0;
-=======
+        }
+
         private void buttonSaveScreen_MouseUp(object sender, MouseButtonEventArgs e)
         {
             string theSavedPic;

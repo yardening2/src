@@ -11,13 +11,6 @@
         Activated="Window_Activated"
         Deactivated="Window_Deactivated"
         Loaded="Window_Loaded" d:DesignWidth="979.2" d:DesignHeight="560.8" >
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Style.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
     <Grid>
         <InkCanvas x:Name="inkCanvasBoard" Cursor="Arrow" ResizeEnabled="False" UseLayoutRounding="True" >
             <InkCanvas.Background>
