@@ -21,11 +21,19 @@
                 <DrawingAttributes IsHighlighter="True" StylusTip="Rectangle" FitToCurve="True" Color="#FF21B30B"/>
             </InkCanvas.DefaultDrawingAttributes>
         </InkCanvas>
-        <ScrollViewer x:Name="savedPicsWraper" Background="#FF699C0F" Width="999" Height="200" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,260" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-            <StackPanel x:Name="savedPicsPanel" Margin="0" Background="#FFC57575" Orientation="Horizontal"/>
-        </ScrollViewer>
-        <Grid x:Name="gridBoardToolBar" Margin="0,435,0,0.2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="100" >
-            <Border BorderBrush="#FF000000" BorderThickness="1,1,1,1" Background="#FF6162C7" CornerRadius="30,30,0,0" HorizontalAlignment="Center" Width="800" />
+        <Canvas x:Name="canvasScreenshotWrapper" Visibility="Visible" Width="800" Height="0" Margin="90,461,89.2,0" VerticalAlignment="Bottom">
+            <Border BorderThickness="0,0,0,0" CornerRadius="30,30,0,0" HorizontalAlignment="Center" Width="{Binding Width, ElementName=canvasScreenshotWrapper}" Height="{Binding Height, ElementName=canvasScreenshotWrapper}" Background="#FF6162C7" />
+            <ScrollViewer x:Name="scrollViewerSavedPicsWraper" MaxHeight="{Binding Height, ElementName=canvas}"  Width="{Binding Width, ElementName=canvasScreenshotWrapper}" Height="{Binding Height, ElementName=canvasScreenshotWrapper}" Margin="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Center">
+                <StackPanel x:Name="savedPicsPanel" Margin="0"  Orientation="Horizontal" />
+            </ScrollViewer>
+            <Rectangle x:Name="buttonReturnFromScreenshots" Height="29" Canvas.Left="18" Width="29" MouseUp="buttonReturnFromScreenshots_MouseUp">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="images/returnButton.png"/>
+                </Rectangle.Fill>
+            </Rectangle>
+        </Canvas>
+        <Grid x:Name="gridBoardToolBar" Margin="0,435,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="100" Width="800" >
+            <Border BorderThickness="0,0,0,0" CornerRadius="30,30,0,0" HorizontalAlignment="Center" Width="800" Height="100" Background="#FF6162C7" />
             <Rectangle x:Name="buttonExit" HorizontalAlignment="Center" Height="20" VerticalAlignment="Top" Width="20" Panel.ZIndex="10000" Canvas.Left="247" Canvas.Top="84" MouseUp="buttonExit_Click" Margin="12,0,736,0" >
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="images/delete-error-exit-remove-stop-x-cross-icon--28.png"/>
@@ -90,7 +98,7 @@
                     <ImageBrush ImageSource="images/Camera.png"/>
                 </Rectangle.Fill>
             </Rectangle>
-            <Rectangle HorizontalAlignment="Right" Height="50" Margin="0,25,65,0" VerticalAlignment="Top" Width="50">
+            <Rectangle x:Name="buttonScreenshotFiles" HorizontalAlignment="Right" Height="50" Margin="0,25,65,0" VerticalAlignment="Top" Width="50" MouseUp="buttonScreenshotFiles_MouseUp">
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="images/folder-images-icon.png"/>
                 </Rectangle.Fill>

@@ -21,7 +21,7 @@ namespace ScreenSaver
             String[] filesInDirectory = Directory.GetFiles(dirToSaveTo);
             string imagePath = dirToSaveTo + "\\" + "screenshot" + filesInDirectory.Count() + ".png";
 
-            Bitmap printscreen = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+            Bitmap printscreen = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height - 100);
             Graphics graphics = Graphics.FromImage(printscreen as System.Drawing.Image);
             graphics.CopyFromScreen(0, 0, 0, 0, printscreen.Size);
 

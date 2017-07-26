@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ScreenSaver;
+using System.Threading;
 
 namespace BoardApp
 {
@@ -172,7 +173,20 @@ namespace BoardApp
             imageCanvas.Background = new ImageBrush((sender as Image).Source);
             imageCanvas.Visibility = Visibility.Visible;
         }
-        
-        
+
+        private void buttonScreenshotFiles_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            gridBoardToolBar.Height = 0;
+            canvasScreenshotWrapper.Height = 100;
+            inkCanvasBoard.Visibility = Visibility.Hidden;
+        }
+
+        private void buttonReturnFromScreenshots_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            canvasScreenshotWrapper.Height = 0;
+            imageCanvas.Background = null;
+            gridBoardToolBar.Height = 100;
+            inkCanvasBoard.Visibility = Visibility.Visible;
+        }
     }
 }
