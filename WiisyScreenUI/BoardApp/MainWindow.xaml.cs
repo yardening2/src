@@ -45,7 +45,7 @@ namespace BoardApp
             }
         } 
 
-        private MainWindow()
+        public MainWindow()
         {
             InitializeComponent();
         }
@@ -162,7 +162,17 @@ namespace BoardApp
             savedPicImage.Width = savedPicImage.Height = 150;
             savedPicImage.HorizontalAlignment = HorizontalAlignment.Left;
             savedPicImage.Margin = new Thickness(30);
+            savedPicImage.MouseUp += new MouseButtonEventHandler(setDisplayImage);
             savedPicsPanel.Children.Add(savedPicImage);
         }
+
+        
+        private void setDisplayImage(object sender, MouseButtonEventArgs r)
+        {
+            imageCanvas.Background = new ImageBrush((sender as Image).Source);
+            imageCanvas.Visibility = Visibility.Visible;
+        }
+        
+        
     }
 }

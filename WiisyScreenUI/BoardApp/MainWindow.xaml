@@ -12,6 +12,7 @@
         Deactivated="Window_Deactivated"
         Loaded="Window_Loaded" d:DesignWidth="979.2" d:DesignHeight="560.8" >
     <Grid>
+        <Canvas x:Name="imageCanvas"/>
         <InkCanvas x:Name="inkCanvasBoard" Cursor="Arrow" ResizeEnabled="False" UseLayoutRounding="True" >
             <InkCanvas.Background>
                 <SolidColorBrush Color="white" Opacity="{Binding Value, ElementName=sliderOpacity}"/>
@@ -20,7 +21,9 @@
                 <DrawingAttributes IsHighlighter="True" StylusTip="Rectangle" FitToCurve="True" Color="#FF21B30B"/>
             </InkCanvas.DefaultDrawingAttributes>
         </InkCanvas>
-        <StackPanel x:Name="savedPicsPanel" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="-10,0,-11,153" Width="1000" Height="155" Background="#FFC57575" Orientation="Horizontal"/>
+        <ScrollViewer x:Name="savedPicsWraper" Background="#FF699C0F" Width="999" Height="200" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,260" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+            <StackPanel x:Name="savedPicsPanel" Margin="0" Background="#FFC57575" Orientation="Horizontal"/>
+        </ScrollViewer>
         <Grid x:Name="gridBoardToolBar" Margin="0,435,0,0.2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="100" >
             <Border BorderBrush="#FF000000" BorderThickness="1,1,1,1" Background="#FF6162C7" CornerRadius="30,30,0,0" HorizontalAlignment="Center" Width="800" />
             <Rectangle x:Name="buttonExit" HorizontalAlignment="Center" Height="20" VerticalAlignment="Top" Width="20" Panel.ZIndex="10000" Canvas.Left="247" Canvas.Top="84" MouseUp="buttonExit_Click" Margin="12,0,736,0" >
