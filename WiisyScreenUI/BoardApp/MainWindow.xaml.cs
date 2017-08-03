@@ -26,6 +26,7 @@ namespace BoardApp
         private static MainWindow boardApp = null;
         private static readonly object sr_key = new object();
         public string ScreenShotsTempFolder { get; set; } = "tmp";
+        public static BitmapImage AppIcon = new BitmapImage(new Uri(System.IO.Path.GetFullPath("./images/boardIcon.png")));
 
         public static MainWindow Instance
         {

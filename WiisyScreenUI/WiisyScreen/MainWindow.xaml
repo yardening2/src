@@ -24,11 +24,7 @@
                     </TransformGroup>
                 </Ellipse.RenderTransform>
             </Ellipse>
-            <local:ActionBubble x:Name="actionBubble1" HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="162" Canvas.Top="52" MouseUp="actionBubble1_MouseUp">
-                <local:ActionBubble.FrontBrush>
-                    <ImageBrush ImageSource="images/Pencil.png" Stretch="Uniform"/>
-                </local:ActionBubble.FrontBrush>
-            </local:ActionBubble>
+            <local:ActionBubble x:Name="actionBubble1" HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="162" Canvas.Top="52" FrontBrush="{x:Null}"/>
             <local:ActionBubble x:Name="actionBubble2" HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="116" Canvas.Top="89">
                 <local:ActionBubble.FrontBrush>
                     <ImageBrush ImageSource="images/Eraser.png" Stretch="Uniform"/>
@@ -89,11 +85,8 @@
                 <Button x:Name="buttonShift2" HorizontalAlignment="Left" Margin="601,10,0,0" VerticalAlignment="Top" Width="34" Height="27" Click="buttonShift2_Click"/>
 
             </Grid>
-            <Grid x:Name="gridBoard" Background="CadetBlue" HorizontalAlignment="Stretch" Margin="124,0,-1,0" Visibility="Visible">
-                <Button x:Name="ButtonSaveScreen" Content="Save Screen" HorizontalAlignment="Left" Margin="47,25,0,0" VerticalAlignment="Top" Width="75" Click="ButtonSaveScreen_Click"/>
-                <Button x:Name="buttonGeneratePDF" Content="Generate PDF" HorizontalAlignment="Left" Margin="47,65,0,0" VerticalAlignment="Top" Width="75" Click="buttonGeneratePDF_Click"/>
-            </Grid>
         </Grid>
         <Canvas HorizontalAlignment="Left" Height="100" Margin="-274,144,0,0" VerticalAlignment="Top" Width="100"/>
+        <Ellipse x:Name="testEllipse" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="100" Stroke="Black" VerticalAlignment="Top" Width="100"/>
     </Grid>
 </Window>

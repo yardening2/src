@@ -13,7 +13,7 @@
         Loaded="Window_Loaded" d:DesignWidth="979.2" d:DesignHeight="560.8" >
     <Grid>
         <Canvas x:Name="imageCanvas"/>
-        <InkCanvas x:Name="inkCanvasBoard" Cursor="Arrow" ResizeEnabled="False" UseLayoutRounding="True" >
+        <InkCanvas x:Name="inkCanvasBoard" Cursor="Arrow" ResizeEnabled="False" UseLayoutRounding="True" EditingMode="None" >
             <InkCanvas.Background>
                 <SolidColorBrush Color="white" Opacity="{Binding Value, ElementName=sliderOpacity}"/>
             </InkCanvas.Background>
@@ -55,7 +55,7 @@
             </Rectangle>
             <Rectangle x:Name="buttonPointer" HorizontalAlignment="Left" Width="50" VerticalAlignment="Top" Height="50" MouseUp="buttonPointer_Click" Margin="204,29,0,0">
                 <Rectangle.Stroke>
-                    <SolidColorBrush Color="Black" Opacity="0"/>
+                    <SolidColorBrush Color="Black"/>
                 </Rectangle.Stroke>
                 <Rectangle.BindingGroup>
                     <BindingGroup Name="group1" ValidatesOnNotifyDataError="False"/>
@@ -66,7 +66,7 @@
             </Rectangle>
             <Rectangle x:Name="buttonPencil" Width="50" Height="50" Margin="143,29,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" MouseUp="buttonPencil_Click">
                 <Rectangle.Stroke>
-                    <SolidColorBrush Color="Black"/>
+                    <SolidColorBrush Color="Black" Opacity="0"/>
                 </Rectangle.Stroke>
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="images/Pencil.png"/>
@@ -83,7 +83,7 @@
                     <ImageBrush ImageSource="images/laser.png" Stretch="Uniform"/>
                 </Rectangle.Fill>
             </Rectangle>
-            <Slider x:Name="sliderOpacity" Minimum="0.01" Maximum="1" HorizontalAlignment="Right" Margin="0,45,-10,0" VerticalAlignment="Top" Width="80" RenderTransformOrigin="0.5,0.5"  IsMoveToPointEnabled="True">
+            <Slider x:Name="sliderOpacity" Maximum="1" HorizontalAlignment="Right" Margin="0,45,-10,0" VerticalAlignment="Top" Width="80" RenderTransformOrigin="0.5,0.5"  IsMoveToPointEnabled="True" SmallChange="0">
                 <Slider.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>

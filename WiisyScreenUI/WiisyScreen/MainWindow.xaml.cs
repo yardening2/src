@@ -65,14 +65,12 @@ namespace WiisyScreen
 
         private void buttonCalibrate_Click(object sender, RoutedEventArgs e)
         {
-            gridBoard.Visibility = gridMacros.Visibility = Visibility.Hidden;
             gridCalibrate.Visibility = Visibility.Visible;
             inkCanvasBoard.Opacity = 0;
         }
 
         private void buttonMacros_Click(object sender, RoutedEventArgs e)
         {
-            gridBoard.Visibility = gridCalibrate.Visibility = Visibility.Hidden;
             gridMacros.Visibility = Visibility.Visible;
             inkCanvasBoard.Opacity = 0;
         }
@@ -80,7 +78,6 @@ namespace WiisyScreen
         private void buttonBoard_Click(object sender, RoutedEventArgs e)
         {
             gridMacros.Visibility = gridCalibrate.Visibility = Visibility.Hidden;
-            gridBoard.Visibility = Visibility.Visible;
             inkCanvasBoard.Opacity = 1;
         }
 
@@ -99,50 +96,26 @@ namespace WiisyScreen
             return null;
         }
 
-        private void ButtonSaveScreen_Click(object sender, RoutedEventArgs e)
-        {
-            System.IO.Directory.CreateDirectory("tmp");
-            string dirToSaveTo = "tmp\\";
-            /*
-            string dirToSaveTo = chooseFolder();
->>>>>>> adding screenshots
-            System.Threading.Thread.Sleep(250);
-            if (dirToSaveTo != null)
-            {
-                ScreenSaver.ScreenSaver.SaveAsImage(dirToSaveTo);
-            }
-            */
-        }
-
-        private void buttonGeneratePDF_Click(object sender, RoutedEventArgs e)
-        {
-            /*
-            Microsoft.Win32.OpenFileDialog dlgImagesToPDF = new Microsoft.Win32.OpenFileDialog();
-            
-            dlgImagesToPDF.DefaultExt = ".png";
-            dlgImagesToPDF.Filter = "PNG Files (*.png)|*.png";
-            dlgImagesToPDF.Multiselect = true;
-
-            Nullable<bool> result = dlgImagesToPDF.ShowDialog();
-
-            if (result == true)
-            {
-                // Open document 
-                Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog();
-                saveFileDialog.DefaultExt = ".pdf";
-                saveFileDialog.Filter = "PDF File (*.pdf)|*.pdf";
-                Nullable<bool> saveResult = saveFileDialog.ShowDialog();
-                if (result == true)
-                {
-                    ScreenSaver.ScreenSaver.CreatePDF(saveFileDialog.FileName, dlgImagesToPDF.FileNames);
-                }
-            }
-            */
-        }
-
         private void buttonExit_Click(object sender, RoutedEventArgs e)
         {
+            closeOpenedWindows();
             this.Close();
+        }
+
+        private void closeOpenedWindows()
+        {
+            Window prevWindow = null;
+
+            foreach (Window window in openedWindows)
+            {
+                if (prevWindow != null)
+                    prevWindow.Close();
+                prevWindow = window;
+            }
+            if (prevWindow != null)
+            {
+                prevWindow.Close();
+            }
         }
 
         private void buttonWindows_Click(object sender, RoutedEventArgs e)
@@ -265,11 +238,22 @@ namespace WiisyScreen
             centerBubble.ReleaseMouseCapture();
         }
 
-        private void actionBubble1_MouseUp(object sender, MouseButtonEventArgs e)
+        //private void actionBubble1_MouseUp(object sender, MouseButtonEventArgs e)
+        //{
+        //    actionBubble1_clicked.Invoke();
+        //}
+
+        private void removeWindowFromOpenedWindows(object window, EventArgs e)
         {
-            BoardApp.MainWindow.Instance.Show();
+            openedWindows.Remove(window as Window);
         }
 
+        private void runBoard()
+        {
+            Window boardApp = BoardApp.MainWindow.Instance;
+            openedWindows.Add(boardApp);
+            boardApp.Closed += new EventHandler(removeWindowFromOpenedWindows);
+            boardApp.Show();
+        }
     }
-
 }
