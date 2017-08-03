@@ -170,21 +170,21 @@ namespace WiisyScreen
         private void buttonMaximaze_Click(object sender, RoutedEventArgs e)
         {
             Topmost = false;
-            Macros.LastWindowShow(Macros.ShowWindowCommands.ShowMaximized);
+            //Macros.LastWindowShow(Macros.ShowWindowCommands.ShowMaximized);
             Topmost = true;
         }
 
         private void buttonShift0_Click(object sender, RoutedEventArgs e)
         {
             Topmost = false;
-            Macros.ShiftLastWindow(0);
+            //Macros.ShiftLastWindow(0);
             Topmost = true;
         }
 
         private void buttonShift1_Click(object sender, RoutedEventArgs e)
         {
             Topmost = false;
-            Macros.ShiftLastWindow(1);
+            //Macros.ShiftLastWindow(1);
             Topmost = true;
 
         }
@@ -192,7 +192,7 @@ namespace WiisyScreen
         private void buttonShift2_Click(object sender, RoutedEventArgs e)
         {
             Topmost = false;
-            Macros.ShiftLastWindow(2);
+            //Macros.ShiftLastWindow(2);
             Topmost = true;
         }
 
@@ -269,6 +269,7 @@ namespace WiisyScreen
         {
             BoardApp.MainWindow.Instance.Show();
         }
+
     }
 
 }

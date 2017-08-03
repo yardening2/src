@@ -188,5 +188,10 @@ namespace BoardApp
             gridBoardToolBar.Height = 100;
             inkCanvasBoard.Visibility = Visibility.Visible;
         }
+
+        private void buttonPencil_Click(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }
