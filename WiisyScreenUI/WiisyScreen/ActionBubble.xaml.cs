@@ -23,7 +23,7 @@ namespace WiisyScreen
             InitializeComponent();
         }
 
-        public System.Windows.Media.Brush FrontBrush
+        public Brush FrontBrush
         {
             get { return front.Fill; }
             set { front.Fill = value; }

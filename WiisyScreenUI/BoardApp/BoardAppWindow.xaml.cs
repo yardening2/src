@@ -20,15 +20,14 @@ namespace BoardApp
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class BoardAppWindow : Window
     {
         private Boolean gridMinimized = false;
-        private static MainWindow boardApp = null;
+        private static BoardAppWindow boardApp = null;
         private static readonly object sr_key = new object();
         public string ScreenShotsTempFolder { get; set; } = "tmp";
-        public static BitmapImage AppIcon = new BitmapImage(new Uri(System.IO.Path.GetFullPath("./images/whiteboard-icon.png")));
 
-        public static MainWindow Instance
+        public static BoardAppWindow Instance
         {
             get
             {
@@ -38,7 +37,7 @@ namespace BoardApp
                     {
                         if (boardApp == null)
                         {
-                            boardApp = new MainWindow();
+                            boardApp = new BoardAppWindow();
                         }
                     }
                 }
@@ -47,7 +46,7 @@ namespace BoardApp
             }
         } 
 
-        public MainWindow()
+        public BoardAppWindow()
         {
             InitializeComponent();
         }

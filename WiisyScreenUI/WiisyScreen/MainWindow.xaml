@@ -24,12 +24,8 @@
                     </TransformGroup>
                 </Ellipse.RenderTransform>
             </Ellipse>
-            <local:ActionBubble x:Name="actionBubble1" HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="162" Canvas.Top="52" FrontBrush="{x:Null}"/>
-            <local:ActionBubble x:Name="actionBubble2" HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="116" Canvas.Top="89">
-                <local:ActionBubble.FrontBrush>
-                    <ImageBrush ImageSource="images/Eraser.png" Stretch="Uniform"/>
-                </local:ActionBubble.FrontBrush>
-            </local:ActionBubble>
+            <local:ActionBubble x:Name="actionBubble1" HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="162" Canvas.Top="52" Foreground="{x:Null}" FrontBrush="#FFB61B1B"/>
+            <local:ActionBubble x:Name="actionBubble2" HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="116" Canvas.Top="89" FrontBrush="{x:Null}"/>
             <local:ActionBubble x:Name="actionBubble3" HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="116" Canvas.Top="151"/>
             <local:ActionBubble x:Name="actionBubble4" HorizontalAlignment="Left" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="162" Canvas.Top="199"/>
             <Button x:Name="buttonExit" Content="" HorizontalAlignment="Left" Height="15" VerticalAlignment="Bottom" Width="15" Panel.ZIndex="10000" BorderBrush="{x:Null}" Click="buttonExit_Click" Canvas.Left="247" Canvas.Top="84">
@@ -87,6 +83,5 @@
             </Grid>
         </Grid>
         <Canvas HorizontalAlignment="Left" Height="100" Margin="-274,144,0,0" VerticalAlignment="Top" Width="100"/>
-        <Ellipse x:Name="testEllipse" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="100" Stroke="Black" VerticalAlignment="Top" Width="100"/>
     </Grid>
 </Window>

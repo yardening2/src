@@ -5,9 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WiisyScreen"
              mc:Ignorable="d" 
+             xmlns:converters="clr-namespace:WiisyScreen.Utils"
              d:DesignHeight="300" d:DesignWidth="300" MouseDown="actionBubble_MouseDown" MouseUp="actionBubble_MouseUp">
-    <Grid Width="{Binding Width, ElementName=userControl}" Height="{Binding Height, ElementName=actionBubble}">
-        <Ellipse Panel.ZIndex="1" x:Name="back" HorizontalAlignment="Left" Height="{Binding Height, ElementName=actionBubble}" Stroke="Black" VerticalAlignment="Top" Width="{Binding Width, ElementName=actionBubble}">
+    <Grid x:Name="grid" Width="{Binding Width, ElementName=userControl}" Height="{Binding Height, ElementName=actionBubble}">
+        <Ellipse x:Name="back" HorizontalAlignment="Left" Height="{Binding Height, ElementName=actionBubble}" Stroke="Black" VerticalAlignment="Top" Width="{Binding Width, ElementName=actionBubble}">
             <Ellipse.Fill>
                 <RadialGradientBrush>
                     <GradientStop Color="Black" Offset="1"/>
@@ -15,11 +16,12 @@
                 </RadialGradientBrush>
             </Ellipse.Fill>
         </Ellipse>
-        <Ellipse Panel.ZIndex="2" x:Name="front" HorizontalAlignment="Left" Height="{Binding Height, ElementName=back}" Stroke="Black" VerticalAlignment="{Binding VerticalAlignment, ElementName=back}" Width="{Binding Width, ElementName=back}" Margin="0,-1,0,0">
-            <Ellipse.Fill>
+        <Rectangle Panel.ZIndex="1000" x:Name="front" Margin="0"  
+                   Width="{Binding Path=ActualWidth, ElementName=back, Converter={converters:PercentageConverter}, ConverterParameter='0.7'}"
+                   Height="{Binding Path=ActualHeight, ElementName=back, Converter={converters:PercentageConverter}, ConverterParameter='0.7'}" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Rectangle.Fill>
                 <ImageBrush />
-            </Ellipse.Fill>
-        </Ellipse>
-
+            </Rectangle.Fill>
+        </Rectangle>
     </Grid>
 </UserControl>

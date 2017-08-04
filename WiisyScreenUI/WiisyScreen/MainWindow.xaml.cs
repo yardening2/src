@@ -29,13 +29,19 @@ namespace WiisyScreen
         private Calibrator m_Calibrator;
         private Point deltaPos = new Point();
         private List<Window> openedWindows = new List<Window>();
-       
+
         public MainWindow()
         {
             InitializeComponent();
             m_WiiMoteWrapper = new WiiMoteWrapper();
             m_Calibrator = new Calibrator(m_WiiMoteWrapper);
             m_Calibrator.CalibrateFinishedEvent += onCalibrationFinished;
+            actionBubble1.setApp(runBoard, createImageForEllipse("whiteboard-icon.png"));
+        }
+
+        private ImageBrush createImageForEllipse(string imageName)
+        {
+            return new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/WiisyScreen;component/Resources/" + imageName)));
         }
 
         private void onCalibrationFinished(object i_Sender, EventArgs i_EventArgs)
@@ -251,10 +257,13 @@ namespace WiisyScreen
 
         private void runBoard()
         {
-            Window boardApp = BoardApp.MainWindow.Instance;
-            openedWindows.Add(boardApp);
-            boardApp.Closed += new EventHandler(removeWindowFromOpenedWindows);
-            boardApp.Show();
+            Window boardApp = BoardApp.BoardAppWindow.Instance;
+            if (!openedWindows.Exists(window => window == boardApp))
+            {
+                openedWindows.Add(boardApp);
+                boardApp.Closed += new EventHandler(removeWindowFromOpenedWindows);
+                boardApp.Show();
+            }
         }
     }
 }
