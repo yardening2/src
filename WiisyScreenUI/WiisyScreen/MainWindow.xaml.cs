@@ -27,8 +27,9 @@ namespace WiisyScreen
     {
         private WiiMoteWrapper m_WiiMoteWrapper;
         private Calibrator m_Calibrator;
-        private Point deltaPos= new Point();
-
+        private Point deltaPos = new Point();
+        private List<Window> openedWindows = new List<Window>();
+       
         public MainWindow()
         {
             InitializeComponent();

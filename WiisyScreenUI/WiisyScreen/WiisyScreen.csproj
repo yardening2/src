@@ -61,6 +61,7 @@
     <Compile Include="ActionBubble.xaml.cs">
       <DependentUpon>ActionBubble.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AppRunner.cs" />
     <Compile Include="Apps\BoardApp.cs" />
     <Compile Include="WiiMoteControlls\CalibrationForm.cs">
       <SubType>Form</SubType>

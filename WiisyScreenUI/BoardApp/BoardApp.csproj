@@ -139,7 +139,7 @@
     <Resource Include="images\returnButton.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\boardIcon.png" />
+    <Resource Include="images\whiteboard-icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
