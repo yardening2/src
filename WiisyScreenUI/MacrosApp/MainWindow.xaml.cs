@@ -21,6 +21,28 @@ namespace MacrosApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        private static MainWindow macroApp = null;
+        private static readonly object sr_key = new object();
+
+        public static MainWindow Instance
+        {
+            get
+            {
+                if (macroApp == null)
+                {
+                    lock (sr_key)
+                    {
+                        if (macroApp == null)
+                        {
+                            macroApp = new MainWindow();
+                        }
+                    }
+                }
+
+                return macroApp;
+            }
+        }
+
         public enum eOriention
         {
             vertical = -90,
