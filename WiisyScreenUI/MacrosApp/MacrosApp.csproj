@@ -111,5 +111,8 @@
     <Resource Include="images\MacroMaximize.png" />
     <Resource Include="images\MacroMinimize.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\alt-tab.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

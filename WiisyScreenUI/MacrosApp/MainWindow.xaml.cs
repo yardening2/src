@@ -90,17 +90,26 @@ namespace MacrosApp
 
         private void buttonMacroMaximize_MouseUp(object sender, MouseButtonEventArgs e)
         {
+            Topmost = false;
             Macros.LastWindowShow(Macros.ShowWindowCommands.ShowMaximized);
+            Topmost = true;
         }
 
         private void buttonMacroClose_MouseUp(object sender, MouseButtonEventArgs e)
         {
+            Topmost = false;
             Macros.CloseLastWindow();
+            Topmost = true;
         }
 
-        private void buttonMacroMinimize_MouseDown(object sender, MouseButtonEventArgs e)
+        private void mouseDownHandle(object sender, MouseButtonEventArgs e)
         {
             e.Handled = true;
+        }
+
+        private void Rectangle_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            Macros.WindowsScreen();
         }
     }
 }
