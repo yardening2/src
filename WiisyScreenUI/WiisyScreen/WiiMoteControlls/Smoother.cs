@@ -9,6 +9,7 @@ namespace WiisyScreen.WiiMoteControlls
     public class Smoother
     {
         private const int k_SmoothingBufferSize = 50;
+        private const int k_DefaultSmoothingAmount = 10;
         private int m_SmoothingBufferindex; 
         PointF[] m_SmoothingBuffer;
         public int SmoothingAmount { get; set; }
@@ -17,6 +18,7 @@ namespace WiisyScreen.WiiMoteControlls
         {
             m_SmoothingBuffer = new PointF[k_SmoothingBufferSize];
             m_SmoothingBufferindex = 0;
+            SmoothingAmount = k_DefaultSmoothingAmount;
         }
 
         private void addPointToSmoother(PointF i_coordinates)
@@ -27,7 +29,16 @@ namespace WiisyScreen.WiiMoteControlls
 
         public void Reset()
         {
-            m_SmoothingBufferindex = 0;
+            System.Threading.Timer timer = null;
+            Point currentIndex = new Point(m_SmoothingBufferindex,0);
+            timer = new System.Threading.Timer((Pointobj) =>
+            {
+                if (m_SmoothingBufferindex == ((Point)Pointobj).X)
+                {
+                    m_SmoothingBufferindex = 0;
+                }
+                timer.Dispose();
+            }, currentIndex,100, System.Threading.Timeout.Infinite);
         }
 
         public PointF GetSmoothedCursor(PointF i_coordinates)

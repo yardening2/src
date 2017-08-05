@@ -29,7 +29,7 @@ namespace WiisyScreen.WiiMoteControlls
         public event EventHandler PlusButtonPressed;
 
         public WiimoteState CurrentWiiMoteState { get { return m_CurrentWiiMoteState; } }
-        public int BatteryLevel { get { return (100*m_CurrentWiiMoteState.Battery)/192; } }
+        public int BatteryLevel { get { return (100 * m_CurrentWiiMoteState.Battery) / 192; } }
         public WiiMoteWrapper()
         {
             m_WiiMote = new Wiimote();

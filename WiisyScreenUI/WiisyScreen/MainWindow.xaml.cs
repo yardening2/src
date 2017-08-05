@@ -27,6 +27,7 @@ namespace WiisyScreen
     {
         private WiiMoteWrapper m_WiiMoteWrapper;
         private Calibrator m_Calibrator;
+        private WiiMoteToMouseCoverter m_WiimoteToMouse;
 
         public MainWindow()
         {
@@ -40,7 +41,7 @@ namespace WiisyScreen
 
         private void onCalibrationFinished(object i_Sender, EventArgs i_EventArgs)
         {
-            WiiMoteToMouseCoverter m = new WiiMoteToMouseCoverter(m_Calibrator.getCalibratedWarper(), m_WiiMoteWrapper);
+            m_WiimoteToMouse = new WiiMoteToMouseCoverter(m_Calibrator.getCalibratedWarper(), m_WiiMoteWrapper);
         }
 
         private void Window_Activated(object sender, EventArgs e)

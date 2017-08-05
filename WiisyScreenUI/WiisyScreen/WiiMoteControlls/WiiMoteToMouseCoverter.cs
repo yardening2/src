@@ -37,14 +37,14 @@ namespace WiisyScreen.WiiMoteControlls
         {
             m_Warper = i_Warper;
             m_Smoother = new Smoother();
-            RegisterEventsListeners(i_WiiMoteWrapper);
+            registerEventsListeners(i_WiiMoteWrapper);
             ScreenWidth = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width;
             ScreenHeight =  System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height;
             ControlledAreaTopOffset = 0;
             ControlledAreaBottomOffset = 0;
         }
 
-        public void RegisterEventsListeners(WiiMoteWrapper i_WiiMoteWrapper)
+        private void registerEventsListeners(WiiMoteWrapper i_WiiMoteWrapper)
         {
             i_WiiMoteWrapper.InfraRedAppearedEvent += onPenAppeared;
             i_WiiMoteWrapper.InfraRedDisppearedEvent += onPenDisappeared;
@@ -84,6 +84,7 @@ namespace WiisyScreen.WiiMoteControlls
             int deltaY = 0;
             int mouseActionsflags = MOUSEEVENTF_LEFTUP;
             mouse_event(mouseActionsflags, deltaX, deltaY, 0, 0);
+            m_Smoother.Reset();
         }
 
         public void onPenMoved(object i_WiiMote, WiimoteState i_State)
