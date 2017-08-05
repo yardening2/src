@@ -1,0 +1,27 @@
+﻿<UserControl x:Name="actionBubble" x:Class="WiisyScreen.ActionBubble"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WiisyScreen"
+             mc:Ignorable="d" 
+             xmlns:converters="clr-namespace:WiisyScreen.Utils"
+             d:DesignHeight="300" d:DesignWidth="300" MouseDown="actionBubble_MouseDown" MouseUp="actionBubble_MouseUp">
+    <Grid x:Name="grid" Width="{Binding Width, ElementName=userControl}" Height="{Binding Height, ElementName=actionBubble}">
+        <Ellipse x:Name="back" HorizontalAlignment="Left" Height="{Binding Height, ElementName=actionBubble}" Stroke="Black" VerticalAlignment="Top" Width="{Binding Width, ElementName=actionBubble}">
+            <Ellipse.Fill>
+                <RadialGradientBrush>
+                    <GradientStop Color="Black" Offset="1"/>
+                    <GradientStop Color="White"/>
+                </RadialGradientBrush>
+            </Ellipse.Fill>
+        </Ellipse>
+        <Rectangle Panel.ZIndex="1000" x:Name="front" Margin="0"  
+                   Width="{Binding Path=ActualWidth, ElementName=back, Converter={converters:PercentageConverter}, ConverterParameter='0.7'}"
+                   Height="{Binding Path=ActualHeight, ElementName=back, Converter={converters:PercentageConverter}, ConverterParameter='0.7'}" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Rectangle.Fill>
+                <ImageBrush />
+            </Rectangle.Fill>
+        </Rectangle>
+    </Grid>
+</UserControl>

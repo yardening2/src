@@ -11,6 +11,8 @@ namespace winMacros
 {
     public static class Macros
     {
+        private const UInt32 WM_CLOSE = 0x0010;
+
         public static void WindowsScreen()
         {
             InputSimulator.SimulateModifiedKeyStroke(VirtualKeyCode.LWIN, VirtualKeyCode.TAB);
@@ -31,14 +33,14 @@ namespace winMacros
             Process.Start("osk");
         }
 
-        public static void ShiftLastWindow(int i_slot)
+        public static void ShiftLastWindow(int i_width, int i_heiget, int i_xSlot, int i_ySlot)
         {
             IntPtr lastWindowHandle = getLastWindow();
 
             if (lastWindowHandle.Equals(GetDesktopWindow()) == false && IsWindowVisible(lastWindowHandle))
             {
                 ShowWindow(lastWindowHandle, ShowWindowCommands.Normal);
-                MoveWindow(lastWindowHandle, 600 * i_slot, 0, 600, 600, true);
+                MoveWindow(lastWindowHandle, i_width * i_xSlot, i_heiget * i_ySlot, i_width, i_heiget, true);
                 SetForegroundWindow(lastWindowHandle);
             }
         }
@@ -52,6 +54,11 @@ namespace winMacros
                 ShowWindow(lastWindowHandle, i_swc);
                 SetForegroundWindow(lastWindowHandle);
             }
+        }
+
+        public static void CloseLastWindow()
+        {
+            SendMessage(getLastWindow(), WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
         }
 
         private static IntPtr getLastWindow()
@@ -123,5 +130,10 @@ namespace winMacros
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool IsWindowVisible(IntPtr hWnd);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        private static extern IntPtr SendMessage(IntPtr hWnd, UInt32 Msg, IntPtr wParam, IntPtr lParam);
+
     }
+
 }

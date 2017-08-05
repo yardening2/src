@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{64A877EA-E794-4B4A-B94A-6F0BBC725A82}</ProjectGuid>
+    <ProjectGuid>{12261239-45A8-4199-B6E3-5689AFD5E2EB}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>WiisyScreen</RootNamespace>
-    <AssemblyName>WiisyScreen</AssemblyName>
+    <RootNamespace>BoardApp</RootNamespace>
+    <AssemblyName>BoardApp</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -24,7 +24,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,6 +33,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -58,28 +60,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ActionBubble.xaml.cs">
-      <DependentUpon>ActionBubble.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="utils\PrecentageConverter.cs" />
-    <Compile Include="utils\BoardRunner.cs" />
-    <Compile Include="utils\IAppRunner.cs" />
-    <Compile Include="WiiMoteControlls\CalibrationForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="WiiMoteControlls\CalibrationForm.designer.cs">
-      <DependentUpon>CalibrationForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="WiiMoteControlls\Calibrator.cs" />
-    <Compile Include="WiiMoteControlls\Smoother.cs" />
-    <Compile Include="WiiMoteControlls\Warper.cs" />
-    <Compile Include="WiiMoteControlls\WiiMoteToMouseCoverter.cs" />
-    <Compile Include="WiiMoteControlls\WiiMoteWrapper.cs" />
-    <Page Include="ActionBubble.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="BoardAppWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -87,8 +68,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="BoardAppWindow.xaml.cs">
+      <DependentUpon>BoardAppWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -110,9 +91,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="WiiMoteControlls\CalibrationForm.resx">
-      <DependentUpon>CalibrationForm.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -122,46 +100,46 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="images\Eraser.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="images\Pencil.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\Eraser.png" />
+    <Resource Include="images\laser_pointer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\laser.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\Camera.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\folder-images-icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\delete-error-exit-remove-stop-x-cross-icon--28.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BoardApp\BoardApp.csproj">
-      <Project>{12261239-45a8-4199-b6e3-5689afd5e2eb}</Project>
-      <Name>BoardApp</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MacrosApp\MacrosApp.csproj">
-      <Project>{3a9e02ab-efd3-48e6-aa34-b8d631b737c6}</Project>
-      <Name>MacrosApp</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WiimoteLib\WiimoteLib.csproj">
-      <Project>{37a555df-7012-4b99-8a47-1c922a361e52}</Project>
-      <Name>WiimoteLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\winMacros\winMacros.csproj">
-      <Project>{8c7289cc-7e0a-4a4c-a69e-042313ba60da}</Project>
-      <Name>winMacros</Name>
+    <Resource Include="images\ClearPage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ScreenSaver\ScreenSaver.csproj">
+      <Project>{be50391a-6f9f-487e-ae5e-590006dd7213}</Project>
+      <Name>ScreenSaver</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\WiiSyScreen.png" />
+    <Resource Include="images\hand.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\returnButton.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\whiteboard-icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\whiteboard-clip-art.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\whiteboard-icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\wbicon.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

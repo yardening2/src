@@ -1,0 +1,59 @@
+﻿<Window x:Class="MacrosApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MacrosApp"
+        mc:Ignorable="d"
+        Background="{x:Null}" Topmost="True"
+        WindowStyle="None" AllowsTransparency="True" 
+        Title="MainWindow" MouseDown="Window_MouseDown" Height="166.985" Width="380.53" >
+    <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
+        <Canvas x:Name="MacrosCanvas" Background="#FF7E2626" Margin="10,10,-10,-10" Width="350" Height="150" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Button x:Name="buttonClose"  Canvas.Left="326" Canvas.Top="-14" Width="40" Height="40" RenderTransformOrigin="2.125,0.125" Click="buttonClose_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="images/exit.png"/>
+                </Button.Background>
+            </Button>
+            <StackPanel x:Name="shiftButtonsContainer" Height="80" Canvas.Left="10" Canvas.Top="52" Width="80" Background="#FFA45252" RenderTransformOrigin="0.5,0.5">
+                <StackPanel.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform X="0.5" Y="0.5"/>
+                    </TransformGroup>
+                </StackPanel.RenderTransform>
+                <Button x:Name="buttonShift1" Height="40" Width="80"  Click="buttonShift_Click" />
+                <Button x:Name="buttonShift2" Height="40" Width="80" Click="buttonShift_Click" />
+            </StackPanel>
+            <Button x:Name="buttonChangeOrientation" Canvas.Left="63" Canvas.Top="100" Width="59" Height="56" BorderBrush="{x:Null}" Click="buttonChangeOrientation_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="images/flip.png"/>
+                </Button.Background>
+            </Button>
+            <Rectangle x:Name="buttonMacroMinimize" Height="47" Canvas.Left="135" Stroke="Black" Canvas.Top="25" Width="48" MouseUp="buttonMacroMinimize_MouseUp" MouseDown="mouseDownHandle">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="images/MacroMinimize.png"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle x:Name="buttonMacroMaximize" Height="47" Canvas.Left="183" Stroke="Black" Canvas.Top="25" Width="48" MouseUp="buttonMacroMaximize_MouseUp" MouseDown="mouseDownHandle">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="images/MacroMaximize.png"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle x:Name="buttonMacroClose" Height="47" Canvas.Left="231" Stroke="Black" Canvas.Top="25" Width="48" MouseUp="buttonMacroClose_MouseUp" MouseDown="mouseDownHandle">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="images/MacroClose.png"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Height="59" Canvas.Left="282" Stroke="Black" Canvas.Top="82" Width="68" MouseDown="mouseDownHandle" MouseUp="Rectangle_MouseUp">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="images/alt-tab.png"/>
+                </Rectangle.Fill>
+            </Rectangle>
+        </Canvas>
+
+    </Grid>
+
+</Window>
