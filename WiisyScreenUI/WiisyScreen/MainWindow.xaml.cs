@@ -16,6 +16,7 @@ using System.Windows.Forms;
 using System.Threading;
 using WiisyScreen.WiiMoteControlls;
 using winMacros;
+using MacrosApp;
 
 
 namespace WiisyScreen
@@ -29,6 +30,7 @@ namespace WiisyScreen
         private Calibrator m_Calibrator;
         private Point deltaPos = new Point();
         private List<Window> openedWindows = new List<Window>();
+        private bool rightToLeft = true;
 
         public MainWindow()
         {
@@ -76,33 +78,6 @@ namespace WiisyScreen
             inkCanvasBoard.Opacity = 0;
         }
 
-        private void buttonMacros_Click(object sender, RoutedEventArgs e)
-        {
-            gridMacros.Visibility = Visibility.Visible;
-            inkCanvasBoard.Opacity = 0;
-        }
-
-        private void buttonBoard_Click(object sender, RoutedEventArgs e)
-        {
-            gridMacros.Visibility = gridCalibrate.Visibility = Visibility.Hidden;
-            inkCanvasBoard.Opacity = 1;
-        }
-
-        private string chooseFolder()
-        {
-            using (var fbd = new FolderBrowserDialog())
-            {
-                DialogResult result = fbd.ShowDialog();
-
-                if (result == System.Windows.Forms.DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
-                {
-                    return fbd.SelectedPath;
-                }
-            }
-
-            return null;
-        }
-
         private void buttonExit_Click(object sender, RoutedEventArgs e)
         {
             closeOpenedWindows();
@@ -123,57 +98,6 @@ namespace WiisyScreen
             {
                 prevWindow.Close();
             }
-        }
-
-        private void buttonWindows_Click(object sender, RoutedEventArgs e)
-        {
-            Macros.WindowsScreen();
-        }
-
-        private void buttonDesktop_Click(object sender, RoutedEventArgs e)
-        {
-            Macros.Desktop();
-            //todo
-            //show this window
-        }
-
-        private void buttonTskmgr_Click(object sender, RoutedEventArgs e)
-        {
-            Macros.Taskmgr();
-        }
-
-        private void buttonKeyboard_Click(object sender, RoutedEventArgs e)
-        {
-            new Thread(Macros.osk).Start();
-        }
-
-        private void buttonMaximaze_Click(object sender, RoutedEventArgs e)
-        {
-            Topmost = false;
-            //Macros.LastWindowShow(Macros.ShowWindowCommands.ShowMaximized);
-            Topmost = true;
-        }
-
-        private void buttonShift0_Click(object sender, RoutedEventArgs e)
-        {
-            Topmost = false;
-            //Macros.ShiftLastWindow(0);
-            Topmost = true;
-        }
-
-        private void buttonShift1_Click(object sender, RoutedEventArgs e)
-        {
-            Topmost = false;
-            //Macros.ShiftLastWindow(1);
-            Topmost = true;
-
-        }
-
-        private void buttonShift2_Click(object sender, RoutedEventArgs e)
-        {
-            Topmost = false;
-            //Macros.ShiftLastWindow(2);
-            Topmost = true;
         }
 
         private void ButtonConnectToWiiMote_Click(object sender, RoutedEventArgs e)
@@ -243,12 +167,49 @@ namespace WiisyScreen
         private void centerBubble_MouseUp(object sender, MouseButtonEventArgs e)
         {
             centerBubble.ReleaseMouseCapture();
+            if((translate.X) > mainWindow.Width / 2)
+            {
+                translate.X = (mainWindow.Width) - mainAppCanvas.ActualWidth;
+                if (rightToLeft)
+                {
+                    flipControllersLeftToRight();
+                }
+            }
+            else
+            {
+                translate.X = 0;
+                if (!rightToLeft)
+                {
+                    flipControllersRightToLeft();
+                }
+            }
         }
 
-        //private void actionBubble1_MouseUp(object sender, MouseButtonEventArgs e)
-        //{
-        //    actionBubble1_clicked.Invoke();
-        //}
+        private void flipControllersRightToLeft()
+        {
+            IEnumerable<System.Windows.Controls.Control> collection = mainAppCanvas.Children.OfType<System.Windows.Controls.Control>();
+
+            foreach (System.Windows.Controls.Control c in collection)
+            {
+                c.SetValue(Canvas.LeftProperty, mainAppCanvas.Width - (double)(c.GetValue(Canvas.LeftProperty))); //mainAppCanvas.ActualWidth - 
+            }
+
+            rightToLeft = true;
+        }
+
+        private void flipControllersLeftToRight()
+        {
+            IEnumerable<System.Windows.Controls.Control> collection = mainAppCanvas.Children.OfType<System.Windows.Controls.Control>();
+
+           foreach(System.Windows.Controls.Control c in collection)
+            {
+                c.SetValue(Canvas.LeftProperty, mainAppCanvas.Width - (double)(c.GetValue(Canvas.LeftProperty))); //mainAppCanvas.ActualWidth - 
+            }
+
+            rightToLeft = false;
+
+           // throw new NotImplementedException();
+        }
 
         private void removeWindowFromOpenedWindows(object window, EventArgs e)
         {
@@ -257,12 +218,22 @@ namespace WiisyScreen
 
         private void runBoard()
         {
-            Window boardApp = BoardApp.BoardAppWindow.Instance;
-            if (!openedWindows.Exists(window => window == boardApp))
+            runApp(BoardApp.BoardAppWindow.Instance);   
+        }
+
+        //TODO - 
+        //private void runMacroApp()
+        //{
+        //    runApp(MacrosApp.MainWindow.Instance);
+        //}
+
+        private void runApp(Window windowApp)
+        {
+            if (!openedWindows.Exists(window => window == windowApp))
             {
-                openedWindows.Add(boardApp);
-                boardApp.Closed += new EventHandler(removeWindowFromOpenedWindows);
-                boardApp.Show();
+                openedWindows.Add(windowApp);
+                windowApp.Closed += new EventHandler(removeWindowFromOpenedWindows);
+                windowApp.Show();
             }
         }
     }

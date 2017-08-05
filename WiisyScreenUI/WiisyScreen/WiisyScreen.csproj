@@ -135,6 +135,10 @@
       <Project>{12261239-45a8-4199-b6e3-5689afd5e2eb}</Project>
       <Name>BoardApp</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MacrosApp\MacrosApp.csproj">
+      <Project>{3a9e02ab-efd3-48e6-aa34-b8d631b737c6}</Project>
+      <Name>MacrosApp</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WiimoteLib\WiimoteLib.csproj">
       <Project>{37a555df-7012-4b99-8a47-1c922a361e52}</Project>
       <Name>WiimoteLib</Name>
