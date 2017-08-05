@@ -58,7 +58,8 @@ namespace MacrosApp
 
         private void buttonClose_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            macroApp = null;
+            this.Close();
         }
 
         private void buttonChangeOrientation_Click(object sender, RoutedEventArgs e)

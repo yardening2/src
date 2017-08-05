@@ -61,6 +61,11 @@
     <Compile Include="ActionBubble.xaml.cs">
       <DependentUpon>ActionBubble.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="utils\PrecentageConverter.cs" />
     <Compile Include="utils\BoardRunner.cs" />
     <Compile Include="utils\IAppRunner.cs" />
@@ -95,11 +100,6 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -162,6 +162,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\wbicon.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\macroicon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

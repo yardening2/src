@@ -11,12 +11,6 @@
         >
     <Grid Margin="0,0,0,0" x:Name="container">
         <Canvas x:Name="mainAppCanvas"  HorizontalAlignment="Left" VerticalAlignment="Center" Width="160" Height="300" Margin="0,125,0,110.2" >
-            <Canvas.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black" Offset="0"/>
-                    <GradientStop Color="White" Offset="1"/>
-                </LinearGradientBrush>
-            </Canvas.Background>
             <Ellipse x:Name="centerBubble" HorizontalAlignment="Center" Height="100" Stroke="Black" VerticalAlignment="Top" Width="100" Canvas.Left="10" Canvas.Top="97" MouseDown="centerBubble_MouseDown" MouseMove="centerBubble_MouseMove" MouseUp="centerBubble_MouseUp">
                 <Ellipse.Fill>
                     <RadialGradientBrush>

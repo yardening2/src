@@ -78,13 +78,6 @@ namespace BoardApp
             inkCanvasBoard.EditingMode = InkCanvasEditingMode.EraseByStroke;
         }
 
-        private void buttonPencil_Click(object sender, RoutedEventArgs e)
-        {
-            markClickedModeButton(sender as Rectangle);
-            setBoardToScetchable();
-            inkCanvasBoard.EditingMode = InkCanvasEditingMode.Ink;
-        }
-
         private void buttonPointer_Click(object sender, RoutedEventArgs e)
         {
             markClickedModeButton(sender as Rectangle);
@@ -191,7 +184,9 @@ namespace BoardApp
 
         private void buttonPencil_Click(object sender, MouseButtonEventArgs e)
         {
-
+            markClickedModeButton(sender as Rectangle);
+            setBoardToScetchable();
+            inkCanvasBoard.EditingMode = InkCanvasEditingMode.Ink;
         }
 
         

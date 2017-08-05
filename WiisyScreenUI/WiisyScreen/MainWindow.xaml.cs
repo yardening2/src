@@ -13,10 +13,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Forms;
-using ScreenSaver;
-using winMacros;
 using System.Threading;
 using WiisyScreen.WiiMoteControlls;
+using winMacros;
+using MacrosApp;
+
 
 namespace WiisyScreen
 {
@@ -27,16 +28,23 @@ namespace WiisyScreen
     {
         private WiiMoteWrapper m_WiiMoteWrapper;
         private Calibrator m_Calibrator;
-        private WiiMoteToMouseCoverter m_WiimoteToMouse;
+        private Point deltaPos = new Point();
+        private List<Window> openedWindows = new List<Window>();
+        private bool rightToLeft = true;
 
         public MainWindow()
         {
             InitializeComponent();
-            //this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
-            //this.MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
             m_WiiMoteWrapper = new WiiMoteWrapper();
             m_Calibrator = new Calibrator(m_WiiMoteWrapper);
             m_Calibrator.CalibrateFinishedEvent += onCalibrationFinished;
+            actionBubble1.setApp(runBoard, createImageForEllipse("whiteboard-icon.png"));
+            actionBubble2.setApp(runMacroApp, createImageForEllipse("macroicon.png"));
+        }
+
+        private ImageBrush createImageForEllipse(string imageName)
+        {
+            return new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/WiisyScreen;component/Resources/" + imageName)));
         }
 
         private void onCalibrationFinished(object i_Sender, EventArgs i_EventArgs)
@@ -67,138 +75,30 @@ namespace WiisyScreen
 
         private void buttonCalibrate_Click(object sender, RoutedEventArgs e)
         {
-            gridBoard.Visibility = gridMacros.Visibility = Visibility.Hidden;
             gridCalibrate.Visibility = Visibility.Visible;
             inkCanvasBoard.Opacity = 0;
         }
 
-        private void buttonMacros_Click(object sender, RoutedEventArgs e)
+        private void buttonExit_Click(object sender, RoutedEventArgs e)
         {
-            gridBoard.Visibility = gridCalibrate.Visibility = Visibility.Hidden;
-            gridMacros.Visibility = Visibility.Visible;
-            inkCanvasBoard.Opacity = 0;
-        }
-
-        private void buttonBoard_Click(object sender, RoutedEventArgs e)
-        {
-            gridMacros.Visibility = gridCalibrate.Visibility = Visibility.Hidden;
-            gridBoard.Visibility = Visibility.Visible;
-            inkCanvasBoard.Opacity = 1;
-        }
-
-        private string chooseFolder()
-        {
-            using (var fbd = new FolderBrowserDialog())
-            {
-                DialogResult result = fbd.ShowDialog();
-
-                if (result == System.Windows.Forms.DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
-                {
-                    return fbd.SelectedPath;
-                }
-            }
-
-            return null;
-        }
-
-        private void ButtonSaveScreen_Click(object sender, RoutedEventArgs e)
-        {
-            string dirToSaveTo = chooseFolder();
-            System.Threading.Thread.Sleep(250);
-            if (dirToSaveTo != null)
-            {
-                ScreenSaver.ScreenSaver.SaveAsImage(dirToSaveTo);
-            }
-        }
-
-        private void buttonGeneratePDF_Click(object sender, RoutedEventArgs e)
-        {
-            Microsoft.Win32.OpenFileDialog dlgImagesToPDF = new Microsoft.Win32.OpenFileDialog();
-            
-            dlgImagesToPDF.DefaultExt = ".png";
-            dlgImagesToPDF.Filter = "PNG Files (*.png)|*.png";
-            dlgImagesToPDF.Multiselect = true;
-
-            Nullable<bool> result = dlgImagesToPDF.ShowDialog();
-
-            if (result == true)
-            {
-                // Open document 
-                Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog();
-                saveFileDialog.DefaultExt = ".pdf";
-                saveFileDialog.Filter = "PDF File (*.pdf)|*.pdf";
-                Nullable<bool> saveResult = saveFileDialog.ShowDialog();
-                if (result == true)
-                {
-                    ScreenSaver.ScreenSaver.CreatePDF(saveFileDialog.FileName, dlgImagesToPDF.FileNames);
-                }
-            }
-        }
-
-        private void buttonEraser_Click(object sender, RoutedEventArgs e)
-        {
-            inkCanvasBoard.EditingMode = InkCanvasEditingMode.EraseByStroke;
-        }
-
-        private void buttonPencil_Click(object sender, RoutedEventArgs e)
-        {
-            inkCanvasBoard.EditingMode = InkCanvasEditingMode.Ink;
-        }
-
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
+            closeOpenedWindows();
             this.Close();
         }
 
-        private void buttonWindows_Click(object sender, RoutedEventArgs e)
+        private void closeOpenedWindows()
         {
-            Macros.WindowsScreen();
-        }
+            Window prevWindow = null;
 
-        private void buttonDesktop_Click(object sender, RoutedEventArgs e)
-        {
-            Macros.Desktop();
-            //todo
-            //show this window
-        }
-
-        private void buttonTskmgr_Click(object sender, RoutedEventArgs e)
-        {
-            Macros.Taskmgr();
-        }
-
-        private void buttonKeyboard_Click(object sender, RoutedEventArgs e)
-        {
-            new Thread(Macros.osk).Start();
-        }
-
-        private void buttonMaximaze_Click(object sender, RoutedEventArgs e)
-        {
-            Topmost = false;
-            Macros.LastWindowShow(Macros.ShowWindowCommands.ShowMaximized);
-            Topmost = true;
-        }
-
-        private void buttonShift0_Click(object sender, RoutedEventArgs e)
-        {
-            Topmost = false;
-            Macros.ShiftLastWindow(0);
-            Topmost = true;
-        }
-
-        private void buttonShift1_Click(object sender, RoutedEventArgs e)
-        {
-            Topmost = false;
-            Macros.ShiftLastWindow(1);
-            Topmost = true;
-
-        }
-
-        private void buttonShift2_Click(object sender, RoutedEventArgs e)
-        {
-            Topmost = false;
-            Macros.ShiftLastWindow(2);
-            Topmost = true;
+            foreach (Window window in openedWindows)
+            {
+                if (prevWindow != null)
+                    prevWindow.Close();
+                prevWindow = window;
+            }
+            if (prevWindow != null)
+            {
+                prevWindow.Close();
+            }
         }
 
         private void ButtonConnectToWiiMote_Click(object sender, RoutedEventArgs e)
@@ -246,6 +146,89 @@ namespace WiisyScreen
         {
             IRDotsDataLabel.Dispatcher.Invoke(new Action(() => { IRDotsDataLabel.Content = i_VisibleIRDots.ToString(); }));
         }
-    }
+      
 
+        private void centerBubble_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            centerBubble.CaptureMouse();
+            deltaPos.X = e.GetPosition(container).X - translate.X;
+            deltaPos.Y = e.GetPosition(container).Y - translate.Y;
+            e.Handled = true;
+        }
+
+        private void centerBubble_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            if (centerBubble.IsMouseCaptured)
+            {
+                translate.X = e.GetPosition(container).X - deltaPos.X;
+                translate.Y = e.GetPosition(container).Y - deltaPos.Y;
+            }
+
+            if ((translate.X) > mainWindow.Width / 2)
+            {
+                if (rightToLeft)
+                {
+                    flipControllers();
+                }
+            }
+            else
+            {
+                if (!rightToLeft)
+                {
+                    flipControllers();
+                }
+            }
+        }
+
+        private void centerBubble_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            centerBubble.ReleaseMouseCapture();
+            if((translate.X) > mainWindow.Width / 2)
+            {
+                translate.X = (mainWindow.Width) - mainAppCanvas.ActualWidth;
+            }
+            else
+            {
+                translate.X = 0;
+            }
+        }
+
+        private void flipControllers()
+        {
+            IEnumerable<System.Windows.Controls.Control> collection = mainAppCanvas.Children.OfType<System.Windows.Controls.Control>();
+
+            foreach (System.Windows.Controls.Control c in collection)
+            {
+                c.SetValue(Canvas.LeftProperty, mainAppCanvas.Width - (double)(c.GetValue(Canvas.LeftProperty)) - c.Width); //mainAppCanvas.ActualWidth - 
+            }
+            centerBubble.SetValue(Canvas.LeftProperty, mainAppCanvas.Width - (double)(centerBubble.GetValue(Canvas.LeftProperty)) - centerBubble.Width);
+
+            rightToLeft = !rightToLeft;
+        }
+
+        private void removeWindowFromOpenedWindows(object window, EventArgs e)
+        {
+            openedWindows.Remove(window as Window);
+        }
+
+        private void runBoard()
+        {
+            runApp(BoardApp.BoardAppWindow.Instance);   
+        }
+
+        private void runMacroApp()
+        {
+            runApp(MacrosApp.MainWindow.Instance);
+        }
+
+        private void runApp(Window windowApp)
+        {
+            if (!openedWindows.Exists(window => window == windowApp))
+            {
+                openedWindows.Add(windowApp);
+                windowApp.Closed += new EventHandler(removeWindowFromOpenedWindows);
+                windowApp.Show();
+            }
+        }
+    }
 }
