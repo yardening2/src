@@ -25,7 +25,7 @@ namespace BoardApp
         private Boolean gridMinimized = false;
         private static BoardAppWindow boardApp = null;
         private static readonly object sr_key = new object();
-        public string ScreenShotsTempFolder { get; set; } = "tmp";
+        public string ScreenShotsTempFolder { get; set; }
 
         public static BoardAppWindow Instance
         {
@@ -49,6 +49,7 @@ namespace BoardApp
         public BoardAppWindow()
         {
             InitializeComponent();
+            ScreenShotsTempFolder = "tmp";
         }
 
         private void Window_Activated(object sender, EventArgs e)

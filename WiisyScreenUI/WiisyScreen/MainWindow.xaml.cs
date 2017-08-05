@@ -31,6 +31,7 @@ namespace WiisyScreen
         private Point deltaPos = new Point();
         private List<Window> openedWindows = new List<Window>();
         private bool rightToLeft = true;
+        private WiiMoteToMouseCoverter m_WiimoteToMouse;
 
         public MainWindow()
         {

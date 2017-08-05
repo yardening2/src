@@ -16,11 +16,12 @@ namespace WiisyScreen
     public partial class ActionBubble : UserControl
     {
         public event clickedHandler clickHandler = null;
-        public int onClickAnimationSize { get; set; } = 7;
+        public int onClickAnimationSize { get; set; }
 
         public ActionBubble()
         {
             InitializeComponent();
+            onClickAnimationSize  = 7;
         }
 
         public Brush FrontBrush
