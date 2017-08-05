@@ -38,7 +38,7 @@ namespace WiisyScreen
             InitializeComponent();
             m_WiiMoteWrapper = new WiiMoteWrapper();
             m_Calibrator = new Calibrator(m_WiiMoteWrapper);
-            m_Calibrator.CalibrateFinishedEvent += onCalibrationFinished;
+            //m_Calibrator.CalibrateFinishedEvent += onCalibrationFinished;
             actionBubble1.setApp(runBoard, createImageForEllipse("whiteboard-icon.png"));
             actionBubble2.setApp(runMacroApp, createImageForEllipse("macroicon.png"));
         }
@@ -48,10 +48,10 @@ namespace WiisyScreen
             return new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/WiisyScreen;component/Resources/" + imageName)));
         }
 
-        private void onCalibrationFinished(object i_Sender, EventArgs i_EventArgs)
-        {
-            m_WiimoteToMouse = new WiiMoteToMouseCoverter(m_Calibrator.getCalibratedWarper(), m_WiiMoteWrapper);
-        }
+        //private void onCalibrationFinished(object i_Sender, EventArgs i_EventArgs)
+        //{
+        //    m_WiimoteToMouse = new WiiMoteToMouseCoverter(m_Calibrator.getCalibratedWarper(), m_WiiMoteWrapper);
+        //}
 
         private void Window_Activated(object sender, EventArgs e)
         {
@@ -165,7 +165,7 @@ namespace WiisyScreen
                 translate.Y = e.GetPosition(container).Y - deltaPos.Y;
             }
 
-            if ((translate.X) > mainWindow.Width / 2)
+            if ((translate.X) + (mainAppCanvas.Width/2) > mainWindow.Width / 2)
             {
                 if (rightToLeft)
                 {
@@ -184,7 +184,7 @@ namespace WiisyScreen
         private void centerBubble_MouseUp(object sender, MouseButtonEventArgs e)
         {
             centerBubble.ReleaseMouseCapture();
-            if((translate.X) > mainWindow.Width / 2)
+            if((translate.X) + (mainAppCanvas.Width / 2) > mainWindow.Width / 2)
             {
                 translate.X = (mainWindow.Width) - mainAppCanvas.ActualWidth;
             }
