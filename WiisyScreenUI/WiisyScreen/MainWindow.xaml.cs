@@ -17,7 +17,7 @@ using System.Threading;
 using WiisyScreen.WiiMoteControlls;
 using winMacros;
 using MacrosApp;
-
+using System.Windows.Media.Animation;
 
 namespace WiisyScreen
 {
@@ -152,6 +152,7 @@ namespace WiisyScreen
         private void centerBubble_MouseDown(object sender, MouseButtonEventArgs e)
         {
             centerBubble.CaptureMouse();
+            translate.BeginAnimation(TranslateTransform.XProperty, null);
             deltaPos.X = e.GetPosition(container).X - translate.X;
             deltaPos.Y = e.GetPosition(container).Y - translate.Y;
             e.Handled = true;
@@ -184,14 +185,11 @@ namespace WiisyScreen
         private void centerBubble_MouseUp(object sender, MouseButtonEventArgs e)
         {
             centerBubble.ReleaseMouseCapture();
-            if((translate.X) + (mainAppCanvas.Width / 2) > mainWindow.Width / 2)
-            {
-                translate.X = (mainWindow.Width) - mainAppCanvas.ActualWidth;
-            }
-            else
-            {
-                translate.X = 0;
-            }
+            double oldXLocation = translate.X;
+            double newXLocation = ((translate.X) + (mainAppCanvas.Width / 2) > mainWindow.Width / 2) ? (mainWindow.Width) - mainAppCanvas.ActualWidth : 0;
+
+            translate.X = newXLocation;
+            translate.BeginAnimation(TranslateTransform.XProperty, new DoubleAnimation(oldXLocation, newXLocation, TimeSpan.FromSeconds(0.5)));
         }
 
         private void flipControllers()
