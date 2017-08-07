@@ -5,9 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MacrosApp"
         mc:Ignorable="d"
-        Background="{x:Null}" Topmost="True"
-        WindowStyle="None" AllowsTransparency="True" 
-        Title="MainWindow" MouseDown="Window_MouseDown" Height="166.985" Width="380.53" >
+        Background="{x:Null}"
+        Topmost="True"
+        WindowStyle="None"
+        AllowsTransparency="True" 
+        WindowStartupLocation="Manual"
+        ShowInTaskbar="False"
+        Title="MainWindow" MouseDown="Window_MouseDown" Height="166.985" Width="380.53" Loaded="Window_Loaded" >
     <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
         <Canvas x:Name="MacrosCanvas" Background="#FF7E2626" Margin="10,10,-10,-10" Width="350" Height="150" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Button x:Name="buttonClose"  Canvas.Left="326" Canvas.Top="-14" Width="40" Height="40" RenderTransformOrigin="2.125,0.125" Click="buttonClose_Click">

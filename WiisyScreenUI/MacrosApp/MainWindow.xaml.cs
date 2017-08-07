@@ -56,6 +56,8 @@ namespace MacrosApp
             InitializeComponent();
         }
 
+
+
         private void buttonClose_Click(object sender, RoutedEventArgs e)
         {
             macroApp = null;
@@ -133,6 +135,13 @@ namespace MacrosApp
         private void Rectangle_MouseUp(object sender, MouseButtonEventArgs e)
         {
             Macros.WindowsScreen();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            var desktopWorkingArea = System.Windows.SystemParameters.WorkArea;
+            this.Left = desktopWorkingArea.Right - this.Width;
+            this.Top = desktopWorkingArea.Bottom - this.Height;
         }
     }
 }
