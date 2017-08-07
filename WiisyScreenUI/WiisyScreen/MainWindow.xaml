@@ -8,6 +8,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Activated="Window_Activated" Deactivated="Window_Deactivated" Topmost="True"
         WindowStyle="None" AllowsTransparency="True" Loaded="Window_Loaded" Background="{x:Null}"
+        ShowInTaskbar="False"
         >
     <Grid Margin="0,0,0,0" x:Name="container">
         <Canvas x:Name="mainAppCanvas"  HorizontalAlignment="Left" VerticalAlignment="Center" Width="160" Height="300" Margin="0,125,0,110.2" >
@@ -25,15 +26,20 @@
                     </TransformGroup>
                 </Ellipse.RenderTransform>
             </Ellipse>
-            <local:ActionBubble x:Name="actionBubble1" HorizontalAlignment="Right" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="70" Canvas.Top="46" Foreground="{x:Null}" FrontBrush="{x:Null}" />
-            <local:ActionBubble x:Name="actionBubble2" HorizontalAlignment="Right" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="110" Canvas.Top="97" FrontBrush="{x:Null}" />
-            <local:ActionBubble x:Name="actionBubble3" HorizontalAlignment="Right" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="110" Canvas.Top="153" />
-            <local:ActionBubble x:Name="actionBubble4" HorizontalAlignment="Right" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="70" Canvas.Top="199" />
+            <Ellipse x:Name="Ellipse1" HorizontalAlignment="Right" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="70" Canvas.Top="46" Opacity="0.4" Fill="#FF313030" Stroke="Black"/>
+            <Ellipse x:Name="Ellipse2" HorizontalAlignment="Right" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="110" Canvas.Top="97" Opacity="{Binding Opacity, ElementName=Ellipse1}" Fill="#FF313030" Stroke="Black" />
+            <Ellipse  x:Name="Ellipse3" HorizontalAlignment="Right" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="110" Canvas.Top="153" Opacity="{Binding Opacity, ElementName=Ellipse1}" Fill="#FF313030" Stroke="Black"/>
+            <Ellipse  x:Name="Ellipse4" HorizontalAlignment="Right" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="70" Canvas.Top="199" Opacity="{Binding Opacity, ElementName=Ellipse1}" Fill="#FF313030" Stroke="Black" />
+            <!--<local:ActionBubble x:Name="actionBubble1" HorizontalAlignment="Right" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="70" Canvas.Top="46" />
+            <local:ActionBubble x:Name="actionBubble2" HorizontalAlignment="Right" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="110" Canvas.Top="97" />-->
+            <!--<local:ActionBubble x:Name="actionBubble3" HorizontalAlignment="Right" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="110" Canvas.Top="153" />-->
+            <!--<local:ActionBubble x:Name="actionBubble4" HorizontalAlignment="Right" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="70" Canvas.Top="199" />-->
             <Button x:Name="buttonExit" Content="" HorizontalAlignment="Left" Height="15" VerticalAlignment="Bottom" Width="15" Panel.ZIndex="10000" BorderBrush="{x:Null}" Click="buttonExit_Click" Canvas.Left="20" Canvas.Top="82">
                 <Button.Background>
                     <ImageBrush ImageSource="images/delete-error-exit-remove-stop-x-cross-icon--28.png"/>
                 </Button.Background>
             </Button>
+
             <Canvas.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform x:Name="st" />

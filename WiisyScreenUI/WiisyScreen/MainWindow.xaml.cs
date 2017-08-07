@@ -32,6 +32,8 @@ namespace WiisyScreen
         private List<Window> openedWindows = new List<Window>();
         private bool rightToLeft = true;
         private WiiMoteToMouseCoverter m_WiimoteToMouse;
+        private List<ActionBubble> actionBubbles = new List<ActionBubble>();
+        private List<Ellipse> locationsEllipes = new List<Ellipse>();
 
         public MainWindow()
         {
@@ -39,8 +41,41 @@ namespace WiisyScreen
             m_WiiMoteWrapper = new WiiMoteWrapper();
             m_Calibrator = new Calibrator(m_WiiMoteWrapper);
             //m_Calibrator.CalibrateFinishedEvent += onCalibrationFinished;
-            actionBubble1.setApp(runBoard, createImageForEllipse("whiteboard-icon.png"));
-            actionBubble2.setApp(runMacroApp, createImageForEllipse("macroicon.png"));
+            insertLocationEllipseToList();
+            addApp(runBoard, createImageForEllipse("whiteboard-icon.png"));
+            addApp(runMacroApp, createImageForEllipse("macroicon.png"));
+            //actionBubble1.setApp(runBoard, createImageForEllipse("whiteboard-icon.png"));
+            //actionBubble2.setApp(runMacroApp, createImageForEllipse("macroicon.png"));
+        }
+
+        private void insertLocationEllipseToList()
+        {
+            locationsEllipes.Add(Ellipse1);
+            locationsEllipes.Add(Ellipse2);
+            locationsEllipes.Add(Ellipse3);
+            locationsEllipes.Add(Ellipse4);
+        }
+        // c.SetValue(Canvas.LeftProperty, mainAppCanvas.Width - (double)(c.GetValue(Canvas.LeftProperty)) - c.Width);
+        //HorizontalAlignment="Right" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="70" Canvas.Top="46"
+        private void addApp(clickedHandler runFunction, ImageBrush imageBrush)
+        {
+            ActionBubble newActionBubble = new ActionBubble();
+            newActionBubble.Visibility = Visibility.Hidden;
+            newActionBubble.Width = Ellipse1.Width;
+            newActionBubble.Height = Ellipse1.Height;
+            newActionBubble.VerticalAlignment = Ellipse1.VerticalAlignment;
+            newActionBubble.HorizontalAlignment = Ellipse1.HorizontalAlignment;
+            newActionBubble.setApp(runFunction, imageBrush);
+
+            if (actionBubbles.Count < 4)
+            {
+                mainAppCanvas.Children.Add(newActionBubble);
+                newActionBubble.SetValue(Canvas.TopProperty, locationsEllipes[actionBubbles.Count].GetValue(Canvas.TopProperty));
+                newActionBubble.SetValue(Canvas.LeftProperty, locationsEllipes[actionBubbles.Count].GetValue(Canvas.LeftProperty));
+                newActionBubble.Visibility = Visibility.Visible;
+            }
+
+            actionBubbles.Add(newActionBubble);
         }
 
         private ImageBrush createImageForEllipse(string imageName)
@@ -189,18 +224,22 @@ namespace WiisyScreen
             double newXLocation = ((translate.X) + (mainAppCanvas.Width / 2) > mainWindow.Width / 2) ? (mainWindow.Width) - mainAppCanvas.ActualWidth : 0;
 
             translate.X = newXLocation;
-            translate.BeginAnimation(TranslateTransform.XProperty, new DoubleAnimation(oldXLocation, newXLocation, TimeSpan.FromSeconds(0.5)));
+            translate.BeginAnimation(TranslateTransform.XProperty, new DoubleAnimation(oldXLocation, newXLocation, TimeSpan.FromSeconds(0.3)));
         }
 
         private void flipControllers()
         {
-            IEnumerable<System.Windows.Controls.Control> collection = mainAppCanvas.Children.OfType<System.Windows.Controls.Control>();
+            IEnumerable<System.Windows.Controls.Control> controlsCollection = mainAppCanvas.Children.OfType<System.Windows.Controls.Control>();
+            IEnumerable<Shape> shapesCollection = mainAppCanvas.Children.OfType<Shape>();
 
-            foreach (System.Windows.Controls.Control c in collection)
+            foreach (System.Windows.Controls.Control c in controlsCollection)
             {
-                c.SetValue(Canvas.LeftProperty, mainAppCanvas.Width - (double)(c.GetValue(Canvas.LeftProperty)) - c.Width); //mainAppCanvas.ActualWidth - 
+                c.SetValue(Canvas.LeftProperty, mainAppCanvas.Width - (double)(c.GetValue(Canvas.LeftProperty)) - c.Width);
             }
-            centerBubble.SetValue(Canvas.LeftProperty, mainAppCanvas.Width - (double)(centerBubble.GetValue(Canvas.LeftProperty)) - centerBubble.Width);
+            foreach (Shape s in shapesCollection)
+            {
+                s.SetValue(Canvas.LeftProperty, mainAppCanvas.Width - (double)(s.GetValue(Canvas.LeftProperty)) - s.Width);
+            }
 
             rightToLeft = !rightToLeft;
         }
