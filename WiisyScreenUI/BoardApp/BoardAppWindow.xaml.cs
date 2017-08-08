@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ScreenSaver;
 using System.Threading;
+using System.Windows.Interop;
+using winMacros;
 
 namespace BoardApp
 {
@@ -70,6 +72,8 @@ namespace BoardApp
             this.Height = desktopWorkingArea.Height;
             this.Left = desktopWorkingArea.Right - this.Width;
             this.Top = desktopWorkingArea.Bottom - this.Height;
+
+            GeneralWinUtils.SetWindowToHideFromAltTab(new WindowInteropHelper(this).Handle);
         }
 
         private void buttonEraser_Click(object sender, RoutedEventArgs e)

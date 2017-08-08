@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using winMacros;
+using System.Windows.Interop;
+using System.Runtime.InteropServices;
 
 namespace MacrosApp
 {
@@ -142,6 +144,8 @@ namespace MacrosApp
             var desktopWorkingArea = System.Windows.SystemParameters.WorkArea;
             this.Left = desktopWorkingArea.Right - this.Width;
             this.Top = desktopWorkingArea.Bottom - this.Height;
+
+            GeneralWinUtils.SetWindowToHideFromAltTab(new WindowInteropHelper(this).Handle);
         }
     }
 }

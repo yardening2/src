@@ -18,6 +18,8 @@ using WiisyScreen.WiiMoteControlls;
 using winMacros;
 using MacrosApp;
 using System.Windows.Media.Animation;
+using System.Windows.Interop;
+
 
 namespace WiisyScreen
 {
@@ -106,7 +108,10 @@ namespace WiisyScreen
             this.Height = desktopWorkingArea.Height;
             this.Left = desktopWorkingArea.Right - this.Width;
             this.Top = desktopWorkingArea.Bottom - this.Height;
-            
+
+            GeneralWinUtils.SetWindowToHideFromAltTab(new WindowInteropHelper(this).Handle);
+
+
         }
 
         private void buttonCalibrate_Click(object sender, RoutedEventArgs e)

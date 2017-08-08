@@ -131,6 +131,10 @@
       <Project>{be50391a-6f9f-487e-ae5e-590006dd7213}</Project>
       <Name>ScreenSaver</Name>
     </ProjectReference>
+    <ProjectReference Include="..\winMacros\winMacros.csproj">
+      <Project>{8c7289cc-7e0a-4a4c-a69e-042313ba60da}</Project>
+      <Name>winMacros</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\hand.png" />
