@@ -10,16 +10,15 @@
         WindowStyle="None"
         AllowsTransparency="True" 
         WindowStartupLocation="Manual"
-        ShowInTaskbar="False"
         Title="MainWindow" MouseDown="Window_MouseDown" Height="166.985" Width="380.53" Loaded="Window_Loaded" >
-    <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
-        <Canvas x:Name="MacrosCanvas" Background="#FF7E2626" Margin="10,10,-10,-10" Width="350" Height="150" HorizontalAlignment="Left" VerticalAlignment="Top">
-            <Button x:Name="buttonClose"  Canvas.Left="326" Canvas.Top="-14" Width="40" Height="40" RenderTransformOrigin="2.125,0.125" Click="buttonClose_Click">
+    <Border ClipToBounds="True" CornerRadius="30" Background="#FF534D41">
+        <Canvas x:Name="MacrosCanvas" Background="#534D41" Margin="19,10,0,0" Width="341" Height="138" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Button x:Name="buttonClose"  Canvas.Left="310" Width="40" Height="40" RenderTransformOrigin="2.125,0.125" Click="buttonClose_Click" BorderBrush="{x:Null}">
                 <Button.Background>
                     <ImageBrush ImageSource="images/exit.png"/>
                 </Button.Background>
             </Button>
-            <StackPanel x:Name="shiftButtonsContainer" Height="80" Canvas.Left="10" Canvas.Top="52" Width="80" Background="#FFA45252" RenderTransformOrigin="0.5,0.5">
+            <StackPanel x:Name="shiftButtonsContainer" Height="80" Canvas.Left="6" Canvas.Top="52" Width="80" Background="#FFA45252" RenderTransformOrigin="0.5,0.5">
                 <StackPanel.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -31,33 +30,44 @@
                 <Button x:Name="buttonShift1" Height="40" Width="80"  Click="buttonShift_Click" />
                 <Button x:Name="buttonShift2" Height="40" Width="80" Click="buttonShift_Click" />
             </StackPanel>
-            <Button x:Name="buttonChangeOrientation" Canvas.Left="63" Canvas.Top="100" Width="59" Height="56" BorderBrush="{x:Null}" Click="buttonChangeOrientation_Click">
+            <Button x:Name="buttonChangeOrientation" Canvas.Left="60" Canvas.Top="100" Width="59" Height="56" BorderBrush="{x:Null}" Click="buttonChangeOrientation_Click">
                 <Button.Background>
                     <ImageBrush ImageSource="images/flip.png"/>
                 </Button.Background>
             </Button>
-            <Rectangle x:Name="buttonMacroMinimize" Height="47" Canvas.Left="135" Stroke="Black" Canvas.Top="25" Width="48" MouseUp="buttonMacroMinimize_MouseUp" MouseDown="mouseDownHandle">
+            <Rectangle x:Name="buttonMacroMinimize" Height="50" Canvas.Left="124" Canvas.Top="65" Width="50" MouseUp="buttonMacroMinimize_MouseUp" MouseDown="mouseDownHandle">
+                <Rectangle.Effect>
+                    <DropShadowEffect/>
+                </Rectangle.Effect>
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="images/MacroMinimize.png"/>
                 </Rectangle.Fill>
             </Rectangle>
-            <Rectangle x:Name="buttonMacroMaximize" Height="47" Canvas.Left="183" Stroke="Black" Canvas.Top="25" Width="48" MouseUp="buttonMacroMaximize_MouseUp" MouseDown="mouseDownHandle">
+            <Rectangle x:Name="buttonMacroMaximize" Height="50" Canvas.Left="172" Canvas.Top="65" Width="50" MouseUp="buttonMacroMaximize_MouseUp" MouseDown="mouseDownHandle">
+                <Rectangle.Effect>
+                    <DropShadowEffect/>
+                </Rectangle.Effect>
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="images/MacroMaximize.png"/>
                 </Rectangle.Fill>
             </Rectangle>
-            <Rectangle x:Name="buttonMacroClose" Height="47" Canvas.Left="231" Stroke="Black" Canvas.Top="25" Width="48" MouseUp="buttonMacroClose_MouseUp" MouseDown="mouseDownHandle">
+            <Rectangle x:Name="buttonMacroClose" Height="50" Canvas.Left="220" Canvas.Top="65" Width="50" MouseUp="buttonMacroClose_MouseUp" MouseDown="mouseDownHandle">
+                <Rectangle.Effect>
+                    <DropShadowEffect/>
+                </Rectangle.Effect>
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="images/MacroClose.png"/>
                 </Rectangle.Fill>
             </Rectangle>
-            <Rectangle Height="59" Canvas.Left="282" Stroke="Black" Canvas.Top="82" Width="68" MouseDown="mouseDownHandle" MouseUp="Rectangle_MouseUp">
+            <Rectangle Height="59" Canvas.Left="282" Canvas.Top="60" Width="68" MouseDown="mouseDownHandle" MouseUp="Rectangle_MouseUp">
+                <Rectangle.Effect>
+                    <DropShadowEffect/>
+                </Rectangle.Effect>
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="images/alt-tab.png"/>
                 </Rectangle.Fill>
             </Rectangle>
+            <Label Content="Windows Macro's Manager" Canvas.Left="35" FontSize="20" FontWeight="Bold" FontFamily="Forte" FontStyle="Italic" Foreground="#98C1D9"/>
         </Canvas>
-
-    </Grid>
-
+    </Border>
 </Window>
