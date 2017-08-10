@@ -109,6 +109,16 @@
                     <ImageBrush ImageSource="images/ClearPage.png" Stretch="Uniform"/>
                 </Rectangle.Fill>
             </Rectangle>
+            <Label x:Name="notificationLabel"  HorizontalAlignment="Left" Margin="371,-48,0,0" VerticalAlignment="Top" Background="#FF1E83B2" RenderTransformOrigin="0.5,0.5" FontSize="18" FontWeight="Bold" FontFamily="Kristen ITC" Opacity="0">
+                <Label.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform X="0.5" Y="0.5"/>
+                    </TransformGroup>
+                </Label.RenderTransform>
+            </Label>
 
         </Grid>
     </Grid>

@@ -16,6 +16,7 @@ using ScreenSaver;
 using System.Threading;
 using System.Windows.Interop;
 using winMacros;
+using System.Windows.Media.Animation;
 
 namespace BoardApp
 {
@@ -81,6 +82,7 @@ namespace BoardApp
             markClickedModeButton(sender as Rectangle);
             setBoardToScetchable();
             inkCanvasBoard.EditingMode = InkCanvasEditingMode.EraseByStroke;
+            displayNotification("Board Mode: Eraser");
         }
 
         private void buttonPointer_Click(object sender, RoutedEventArgs e)
@@ -88,6 +90,7 @@ namespace BoardApp
             markClickedModeButton(sender as Rectangle);
             sliderOpacity.Value = sliderOpacity.Minimum = 0;
             inkCanvasBoard.EditingMode = InkCanvasEditingMode.None;
+            displayNotification("Board Mode: None");
         }
 
         private void buttonExit_Click(object sender, RoutedEventArgs e)
@@ -120,11 +123,14 @@ namespace BoardApp
             markClickedModeButton(sender as Rectangle);
             setBoardToScetchable();
             inkCanvasBoard.EditingMode = InkCanvasEditingMode.GestureOnly;
+            displayNotification("Board Mode: Laser");
         }
 
         private void buttonClearPage_Click(object sender, RoutedEventArgs e)
         {
             inkCanvasBoard.Strokes.Clear();
+            displayNotification("Screen Cleard");
+
         }
 
         private void markClickedModeButton(Rectangle sender)
@@ -152,6 +158,7 @@ namespace BoardApp
                 theSavedPic = ScreenSaver.ScreenSaver.SaveAsImage(ScreenShotsTempFolder);
                 addPicToScrollPanel(theSavedPic);
             }
+            displayNotification("Screenshot saved");
         }
 
         private void addPicToScrollPanel(string theSavedPic)
@@ -192,8 +199,13 @@ namespace BoardApp
             markClickedModeButton(sender as Rectangle);
             setBoardToScetchable();
             inkCanvasBoard.EditingMode = InkCanvasEditingMode.Ink;
+            displayNotification("Board Mode: Pencil");
         }
 
-        
+        private void displayNotification(string i_msg)
+        {
+            notificationLabel.Content = i_msg;
+            notificationLabel.BeginAnimation(OpacityProperty, new DoubleAnimation(1, 0, new Duration(TimeSpan.FromSeconds(1.8))));
+        }
     }
 }
