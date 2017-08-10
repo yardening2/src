@@ -207,5 +207,24 @@ namespace BoardApp
             notificationLabel.Content = i_msg;
             notificationLabel.BeginAnimation(OpacityProperty, new DoubleAnimation(1, 0, new Duration(TimeSpan.FromSeconds(1.8))));
         }
+
+        private void changeColor_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            switch ((sender as Rectangle).Name)
+            {
+                case "buttonRed":
+                    inkCanvasBoard.DefaultDrawingAttributes.Color = Colors.Red;
+                    break;
+                case "buttonBlue":
+                    inkCanvasBoard.DefaultDrawingAttributes.Color = Colors.Blue;
+                    break;
+                case "buttonGreen":
+                    inkCanvasBoard.DefaultDrawingAttributes.Color = Colors.Green;
+                    break;
+                default:
+                    inkCanvasBoard.DefaultDrawingAttributes.Color = Colors.Black;
+                    break;
+            }
+        }
     }
 }

@@ -19,7 +19,7 @@
                 <SolidColorBrush Color="white" Opacity="{Binding Value, ElementName=sliderOpacity}"/>
             </InkCanvas.Background>
             <InkCanvas.DefaultDrawingAttributes>
-                <DrawingAttributes IsHighlighter="True" StylusTip="Rectangle" FitToCurve="True" Color="#FF21B30B"/>
+                <DrawingAttributes IsHighlighter="True" StylusTip="Rectangle" FitToCurve="True" Color="Red"/>
             </InkCanvas.DefaultDrawingAttributes>
         </InkCanvas>
         <Canvas x:Name="canvasScreenshotWrapper" Visibility="Visible" Width="800" Height="0" Margin="90,461,89.2,0" VerticalAlignment="Bottom">
@@ -35,6 +35,26 @@
         </Canvas>
         <Grid x:Name="gridBoardToolBar" Margin="0,435,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="100" Width="800" >
             <Border BorderThickness="0,0,0,0" CornerRadius="30,30,0,0" HorizontalAlignment="Center" Width="800" Height="100" Background="#FF6162C7" />
+            <Rectangle x:Name="buttonRed" Margin="383,24,372,18" Width="45" Height="58" MouseUp="changeColor_MouseUp">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="images/RedMarker.png"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle x:Name="buttonBlack" Height="58" Margin="481,26,274,16" Width="45" MouseUp="changeColor_MouseUp">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="images/BlackMarker.png"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle x:Name="buttonGreen" Height="58" Margin="451,25,304,17" Width="45" MouseUp="changeColor_MouseUp">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="images/GreenMarker.png"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle x:Name="buttonBlue" Height="58" Margin="419,25,336,17" Width="45" MouseUp="changeColor_MouseUp">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="images/BlueMarker.png"/>
+                </Rectangle.Fill>
+            </Rectangle>
             <Rectangle x:Name="buttonExit" HorizontalAlignment="Center" Height="20" VerticalAlignment="Top" Width="20" Panel.ZIndex="10000" Canvas.Left="247" Canvas.Top="84" MouseUp="buttonExit_Click" Margin="12,0,736,0" >
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="images/delete-error-exit-remove-stop-x-cross-icon--28.png"/>

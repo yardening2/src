@@ -145,5 +145,11 @@
   <ItemGroup>
     <Resource Include="images\whiteboard-icon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\BlackMarker.png" />
+    <Resource Include="images\BlueMarker.png" />
+    <Resource Include="images\GreenMarker.png" />
+    <Resource Include="images\RedMarker.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
