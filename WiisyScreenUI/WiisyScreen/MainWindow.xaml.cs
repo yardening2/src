@@ -128,17 +128,10 @@ namespace WiisyScreen
 
         private void closeOpenedWindows()
         {
-            Window prevWindow = null;
 
-            foreach (Window window in openedWindows)
+            for(int i = openedWindows.Count - 1; i >= 0; i--)
             {
-                if (prevWindow != null)
-                    prevWindow.Close();
-                prevWindow = window;
-            }
-            if (prevWindow != null)
-            {
-                prevWindow.Close();
+                openedWindows[i].Close();
             }
         }
 
