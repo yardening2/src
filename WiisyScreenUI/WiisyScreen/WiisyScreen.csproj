@@ -154,5 +154,8 @@
   <ItemGroup>
     <Resource Include="Resources\macroicon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\WiiSyScreen.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
