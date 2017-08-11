@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{64A877EA-E794-4B4A-B94A-6F0BBC725A82}</ProjectGuid>
+    <ProjectGuid>{EE8BE938-750D-4AE9-A2E4-1A0FA3A4D347}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>WiisyScreen</RootNamespace>
-    <AssemblyName>WiisyScreen</AssemblyName>
+    <RootNamespace>TheBoardApp</RootNamespace>
+    <AssemblyName>TheBoardApp</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -24,7 +24,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -39,7 +38,6 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -58,32 +56,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ActionBubble.xaml.cs">
-      <DependentUpon>ActionBubble.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="utils\PrecentageConverter.cs" />
-    <Compile Include="utils\BoardRunner.cs" />
-    <Compile Include="utils\IAppRunner.cs" />
-    <Compile Include="WiiMoteControlls\CalibrationForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="WiiMoteControlls\CalibrationForm.designer.cs">
-      <DependentUpon>CalibrationForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="WiiMoteControlls\Calibrator.cs" />
-    <Compile Include="WiiMoteControlls\Smoother.cs" />
-    <Compile Include="WiiMoteControlls\Warper.cs" />
-    <Compile Include="WiiMoteControlls\WiiMoteToMouseCoverter.cs" />
-    <Compile Include="WiiMoteControlls\WiiMoteWrapper.cs" />
-    <Page Include="ActionBubble.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -101,6 +73,11 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -109,9 +86,6 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WiiMoteControlls\CalibrationForm.resx">
-      <DependentUpon>CalibrationForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -122,49 +96,99 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\Pencil.png" />
+    <Content Include="Resources\BlackMarker.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\Eraser.png" />
+    <Content Include="Resources\BlueMarker.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\delete-error-exit-remove-stop-x-cross-icon--28.png" />
+    <Content Include="Resources\Camera.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MacrosApp\MacrosApp.csproj">
-      <Project>{3a9e02ab-efd3-48e6-aa34-b8d631b737c6}</Project>
-      <Name>MacrosApp</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TheBoardApp\TheBoardApp.csproj">
-      <Project>{ee8be938-750d-4ae9-a2e4-1a0fa3a4d347}</Project>
-      <Name>TheBoardApp</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WiimoteLib\WiimoteLib.csproj">
-      <Project>{37a555df-7012-4b99-8a47-1c922a361e52}</Project>
-      <Name>WiimoteLib</Name>
+    <Content Include="Resources\ClearPage.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\delete-error-exit-remove-stop-x-cross-icon--28.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Eraser.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\folder-images-icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\GreenMarker.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Hand.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\laserBlack.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\laserBlue.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\laserGreen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\laserRed.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Pencil.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\RedMarker.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\returnButton.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\whiteboard-icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ScreenSaver\ScreenSaver.csproj">
+      <Project>{be50391a-6f9f-487e-ae5e-590006dd7213}</Project>
+      <Name>ScreenSaver</Name>
     </ProjectReference>
     <ProjectReference Include="..\winMacros\winMacros.csproj">
       <Project>{8c7289cc-7e0a-4a4c-a69e-042313ba60da}</Project>
       <Name>winMacros</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\WiiSyScreen.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\whiteboard-icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\whiteboard-clip-art.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\whiteboard-icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\wbicon.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\macroicon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

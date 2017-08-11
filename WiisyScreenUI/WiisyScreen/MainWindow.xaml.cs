@@ -249,7 +249,8 @@ namespace WiisyScreen
 
         private void runBoard()
         {
-            runApp(BoardApp.BoardAppWindow.Instance);   
+            runApp(TheBoardApp.MainWindow.Instance);
+
         }
 
         private void runMacroApp()
