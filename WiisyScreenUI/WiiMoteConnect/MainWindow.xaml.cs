@@ -70,7 +70,7 @@ namespace WiiMoteConnect
             {
                 m_WiiMoteWrapper.ConnectToWiimote();
                 this.Dispatcher.Invoke(new Action(() => { m_Calibrator.CalibrateScreen(m_WiiMoteWrapper); }));
-                this.Close();
+                this.Hide();
             }
             catch (Exception i_Exception)
             {

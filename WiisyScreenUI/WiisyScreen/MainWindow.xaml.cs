@@ -211,5 +211,10 @@ namespace WiisyScreen
                 windowApp.Show();
             }
         }
+
+        private void actionBubbleSettings_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            //runApp()
+        }
     }
 }
