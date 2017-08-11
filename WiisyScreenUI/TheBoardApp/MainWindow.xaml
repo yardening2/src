@@ -14,6 +14,16 @@
         Loaded="Window_Loaded" d:DesignWidth="979.2" d:DesignHeight="560.8" >
     <Grid>
         <Canvas x:Name="imageCanvas"/>
+        <Canvas x:Name="animateCanvas" RenderTransformOrigin="0.67,1">
+            <Canvas.RenderTransform>
+                <TransformGroup >
+                    <ScaleTransform x:Name="animateCanvasST" CenterX="0.5" CenterY="0.5"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform X="0.7" Y="1"/>
+                </TransformGroup>
+            </Canvas.RenderTransform>
+        </Canvas>
         <InkCanvas x:Name="inkCanvasBoard" Cursor="Arrow" ResizeEnabled="False" UseLayoutRounding="True" EditingMode="None" >
             <InkCanvas.Background>
                 <SolidColorBrush Color="white" Opacity="{Binding Value, ElementName=sliderOpacity}"/>
