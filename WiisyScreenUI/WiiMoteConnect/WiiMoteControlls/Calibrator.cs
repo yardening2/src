@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using WiimoteLib;
 using System.Threading;
 
-namespace WiisyScreen.WiiMoteControlls
+namespace WiiMoteConnect.WiiMoteControlls
 {
 
     public class Calibrator

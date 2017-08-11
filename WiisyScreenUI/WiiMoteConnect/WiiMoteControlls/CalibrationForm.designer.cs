@@ -1,4 +1,4 @@
-﻿namespace WiisyScreen.WiiMoteControlls
+﻿namespace WiiMoteConnect.WiiMoteControlls
 {
     partial class CalibrationForm
     {
@@ -80,7 +80,7 @@
             // TitlePictureBox
             // 
             this.TitlePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.TitlePictureBox.Image = global::WiisyScreen.Properties.Resources.WiiSyScreen;
+            this.TitlePictureBox.Image = global::WiiMoteConnect.Properties.Resources.WiiSyScreen;
             this.TitlePictureBox.Location = new System.Drawing.Point(25, 241);
             this.TitlePictureBox.Name = "TitlePictureBox";
             this.TitlePictureBox.Size = new System.Drawing.Size(849, 195);

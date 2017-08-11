@@ -5,7 +5,7 @@ using System.Text;
 using WiimoteLib;
 using System.Threading;
 
-namespace WiisyScreen.WiiMoteControlls
+namespace WiiMoteConnect.WiiMoteControlls
 {
 
     public class WiiMoteWrapper

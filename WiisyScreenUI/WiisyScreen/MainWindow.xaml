@@ -34,12 +34,12 @@
             <local:ActionBubble x:Name="actionBubble2" HorizontalAlignment="Right" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="110" Canvas.Top="97" />-->
             <!--<local:ActionBubble x:Name="actionBubble3" HorizontalAlignment="Right" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="110" Canvas.Top="153" />-->
             <!--<local:ActionBubble x:Name="actionBubble4" HorizontalAlignment="Right" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="70" Canvas.Top="199" />-->
-            <Button x:Name="buttonExit" Content="" HorizontalAlignment="Left" Height="15" VerticalAlignment="Bottom" Width="15" Panel.ZIndex="10000" BorderBrush="{x:Null}" Click="buttonExit_Click" Canvas.Left="20" Canvas.Top="82">
+            <Button x:Name="buttonExit" Content="" HorizontalAlignment="Left" Height="15" VerticalAlignment="Bottom" Width="15" Panel.ZIndex="10000" BorderBrush="{x:Null}" Click="buttonExit_Click" Canvas.Left="5" Canvas.Top="95">
                 <Button.Background>
                     <ImageBrush ImageSource="images/delete-error-exit-remove-stop-x-cross-icon--28.png"/>
                 </Button.Background>
             </Button>
-
+            <local:ActionBubble x:Name="actionBubbleSettings" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top" Width="27" Canvas.Left="25" Canvas.Top="70" MouseUp="actionBubbleSettings_MouseUp"/>
             <Canvas.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform x:Name="st" />
@@ -63,5 +63,6 @@
                 <Button x:Name="buttonCalibrate" Content="Calibrate" Canvas.Left="645" Width="123" Height="40" Canvas.Top="-1" Click="buttonCalibrate_Click"/>
             </StackPanel>
         </Grid>
+
     </Grid>
 </Window>

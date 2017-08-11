@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using System.Drawing.Imaging;
 using WiimoteLib;
 
-namespace WiisyScreen.WiiMoteControlls
+namespace WiiMoteConnect.WiiMoteControlls
 {
     public partial class CalibrationForm : Form
     {

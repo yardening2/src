@@ -18,7 +18,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Interop;
 using MacrosApp;
 using winMacros;
-using WiisyScreen.WiiMoteControlls;
+using WiiMoteConnect.WiiMoteControlls;
 
 
 namespace WiisyScreen
@@ -29,7 +29,7 @@ namespace WiisyScreen
     
     public partial class MainWindow : Window
     {
-        private WiiMoteToMouseCoverter m_WiimoteToMouse;
+        //private WiiMoteToMouseCoverter m_WiimoteToMouse;
         private Point deltaPos = new Point();
         private List<Window> openedWindows = new List<Window>();
         private bool rightToLeft = true;
@@ -214,7 +214,7 @@ namespace WiisyScreen
 
         private void actionBubbleSettings_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            //runApp()
+            runApp(WiiMoteConnect.MainWindow.Instance);
         }
     }
 }

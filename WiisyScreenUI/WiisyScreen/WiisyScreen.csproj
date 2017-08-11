@@ -69,17 +69,6 @@
     <Compile Include="utils\PrecentageConverter.cs" />
     <Compile Include="utils\BoardRunner.cs" />
     <Compile Include="utils\IAppRunner.cs" />
-    <Compile Include="WiiMoteControlls\CalibrationForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="WiiMoteControlls\CalibrationForm.designer.cs">
-      <DependentUpon>CalibrationForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="WiiMoteControlls\Calibrator.cs" />
-    <Compile Include="WiiMoteControlls\Smoother.cs" />
-    <Compile Include="WiiMoteControlls\Warper.cs" />
-    <Compile Include="WiiMoteControlls\WiiMoteToMouseCoverter.cs" />
-    <Compile Include="WiiMoteControlls\WiiMoteWrapper.cs" />
     <Page Include="ActionBubble.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -108,10 +97,8 @@
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WiiMoteControlls\CalibrationForm.resx">
-      <DependentUpon>CalibrationForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -139,6 +126,10 @@
       <Project>{ee8be938-750d-4ae9-a2e4-1a0fa3a4d347}</Project>
       <Name>TheBoardApp</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WiiMoteConnect\WiiMoteConnect.csproj">
+      <Project>{cd41f3b2-9c4e-49ce-a386-ac7e7ef1812b}</Project>
+      <Name>WiiMoteConnect</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WiimoteLib\WiimoteLib.csproj">
       <Project>{37a555df-7012-4b99-8a47-1c922a361e52}</Project>
       <Name>WiimoteLib</Name>
@@ -147,9 +138,6 @@
       <Project>{8c7289cc-7e0a-4a4c-a69e-042313ba60da}</Project>
       <Name>winMacros</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\WiiSyScreen.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\whiteboard-icon.png" />
