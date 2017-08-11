@@ -96,89 +96,89 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\BlackMarker.png">
+    <Resource Include="Resources\BlackMarker.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\BlueMarker.png">
+    <Resource Include="Resources\BlueMarker.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\Camera.png">
+    <Resource Include="Resources\Camera.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\ClearPage.png">
+    <Resource Include="Resources\ClearPage.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\delete-error-exit-remove-stop-x-cross-icon--28.png">
+    <Resource Include="Resources\delete-error-exit-remove-stop-x-cross-icon--28.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\Eraser.png">
+    <Resource Include="Resources\Eraser.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\folder-images-icon.png">
+    <Resource Include="Resources\folder-images-icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\GreenMarker.png">
+    <Resource Include="Resources\GreenMarker.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\Hand.png">
+    <Resource Include="Resources\Hand.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\laserBlack.png">
+    <Resource Include="Resources\laserBlack.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\laserBlue.png">
+    <Resource Include="Resources\laserBlue.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\laserGreen.png">
+    <Resource Include="Resources\laserGreen.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\laserRed.png">
+    <Resource Include="Resources\laserRed.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\Pencil.png">
+    <Resource Include="Resources\Pencil.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\RedMarker.png">
+    <Resource Include="Resources\RedMarker.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\returnButton.png">
+    <Resource Include="Resources\returnButton.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\whiteboard-icon.png">
+    <Resource Include="Resources\whiteboard-icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ScreenSaver\ScreenSaver.csproj">

@@ -163,12 +163,20 @@ namespace TheBoardApp
             if (ScreenShotsTempFolder != null)
             {
                 theSavedPic = ScreenSaver.ScreenSaver.SaveAsImage(ScreenShotsTempFolder);
-                addPicToScrollPanel(theSavedPic);
+                animatePicTaken(addPicToScrollPanel(theSavedPic));
             }
             displayNotification("Screenshot saved");
         }
 
-        private void addPicToScrollPanel(string theSavedPic)
+        private void animatePicTaken(Image i_Pic)
+        {
+            animateCanvas.Background = new ImageBrush(i_Pic.Source);
+            animateCanvas.BeginAnimation(OpacityProperty, new DoubleAnimation(1, 0, new Duration(TimeSpan.FromSeconds(0.6))));
+            animateCanvasST.BeginAnimation(ScaleTransform.ScaleXProperty, new DoubleAnimation(1, 0, new Duration(TimeSpan.FromSeconds(0.6))));
+            animateCanvasST.BeginAnimation(ScaleTransform.ScaleYProperty, new DoubleAnimation(1, 0, new Duration(TimeSpan.FromSeconds(0.6))));
+        }
+
+        private Image addPicToScrollPanel(string theSavedPic)
         {
             Image savedPicImage = new Image();
             savedPicImage.Source = new BitmapImage(new Uri(System.IO.Path.GetFullPath(theSavedPic)));
@@ -177,6 +185,7 @@ namespace TheBoardApp
             savedPicImage.Margin = new Thickness(30);
             savedPicImage.MouseUp += new MouseButtonEventHandler(setDisplayImage);
             savedPicsPanel.Children.Add(savedPicImage);
+            return savedPicImage;
         }
 
 
