@@ -29,7 +29,7 @@
                 <SolidColorBrush Color="white" Opacity="{Binding Value, ElementName=sliderOpacity}"/>
             </InkCanvas.Background>
             <InkCanvas.DefaultDrawingAttributes>
-                <DrawingAttributes IsHighlighter="True" StylusTip="Rectangle" FitToCurve="True" Color="Black"/>
+                <DrawingAttributes IsHighlighter="True" StylusTip="Ellipse" FitToCurve="True" Color="Black" Width="20" Height="20"/>
             </InkCanvas.DefaultDrawingAttributes>
         </InkCanvas>
         <Canvas x:Name="canvasScreenshotWrapper" Visibility="Visible" Width="800" Height="0" Margin="90,461,89.2,0" VerticalAlignment="Bottom">
