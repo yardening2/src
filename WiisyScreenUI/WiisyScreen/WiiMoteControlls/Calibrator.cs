@@ -10,7 +10,7 @@ using System.Threading;
 namespace WiisyScreen.WiiMoteControlls
 {
 
-    class Calibrator
+    public class Calibrator
     {
         private const float k_CalibrationMargin = .1f;
 

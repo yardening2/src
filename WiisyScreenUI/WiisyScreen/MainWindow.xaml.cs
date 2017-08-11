@@ -14,11 +14,11 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Forms;
 using System.Threading;
-using WiisyScreen.WiiMoteControlls;
-using winMacros;
-using MacrosApp;
 using System.Windows.Media.Animation;
 using System.Windows.Interop;
+using MacrosApp;
+using winMacros;
+using WiisyScreen.WiiMoteControlls;
 
 
 namespace WiisyScreen
@@ -26,22 +26,19 @@ namespace WiisyScreen
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    
     public partial class MainWindow : Window
     {
-        private WiiMoteWrapper m_WiiMoteWrapper;
-        private Calibrator m_Calibrator;
+        private WiiMoteToMouseCoverter m_WiimoteToMouse;
         private Point deltaPos = new Point();
         private List<Window> openedWindows = new List<Window>();
         private bool rightToLeft = true;
-        private WiiMoteToMouseCoverter m_WiimoteToMouse;
         private List<ActionBubble> actionBubbles = new List<ActionBubble>();
         private List<Ellipse> locationsEllipes = new List<Ellipse>();
 
         public MainWindow()
         {
             InitializeComponent();
-            m_WiiMoteWrapper = new WiiMoteWrapper();
-            m_Calibrator = new Calibrator(m_WiiMoteWrapper);
             //m_Calibrator.CalibrateFinishedEvent += onCalibrationFinished;
             insertLocationEllipseToList();
             addApp(runBoard, createImageForEllipse("whiteboard-icon.png"));
@@ -85,11 +82,6 @@ namespace WiisyScreen
             return new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/WiisyScreen;component/Resources/" + imageName)));
         }
 
-        //private void onCalibrationFinished(object i_Sender, EventArgs i_EventArgs)
-        //{
-        //    m_WiimoteToMouse = new WiiMoteToMouseCoverter(m_Calibrator.getCalibratedWarper(), m_WiiMoteWrapper);
-        //}
-
         private void Window_Activated(object sender, EventArgs e)
         {
             this.Topmost = true;
@@ -116,7 +108,6 @@ namespace WiisyScreen
 
         private void buttonCalibrate_Click(object sender, RoutedEventArgs e)
         {
-            gridCalibrate.Visibility = Visibility.Visible;
             inkCanvasBoard.Opacity = 0;
         }
 
@@ -134,53 +125,6 @@ namespace WiisyScreen
                 openedWindows[i].Close();
             }
         }
-
-        private void ButtonConnectToWiiMote_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                ButtonConnectToWiiMote.IsEnabled = false;
-                ConnectingToWiiMoteLabel.Visibility = Visibility.Visible;
-                this.IsEnabled = false;
-                m_WiiMoteWrapper.ConnectToWiimote();
-                updateComponents();
-            }
-            catch (Exception i_Exception)
-            {
-                System.Windows.MessageBox.Show(i_Exception.Message);
-            }
-            finally
-            {
-                ButtonConnectToWiiMote.IsEnabled = true;
-                ConnectingToWiiMoteLabel.Visibility = Visibility.Hidden;
-                this.IsEnabled = true;
-            }
-        }
-
-        private void updateComponents()
-        {
-            ButtonConnectToWiiMote.Visibility = Visibility.Hidden;
-            ButtonCalibrateWiiMote.Visibility = Visibility.Visible;
-            BatteryLevelTextLabel.Visibility = Visibility.Visible;
-            BatteryLevelValueLabel.Visibility = Visibility.Visible;
-            VisibleIRDotsLabel.Visibility = Visibility.Visible;
-            IRDotsDataLabel.Visibility = Visibility.Visible;
-            m_WiiMoteWrapper.VisibleIRDotsChangedEvent += updateIRDotsCount;
-            m_WiiMoteWrapper.AButtonPressed += ButtonCalibrateWiiMote_Click;
-            BatteryLevelValueLabel.Content = m_WiiMoteWrapper.BatteryLevel.ToString();
-
-        }
-
-        private void ButtonCalibrateWiiMote_Click(object sender, EventArgs e)
-        {
-            this.Dispatcher.Invoke(new Action(() => { m_Calibrator.CalibrateScreen(m_WiiMoteWrapper); }));
-        }
-
-        private void updateIRDotsCount(object i_Sender, int i_VisibleIRDots)
-        {
-            IRDotsDataLabel.Dispatcher.Invoke(new Action(() => { IRDotsDataLabel.Content = i_VisibleIRDots.ToString(); }));
-        }
-      
 
         private void centerBubble_MouseDown(object sender, MouseButtonEventArgs e)
         {

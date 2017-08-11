@@ -62,16 +62,6 @@
             <StackPanel x:Name="ControlButtonsStackPanel" HorizontalAlignment="Left" >
                 <Button x:Name="buttonCalibrate" Content="Calibrate" Canvas.Left="645" Width="123" Height="40" Canvas.Top="-1" Click="buttonCalibrate_Click"/>
             </StackPanel>
-            <Grid x:Name="gridCalibrate" Background="Blue" HorizontalAlignment="Stretch" Margin="123,-1,0,1">
-                <Button x:Name="ButtonConnectToWiiMote" Content="Connect To Wiimote" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="124" Height="42" Click="ButtonConnectToWiiMote_Click"/>
-                <Label x:Name="ConnectingToWiiMoteLabel" Content="Connecting..." HorizontalAlignment="Left" Margin="190,26,0,0" VerticalAlignment="Top" Height="56" Width="252" FontSize="36" FontWeight="Bold" Visibility="Hidden"/>
-                <Button x:Name="ButtonCalibrateWiiMote" Content="CalibrateScreen" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="124" Height="42" Visibility="Hidden" Click="ButtonCalibrateWiiMote_Click"/>
-                <Label x:Name="BatteryLevelTextLabel" Content="Battery:" HorizontalAlignment="Left" Margin="197,15,0,0" VerticalAlignment="Top" Width="83" Visibility="Hidden"/>
-                <Label x:Name="BatteryLevelValueLabel" Content="" HorizontalAlignment="Left" Margin="248,15,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
-                <Label x:Name="VisibleIRDotsLabel" Content="Visible IR Dots:" HorizontalAlignment="Left" Margin="197,41,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
-                <Label x:Name="IRDotsDataLabel" Content="0" HorizontalAlignment="Left" Margin="291,41,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
-
-            </Grid>
         </Grid>
     </Grid>
 </Window>

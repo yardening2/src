@@ -1,0 +1,17 @@
+﻿<Window x:Class="WiiMoteConnect.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525"
+         Background="{x:Null}" Topmost="True"
+        WindowStyle="None" AllowsTransparency="True"
+        
+        ShowInTaskbar="False"
+        >
+    <Grid>
+        <Canvas  Height="144" Margin="0" Width="279" Background="Red">
+            <Button x:Name="connectButton" Content="Connect" Canvas.Left="28" Canvas.Top="47" Width="75" Click="connectButton_Click"/>
+            <Button x:Name="calibrateButton" Content="Calibrate" Canvas.Left="191" Canvas.Top="47" Width="75" Click="calibrateButton_Click"/>
+        </Canvas>
+
+    </Grid>
+</Window>
