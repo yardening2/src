@@ -4,13 +4,40 @@
         Title="MainWindow" Height="350" Width="525"
          Background="{x:Null}" Topmost="True"
         WindowStyle="None" AllowsTransparency="True"
-        
-        ShowInTaskbar="False"
+        ShowInTaskbar="False" Loaded="Window_Loaded"
         >
     <Grid>
-        <Canvas  Height="144" Margin="0" Width="279" Background="Red">
-            <Button x:Name="connectButton" Content="Connect" Canvas.Left="28" Canvas.Top="47" Width="75" Click="connectButton_Click"/>
-            <Button x:Name="calibrateButton" Content="Calibrate" Canvas.Left="191" Canvas.Top="47" Width="75" Click="calibrateButton_Click"/>
+        <Canvas x:Name="canvas"  Height="150" Margin="0" Width="400">
+            <Border BorderThickness="2,2,2,2" CornerRadius="30,30,30,30" HorizontalAlignment="Center" Background="#FF6162C7" Width="{Binding Width, ElementName=canvas}" Height="{Binding Height, ElementName=canvas}" >
+                <Border.BorderBrush>
+                    <RadialGradientBrush>
+                        <GradientStop Color="Black" Offset="1"/>
+                        <GradientStop Color="#FF6162C7"/>
+                    </RadialGradientBrush>
+                </Border.BorderBrush>
+                <Rectangle x:Name="rectangleExit" Margin="366.4,8.4,7.6,116" MouseUp="rectangleExit_MouseUp">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="Resources/delete-error-exit-remove-stop-x-cross-icon--28.png"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Border>
+            <TextBlock x:Name="textBlockCalibrateTips" Visibility="Visible" TextWrapping="Wrap" TextAlignment="Center" FontSize="20" FontFamily="Comic Sans MS" FontWeight="Bold" Width="349" Canvas.Left="25" Canvas.Top="35" Text="Click to start calibration process"/>
+            <Button x:Name="calibrateButton" Content="Calibrate" Canvas.Left="103" Canvas.Top="87" Width="190" Click="calibrateButton_Click" Height="41" HorizontalAlignment="Center" FontFamily="Comic Sans MS" FontWeight="Bold" FontSize="18">
+                <Button.Background>
+                    <RadialGradientBrush RadiusX="0.9" RadiusY="5">
+                        <GradientStop Color="Black" Offset="1"/>
+                        <GradientStop Color="#FF696868" Offset="0.5"/>
+                    </RadialGradientBrush>
+                </Button.Background>
+            </Button>
+            <!--<Button x:Name="calibrateButton" Visibility="Hidden" Content="Calibrate" Canvas.Left="103" Canvas.Top="89" Width="{Binding Width, ElementName=connectButton}" Click="calibrateButton_Click" Height="{Binding Height, ElementName=connectButton}" FontFamily="Comic Sans MS" FontWeight="Bold">
+                <Button.Background>
+                    <RadialGradientBrush RadiusX="0.9" RadiusY="5">
+                        <GradientStop Color="Black" Offset="1"/>
+                        <GradientStop Color="#FF696868" Offset="0.5"/>
+                    </RadialGradientBrush>
+                </Button.Background>
+            </Button>-->
         </Canvas>
 
     </Grid>

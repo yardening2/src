@@ -37,6 +37,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -99,6 +100,13 @@
       <Project>{64a877ea-e794-4b4a-b94a-6f0bbc725a82}</Project>
       <Name>WiisyScreen</Name>
     </ProjectReference>
+    <ProjectReference Include="..\winMacros\winMacros.csproj">
+      <Project>{8c7289cc-7e0a-4a4c-a69e-042313ba60da}</Project>
+      <Name>winMacros</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\delete-error-exit-remove-stop-x-cross-icon--28.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
