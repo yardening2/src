@@ -91,10 +91,9 @@ namespace WiisyScreen.WiiMoteControlls
         {
             PointF coordinates = getWarpedCoordinates(i_State);
             int mouseActionsflags = MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_MOVE;
-            int x, y;
-            x  = CalculateDeltaX(coordinates.X);
-            y = CalculateDeltaY(coordinates.Y);
-            mouse_event(mouseActionsflags,x , y, 0, 0);
+            int CalculatedX = CalculateDeltaX(coordinates.X);
+            int CalculatedY = CalculateDeltaY(coordinates.Y);
+            mouse_event(mouseActionsflags, CalculatedX, CalculatedY, 0, 0);
         }
 
         [DllImport("user32.dll")]

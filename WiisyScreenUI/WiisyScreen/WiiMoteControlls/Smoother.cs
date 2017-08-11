@@ -38,7 +38,7 @@ namespace WiisyScreen.WiiMoteControlls
                     m_SmoothingBufferindex = 0;
                 }
                 timer.Dispose();
-            }, currentIndex,100, System.Threading.Timeout.Infinite);
+            }, currentIndex,200, System.Threading.Timeout.Infinite);
         }
 
         public PointF GetSmoothedCursor(PointF i_coordinates)
