@@ -19,7 +19,8 @@ using System.Windows.Interop;
 using MacrosApp;
 using winMacros;
 using WiiMoteConnect.WiiMoteControlls;
-
+using System.Diagnostics;
+using System.IO;
 
 namespace WiisyScreen
 {
@@ -219,6 +220,22 @@ namespace WiisyScreen
             runApp(WiiMoteConnect.MainWindow.Instance);
         }
 
-       
+       private void addCustomizeActionBubble()
+        {
+            ActionBubble ab = new ActionBubble();
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+
+            dlg.DefaultExt = ".exe";
+            dlg.Filter = "exe Files (*.exe)|*.exe";
+
+            Nullable<bool> result = dlg.ShowDialog();
+            if (result == true)
+            {
+                ImageBrush theIcon = utils.ImageBrushFromIconConverter.createImageBrushFromIcon(GeneralWinUtils.GetLargeIcon(dlg.FileName));
+                addApp(() => { Process.Start(dlg.FileName); }, theIcon);
+            }
+
+        }
+
     }
 }
