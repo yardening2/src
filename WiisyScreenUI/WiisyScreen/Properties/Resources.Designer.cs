@@ -83,9 +83,29 @@ namespace WiisyScreen.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons_wrench {
+            get {
+                object obj = ResourceManager.GetObject("icons_wrench", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap MacroIcon {
             get {
                 object obj = ResourceManager.GetObject("MacroIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Matte_Applications_icon {
+            get {
+                object obj = ResourceManager.GetObject("Matte_Applications_icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -107,6 +127,16 @@ namespace WiisyScreen.Properties {
             get {
                 object obj = ResourceManager.GetObject("settings", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon supportIcon {
+            get {
+                object obj = ResourceManager.GetObject("supportIcon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         

@@ -40,7 +40,6 @@ namespace WiisyScreen
         public MainWindow()
         {
             InitializeComponent();
-            //m_Calibrator.CalibrateFinishedEvent += onCalibrationFinished;
             insertLocationEllipseToList();
             addApp(runBoard, createImageForEllipse("whiteboard-icon.png"));
             addApp(runMacroApp, createImageForEllipse("macroicon.png"));
@@ -55,8 +54,7 @@ namespace WiisyScreen
             locationsEllipes.Add(Ellipse3);
             locationsEllipes.Add(Ellipse4);
         }
-        // c.SetValue(Canvas.LeftProperty, mainAppCanvas.Width - (double)(c.GetValue(Canvas.LeftProperty)) - c.Width);
-        //HorizontalAlignment="Right" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="70" Canvas.Top="46"
+
         private void addApp(clickedHandler runFunction, ImageBrush imageBrush)
         {
             ActionBubble newActionBubble = new ActionBubble();
@@ -215,9 +213,62 @@ namespace WiisyScreen
             }
         }
 
-        private void actionBubbleSettings_MouseUp(object sender, MouseButtonEventArgs e)
+        private void rectangleDrag_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            runApp(WiiMoteConnect.MainWindow.Instance);
+            shapeDragCanvasMouseDown(sender as Shape, e, translateSettingsCanvas);
+        }
+
+        private void rectangleDrag_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            shapeDragCanvasMouseMove(sender as Shape, e, translateSettingsCanvas);
+        }
+
+        private void rectangleDrag_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            shapeDragCanvasMouseUp(sender as Shape);
+        }
+
+        private void shapeDragCanvasMouseDown(Shape s, MouseButtonEventArgs e, TranslateTransform t)
+        {
+            s.CaptureMouse();
+            deltaPos.X = e.GetPosition(container).X - t.X;
+            deltaPos.Y = e.GetPosition(container).Y - t.Y;
+            e.Handled = true;
+        }
+
+        private void shapeDragCanvasMouseMove(Shape s, System.Windows.Input.MouseEventArgs e, TranslateTransform t)
+        {
+            if (s.IsMouseCaptured)
+            {
+               t.X = e.GetPosition(container).X - deltaPos.X;
+                t.Y = e.GetPosition(container).Y - deltaPos.Y;
+            }
+        }
+
+        private void shapeDragCanvasMouseUp(Shape s)
+        {
+            s.ReleaseMouseCapture();
+        }
+
+        private void buttonSetting_Click(object sender, RoutedEventArgs e)
+        {
+            if ((translate.X) > mainWindow.Width / 2)
+            {
+                translateSettingsCanvas.X = translate.X - canvasSettings.Width - 50;
+            }
+            else
+            {
+                translateSettingsCanvas.X = translate.X + mainAppCanvas.Width + 50;
+            }
+
+            translateSettingsCanvas.Y = translate.Y;
+
+            canvasSettings.Visibility = Visibility.Visible;
+        }
+
+        private void buttonExitSettings_Click(object sender, RoutedEventArgs e)
+        {
+            canvasSettings.Visibility = Visibility.Hidden;
         }
 
        private void addCustomizeActionBubble()

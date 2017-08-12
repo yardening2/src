@@ -10,7 +10,7 @@
         WindowStyle="None" AllowsTransparency="True" Loaded="Window_Loaded" Background="{x:Null}"
         ShowInTaskbar="False"
         >
-    <Grid Margin="0,0,0,0" x:Name="container" >
+    <Grid Margin="0,0,0,0" x:Name="container">
         <Canvas x:Name="mainAppCanvas"  HorizontalAlignment="Left" VerticalAlignment="Center" Width="160" Height="300" Margin="0,125,0,110.2" >
             <Ellipse x:Name="centerBubble" HorizontalAlignment="Center" Height="100" Stroke="Black" VerticalAlignment="Top" Width="100" Canvas.Left="10" Canvas.Top="97" MouseDown="centerBubble_MouseDown" MouseMove="centerBubble_MouseMove" MouseUp="centerBubble_MouseUp">
                 <Ellipse.Fill>
@@ -19,27 +19,18 @@
                         <GradientStop Color="White" Offset="0.009"/>
                     </RadialGradientBrush>
                 </Ellipse.Fill>
-                <Ellipse.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform x:Name="ST" />
-                        <TranslateTransform x:Name="test" />
-                    </TransformGroup>
-                </Ellipse.RenderTransform>
             </Ellipse>
             <Ellipse x:Name="Ellipse1" HorizontalAlignment="Right" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="70" Canvas.Top="46" Opacity="0.4" Fill="#FF313030" Stroke="Black"/>
             <Ellipse x:Name="Ellipse2" HorizontalAlignment="Right" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="110" Canvas.Top="97" Opacity="{Binding Opacity, ElementName=Ellipse1}" Fill="#FF313030" Stroke="Black" />
             <Ellipse  x:Name="Ellipse3" HorizontalAlignment="Right" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="110" Canvas.Top="153" Opacity="{Binding Opacity, ElementName=Ellipse1}" Fill="#FF313030" Stroke="Black"/>
             <Ellipse  x:Name="Ellipse4" HorizontalAlignment="Right" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="70" Canvas.Top="199" Opacity="{Binding Opacity, ElementName=Ellipse1}" Fill="#FF313030" Stroke="Black" />
-            <!--<local:ActionBubble x:Name="actionBubble1" HorizontalAlignment="Right" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="70" Canvas.Top="46" />
-            <local:ActionBubble x:Name="actionBubble2" HorizontalAlignment="Right" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="110" Canvas.Top="97" />-->
-            <!--<local:ActionBubble x:Name="actionBubble3" HorizontalAlignment="Right" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="110" Canvas.Top="153" />-->
-            <!--<local:ActionBubble x:Name="actionBubble4" HorizontalAlignment="Right" Height="46" VerticalAlignment="Top" Width="46" Canvas.Left="70" Canvas.Top="199" />-->
+
             <Button x:Name="buttonExit" Content="" HorizontalAlignment="Left" Height="23" VerticalAlignment="Bottom" Width="23" Panel.ZIndex="10000" BorderBrush="{x:Null}" Click="buttonExit_Click" Canvas.Left="5" Canvas.Top="88">
                 <Button.Background>
                     <ImageBrush ImageSource="images/delete-error-exit-remove-stop-x-cross-icon--28.png"/>
                 </Button.Background>
             </Button>
-            <Button x:Name="buttonSetting"  Canvas.Left="28" Canvas.Top="68" Width="23" Height="23" BorderBrush="{x:Null}">
+            <Button x:Name="buttonSetting"  Canvas.Left="28" Canvas.Top="68" Width="23" Height="23" BorderBrush="{x:Null}" Click="buttonSetting_Click">
                 <Button.Background>
                     <ImageBrush ImageSource="Resources/settings.png"/>
                 </Button.Background>
@@ -51,6 +42,31 @@
                 </TransformGroup>
             </Canvas.RenderTransform>
         </Canvas>
+        <Canvas x:Name="canvasSettings" Width="580" Visibility="Visible" Margin="0,42,0,53.2" HorizontalAlignment="Left" Height="440" Opacity="0.9" Background="#FF323131">
+            <TextBlock x:Name="textBlockHeader" TextWrapping="Wrap" Text="SETTINGS" HorizontalAlignment="Center" VerticalAlignment="Center" Height="42" Width="130" FontSize="22" FontFamily="Comic Sans MS" TextDecorations="{x:Null}" Canvas.Left="217" Canvas.Top="3" Foreground="#FFB4B9B9"/>
+            <Rectangle x:Name="rectangleDrag" Height="40" Width="{Binding Width, ElementName=canvasSettings}" Panel.ZIndex="1000" MouseDown="rectangleDrag_MouseDown" MouseMove="rectangleDrag_MouseMove" MouseUp="rectangleDrag_MouseUp" Stroke="#FF565353" >
+                <Rectangle.Fill>
+                    <SolidColorBrush Color="Black" Opacity="0.0001"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Button x:Name="button" Content="X" HorizontalAlignment="Right" VerticalAlignment="Top" Canvas.Right="1" Canvas.Top="1" Height="38" Width="38" FontSize="22" Background="{x:Null}" Padding="0" BorderBrush="{x:Null}" Panel.ZIndex="2000" Click="buttonExitSettings_Click" Foreground="#FFA5A9A9" />
+            <!--<TabControl x:Name="tabControl" TabStripPlacement="Left" Canvas.Top="40" Height="400" Width="580" Background="#FFE80A0A">
+                <TabItem Header="TabItem" Background="#FFF61C1C">
+                    <Grid Background="#FFA33838" Width="430" Margin="0,0,0,-1" HorizontalAlignment="Right"/>
+                </TabItem>
+                <TabItem Header="TabItem">
+                    <Grid Background="#FFE5E5E5"/>
+                </TabItem>
+            </TabControl>-->
+            <local:SettingsCustomTabControl Height="400" Canvas.Top="40" Width="580"/>
+            <Border BorderThickness="1,1,1,1" Width="{Binding Width, ElementName=canvasSettings}" Height="{Binding Height, ElementName=canvasSettings}" BorderBrush="#FF5B5858" />
+            <Canvas.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform x:Name="stSettings" />
+                    <TranslateTransform x:Name="translateSettingsCanvas" />
+                </TransformGroup>
+            </Canvas.RenderTransform>
+        </Canvas>
         <InkCanvas x:Name="inkCanvasBoard" Cursor="Arrow" ResizeEnabled="False" UseLayoutRounding="True" Opacity="0" Visibility="Hidden">
             <InkCanvas.Background>
                 <SolidColorBrush Color="white" Opacity="{Binding Value, ElementName=sliderOpacity}"/>
@@ -58,16 +74,6 @@
             <InkCanvas.DefaultDrawingAttributes>
                 <DrawingAttributes IsHighlighter="True" StylusTip="Rectangle" FitToCurve="True" Color="#FF21B30B"/>
             </InkCanvas.DefaultDrawingAttributes>
-
-
         </InkCanvas>
-
-        <Grid Visibility="Hidden" x:Name="gridToolBard" Margin="0,0,0,0" VerticalAlignment="Bottom" Height="120px" Background="Bisque">
-            <StackPanel x:Name="ControlButtonsStackPanel" HorizontalAlignment="Left" >
-                <Button x:Name="buttonCalibrate" Content="Calibrate" Canvas.Left="645" Width="123" Height="40" Canvas.Top="-1" Click="buttonCalibrate_Click"/>
-            </StackPanel>
-        </Grid>
-
-
     </Grid>
 </Window>
