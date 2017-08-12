@@ -81,8 +81,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="SettingsCustomTabControl.xaml.cs">
     <Compile Include="utils\ImageBrushFromIconConverter.cs" />
+    <Compile Include="SettingsCustomTabControl.xaml.cs">
       <DependentUpon>SettingsCustomTabControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="utils\PrecentageConverter.cs" />

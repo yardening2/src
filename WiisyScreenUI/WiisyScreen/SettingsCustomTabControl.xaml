@@ -13,9 +13,7 @@
                         <ControlTemplate TargetType="TabItem">
                             <Border Name="Border" BorderThickness="0,0,0,0" BorderBrush="#FF353333" CornerRadius="0,0,0,0" Margin="0" Width="140" Height="40" HorizontalAlignment="Right" VerticalAlignment="Top">
                                 <Canvas x:Name="canvasTab">
-                                    <Image Height="30" Width="29" Canvas.Left="4" Canvas.Top="6" Source="{TemplateBinding Tag}">
-                                      
-                                    </Image>
+                                    <Image Height="30" Width="29" Canvas.Left="4" Canvas.Top="6" Source="{TemplateBinding Tag}" />
                                     <ContentPresenter x:Name="ContentSite"
                                             TextBlock.TextAlignment="Left"
                                             TextBlock.FontSize="14"
@@ -46,24 +44,18 @@
         </TabControl.Resources>
         <TabItem x:Name="tabItemGeneral"  Header="General" Margin="0" Background="{x:Null}" Padding="0" UseLayoutRounding="False">
             <TabItem.Tag>
-                <ImageSource>./Resources/wrench-brightBlue.png</ImageSource>
+                <ImageSource>Resources/wrench-brightBlue.png</ImageSource>
             </TabItem.Tag>
-            <Canvas>
-                
-            </Canvas>
         </TabItem>
         <TabItem Header="Applications">
             <TabItem.Tag>
-                <ImageSource>./Resources/Matte-Applications-icon.png</ImageSource>
+                <ImageSource>Resources/Matte-Applications-icon.png</ImageSource>
             </TabItem.Tag>
         </TabItem>
         <TabItem Header="Support">
             <TabItem.Tag>
-                <ImageSource>./Resources/supportIcon.ico</ImageSource>
+                <ImageSource>Resources/supportIcon.ico</ImageSource>
             </TabItem.Tag>
-            <Canvas>
-                
-            </Canvas>
         </TabItem>
     </TabControl>
 </UserControl>
