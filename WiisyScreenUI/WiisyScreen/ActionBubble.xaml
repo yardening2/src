@@ -8,7 +8,7 @@
              xmlns:converters="clr-namespace:WiisyScreen.Utils"
              d:DesignHeight="300" d:DesignWidth="300" MouseDown="actionBubble_MouseDown" MouseUp="actionBubble_MouseUp">
     <Grid x:Name="grid" Width="{Binding Width, ElementName=userControl}" Height="{Binding Height, ElementName=actionBubble}">
-        <Ellipse x:Name="back" HorizontalAlignment="Left" Height="{Binding Height, ElementName=actionBubble}" Stroke="Black" VerticalAlignment="Top" Width="{Binding Width, ElementName=actionBubble}">
+        <Ellipse x:Name="back" Height="{Binding Height, ElementName=actionBubble}" Stroke="Black" Width="{Binding Width, ElementName=actionBubble}">
             <Ellipse.Fill>
                 <RadialGradientBrush>
                     <GradientStop Color="Black" Offset="1"/>
