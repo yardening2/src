@@ -171,18 +171,17 @@ namespace TheBoardApp
         private void animatePicTaken(Image i_Pic)
         {
             animateCanvas.Background = new ImageBrush(i_Pic.Source);
-            animateCanvas.BeginAnimation(OpacityProperty, new DoubleAnimation(1, 0, new Duration(TimeSpan.FromSeconds(0.6))));
-            animateCanvasST.BeginAnimation(ScaleTransform.ScaleXProperty, new DoubleAnimation(1, 0, new Duration(TimeSpan.FromSeconds(0.6))));
-            animateCanvasST.BeginAnimation(ScaleTransform.ScaleYProperty, new DoubleAnimation(1, 0, new Duration(TimeSpan.FromSeconds(0.6))));
+            animateCanvas.BeginAnimation(OpacityProperty, new DoubleAnimation(1, 0, new Duration(TimeSpan.FromSeconds(0.5))));
+            animateCanvasST.BeginAnimation(ScaleTransform.ScaleXProperty, new DoubleAnimation(1, 0, new Duration(TimeSpan.FromSeconds(0.5))));
+            animateCanvasST.BeginAnimation(ScaleTransform.ScaleYProperty, new DoubleAnimation(1, 0, new Duration(TimeSpan.FromSeconds(0.5))));
         }
 
         private Image addPicToScrollPanel(string theSavedPic)
         {
             Image savedPicImage = new Image();
             savedPicImage.Source = new BitmapImage(new Uri(System.IO.Path.GetFullPath(theSavedPic)));
-            savedPicImage.Width = savedPicImage.Height = 150;
             savedPicImage.HorizontalAlignment = HorizontalAlignment.Left;
-            savedPicImage.Margin = new Thickness(30);
+            savedPicImage.Margin = new Thickness(8);
             savedPicImage.MouseUp += new MouseButtonEventHandler(setDisplayImage);
             savedPicsPanel.Children.Add(savedPicImage);
             return savedPicImage;
