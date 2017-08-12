@@ -10,7 +10,7 @@
         WindowStyle="None" AllowsTransparency="True" Loaded="Window_Loaded" Background="{x:Null}"
         ShowInTaskbar="False"
         >
-    <Grid Margin="0,0,0,0" x:Name="container">
+    <Grid Margin="0,0,0,0" x:Name="container" >
         <Canvas x:Name="mainAppCanvas"  HorizontalAlignment="Left" VerticalAlignment="Center" Width="160" Height="300" Margin="0,125,0,110.2" >
             <Ellipse x:Name="centerBubble" HorizontalAlignment="Center" Height="100" Stroke="Black" VerticalAlignment="Top" Width="100" Canvas.Left="10" Canvas.Top="97" MouseDown="centerBubble_MouseDown" MouseMove="centerBubble_MouseMove" MouseUp="centerBubble_MouseUp">
                 <Ellipse.Fill>

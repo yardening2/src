@@ -62,9 +62,11 @@ namespace WiisyScreen
             newActionBubble.Visibility = Visibility.Hidden;
             newActionBubble.Width = Ellipse1.Width;
             newActionBubble.Height = Ellipse1.Height;
+            newActionBubble.InitAnimation(7);
             newActionBubble.VerticalAlignment = Ellipse1.VerticalAlignment;
             newActionBubble.HorizontalAlignment = Ellipse1.HorizontalAlignment;
             newActionBubble.setApp(runFunction, imageBrush);
+
 
             if (actionBubbles.Count < 4)
             {
@@ -216,5 +218,7 @@ namespace WiisyScreen
         {
             runApp(WiiMoteConnect.MainWindow.Instance);
         }
+
+       
     }
 }
