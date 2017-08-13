@@ -64,26 +64,37 @@ namespace WiiMoteConnect
             }
             if (checkWiiMoteConnectionAbility(DeviceToConnect))
             {
-                Thread BTWiiMoteClientThread = new Thread(connectToWiiMoteClient);
-                BTWiiMoteClientThread.Start(DeviceToConnect);
+                if (DeviceToConnect.InstalledServices.Length != 0)
+                {
+                    BluetoothSecurity.RemoveDevice(DeviceToConnect.DeviceAddress);
+                }
+                DeviceToConnect.Refresh();
+                btClient.BeginConnect(DeviceToConnect.DeviceAddress, r_UUID, connectionCallbackFunction, btClient);
+                DeviceToConnect.SetServiceState(BluetoothService.HumanInterfaceDevice, true);
+                connectAsHIDDevice();
             }
             else
             {
-                MessageBox.Show("kakaksa");
+                MessageBox.Show("Failed to connect to Wiimote");
             }
         }
 
-        private void connectToWiiMoteClient(object i_BluetoothDeviceInfo)
+        private void connectAsHIDDevice()
         {
-            BluetoothDeviceInfo device = i_BluetoothDeviceInfo as BluetoothDeviceInfo;
-            BluetoothClient btClient = new BluetoothClient();
-            btClient.BeginConnect(device.DeviceAddress,r_UUID, connectionCallbackFunction, btClient);
+            try
+            {
+                m_WiiMoteWrapper.ConnectToWiimote();
+                
+            }
+            catch (Exception i_Exception)
+            {
+                System.Windows.MessageBox.Show(i_Exception.Message);
+            }
         }
 
         public void connectionCallbackFunction(IAsyncResult i_ConnectionResult)
         {
             BluetoothClient client = i_ConnectionResult.AsyncState as BluetoothClient;
-            client.EndConnect(i_ConnectionResult);
         }
 
         private bool checkWiiMoteConnectionAbility(BluetoothDeviceInfo i_Device)
@@ -92,10 +103,9 @@ namespace WiiMoteConnect
             {
                 if (!BluetoothSecurity.PairRequest(i_Device.DeviceAddress, String.Empty))
                 {
-                    char[] chArray = i_Device.DeviceAddress.ToString().ToCharArray();
-                    Array.Reverse(chArray);
-                    string address = new String(chArray);
-                    string pinCode = hexToAscii(address);
+                    char[] chArray = i_Device.DeviceAddress.ToString().ToArray<char>();
+                    chArray = hexReverse(chArray);
+                    string pinCode = hexToAscii(new String(chArray));
                     if (!BluetoothSecurity.PairRequest(i_Device.DeviceAddress, pinCode))
                     {
                         return false;
@@ -103,6 +113,16 @@ namespace WiiMoteConnect
                 }
             }
             return true;
+        }
+        private char[] hexReverse(char[] i_arrToReverse)
+        {
+            char[] resultArr = new char[i_arrToReverse.Length];
+            for (int i = 0; i < i_arrToReverse.Length -1; i+=2)
+            {
+                resultArr[i_arrToReverse.Length - 1 - i] = i_arrToReverse[i + 1];
+                resultArr[i_arrToReverse.Length - 2 - i] = i_arrToReverse[i];
+            }
+            return resultArr;
         }
 
         private string hexToAscii(string i_hexString)
@@ -134,17 +154,6 @@ namespace WiiMoteConnect
         {
             Thread searchWiimoteThread = new Thread(new ThreadStart(SearchWiimote));
             searchWiimoteThread.Start();
-            //try
-            //{
-            //    m_WiiMoteWrapper.ConnectToWiimote();
-            //}
-            //catch (Exception i_Exception)
-            //{
-            //    System.Windows.MessageBox.Show(i_Exception.Message);
-            //}
-            //finally
-            //{
-            //}
         }
 
         private void calibrateButton_Click(object sender, RoutedEventArgs e)
