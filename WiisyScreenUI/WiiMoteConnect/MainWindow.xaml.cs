@@ -66,25 +66,15 @@ namespace WiiMoteConnect
 
         private void calibrateButton_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                m_WiiMoteWrapper.ConnectToWiimote();
-                this.Dispatcher.Invoke(new Action(() => { m_Calibrator.CalibrateScreen(m_WiiMoteWrapper); }));
-                this.Hide();
-            }
-            catch (Exception i_Exception)
-            {
-                System.Windows.MessageBox.Show(i_Exception.Message);
-            }
-            finally
-            {
-            }
+            m_WiiMoteWrapper.ConnectionEstablishedEvent += onConnectionSuccessfull;
+            m_WiiMoteWrapper.ConnectToWiimote();
         }
 
-        //private void calibrateButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    this.Dispatcher.Invoke(new Action(() => { m_Calibrator.CalibrateScreen(m_WiiMoteWrapper); }));
-        //}
+        private void onConnectionSuccessfull(object sender, EventArgs e)
+        {
+            this.Dispatcher.Invoke(new Action(() => { m_Calibrator.CalibrateScreen(m_WiiMoteWrapper); }));
+            //this.Hide();
+        }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -101,6 +91,12 @@ namespace WiiMoteConnect
         {
             wiiMoteConnect = null;
             this.Close();
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            m_WiiMoteWrapper.DisconnectFromWiiMote();
         }
     }
 }
