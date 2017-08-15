@@ -63,8 +63,9 @@
                     </Border>
                     <Label x:Name="labelScreenshotFolder" Content="Screenshots Folder" Canvas.Left="10" Canvas.Top="246" Width="113" FontWeight="Bold" FontFamily="Comic Sans MS" HorizontalContentAlignment="Right" Padding="0" Foreground="#FFCBCBC8" Margin="10,12,187,0" VerticalAlignment="Top"/>
                     <Border Canvas.Left="241" Canvas.Top="269" Height="21" Width="69" Margin="238,34,3,0" VerticalAlignment="Top">
-                        <Button x:Name="buttonChooseSCFolder" Content="Browse" Canvas.Left="241" Canvas.Top="270" Margin="0,0,-0.2,-0.2" Click="buttonChooseSCFolder_Click"/>
+                        <Button x:Name="buttonChooseSCFolder" Content="Browse" Canvas.Left="241" Canvas.Top="270" Margin="0,0,0.6,0.6" Click="buttonChooseSCFolder_Click" FontFamily="Comic Sans MS" Background="#FFCBCBCB"/>
                     </Border>
+                    <Button x:Name="buttonGeneratePDF" Content="Generate PDF" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Width="297" Background="#FFCBCBCB" FontFamily="Comic Sans MS" Click="buttonGeneratePDF_Click"/>
                 </Grid>
             </Canvas>
         </TabItem>

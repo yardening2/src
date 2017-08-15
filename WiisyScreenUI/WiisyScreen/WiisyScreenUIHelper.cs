@@ -43,12 +43,13 @@ namespace WiisyScreen
             return ab;
         }
 
-        public static string chooseFolder()
+        public static string chooseFolder(string path)
         {
             string res = null;
 
             using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
             {
+                dialog.SelectedPath = path;
                 System.Windows.Forms.DialogResult result = dialog.ShowDialog();
                 if(result == System.Windows.Forms.DialogResult.OK)
                 {
@@ -57,6 +58,25 @@ namespace WiisyScreen
             }
 
             return res;
+        }
+
+        public static string[] ChoosePics(string path)
+        {
+            string[] fileNames = null;
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+
+            dlg.InitialDirectory = path;
+            dlg.Multiselect = true;
+            dlg.DefaultExt = ".png";
+            dlg.Filter = "png Files (*.png)|*.png";
+
+            Nullable<bool> result = dlg.ShowDialog();
+            if (result == true)
+            {
+                fileNames = dlg.FileNames;
+            }
+
+            return fileNames;
         }
     }
 }

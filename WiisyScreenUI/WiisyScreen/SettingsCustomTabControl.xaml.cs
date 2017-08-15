@@ -24,6 +24,7 @@ namespace WiisyScreen
         {
             InitializeComponent();
             initBubbels();
+            textBlockScreenShotsPath.Text = TheBoardApp.MainWindow.ScreenShotsFolder;
         }
 
         private void initBubbels()
@@ -47,11 +48,20 @@ namespace WiisyScreen
 
         private void buttonChooseSCFolder_Click(object sender, RoutedEventArgs e)
         {
-            string scFolder = WiisyScreenUIHelper.chooseFolder();
+            string scFolder = WiisyScreenUIHelper.chooseFolder(textBlockScreenShotsPath.Text);
             if(scFolder != null)
             {
                 TheBoardApp.MainWindow.ScreenShotsFolder = scFolder;
                 textBlockScreenShotsPath.Text = scFolder;
+            }
+        }
+
+        private void buttonGeneratePDF_Click(object sender, RoutedEventArgs e)
+        {
+            string[] fileNames = WiisyScreenUIHelper.ChoosePics(textBlockScreenShotsPath.Text);
+            if(fileNames != null && fileNames.Length != 0)
+            {
+                ScreenSaver.ScreenSaver.CreatePDF(textBlockScreenShotsPath.Text, fileNames);
             }
         }
     }

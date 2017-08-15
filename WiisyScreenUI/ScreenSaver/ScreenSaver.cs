@@ -19,7 +19,9 @@ namespace ScreenSaver
         static public string SaveAsImage(string dirToSaveTo)
         {
             String[] filesInDirectory = Directory.GetFiles(dirToSaveTo);
-            string imagePath = dirToSaveTo + "\\" + "screenshot" + filesInDirectory.Count() + ".png";
+            string imagePath = dirToSaveTo + "\\" + "screenshot" + filesInDirectory.Count((filename) => {
+                return filename.Contains("screenshot");
+            }) + ".png";
 
             Bitmap printscreen = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height - 100);
             Graphics graphics = Graphics.FromImage(printscreen as System.Drawing.Image);
@@ -31,11 +33,15 @@ namespace ScreenSaver
         }
 
         
-        static public void CreatePDF(string fileToCreate , string[] filesToGenerate)
+        static public void CreatePDF(string dirToSaveTo, string[] filesToGenerate)
         {
+            String[] filesInDirectory = Directory.GetFiles(dirToSaveTo);
+            string PDFPath = dirToSaveTo + "\\" + "generatedPDF" + filesInDirectory.Count((filename) => {
+                return filename.Contains("generatedPDF");
+            }) + ".pdf";
             //String[] filesInDirectory = Directory.GetFiles(dirToSaveTo);
             Document document = new Document();
-            using (var stream = new FileStream(fileToCreate, FileMode.Create, FileAccess.Write, FileShare.None))
+            using (var stream = new FileStream(PDFPath, FileMode.Create, FileAccess.Write, FileShare.None))
             {
                 PdfWriter.GetInstance(document, stream);
                 document.Open();

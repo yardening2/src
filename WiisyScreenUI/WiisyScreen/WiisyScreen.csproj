@@ -147,6 +147,10 @@
       <Project>{3a9e02ab-efd3-48e6-aa34-b8d631b737c6}</Project>
       <Name>MacrosApp</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ScreenSaver\ScreenSaver.csproj">
+      <Project>{be50391a-6f9f-487e-ae5e-590006dd7213}</Project>
+      <Name>ScreenSaver</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TheBoardApp\TheBoardApp.csproj">
       <Project>{ee8be938-750d-4ae9-a2e4-1a0fa3a4d347}</Project>
       <Name>TheBoardApp</Name>
@@ -214,7 +218,7 @@
   <ItemGroup>
     <Resource Include="Resources\AddApp.png" />
   </ItemGroup>
-   <ItemGroup>
+  <ItemGroup>
     <Resource Include="Resources\foldericon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

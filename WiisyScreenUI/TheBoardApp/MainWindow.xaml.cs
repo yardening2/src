@@ -26,7 +26,7 @@ namespace TheBoardApp
         private Boolean gridMinimized = false;
         private static MainWindow boardApp = null;
         private static readonly object sr_key = new object();
-        static public string ScreenShotsFolder = null;
+        static public string ScreenShotsFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
 
         public static MainWindow Instance
         {
@@ -156,12 +156,7 @@ namespace TheBoardApp
         private void buttonSaveScreen_MouseUp(object sender, MouseButtonEventArgs e)
         {
             string theSavedPic;
-
-            if (MainWindow.ScreenShotsFolder == null)
-            {
-                MainWindow.ScreenShotsFolder = "ScreenShots";
-                System.IO.Directory.CreateDirectory(MainWindow.ScreenShotsFolder);
-            }
+            
             System.Threading.Thread.Sleep(250);
             if (ScreenShotsFolder != null)
             {
