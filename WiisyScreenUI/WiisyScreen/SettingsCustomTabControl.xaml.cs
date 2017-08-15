@@ -44,5 +44,15 @@ namespace WiisyScreen
                 apllicationStackPanel.Children.Add(addActionBubble);
             }
         }
+
+        private void buttonChooseSCFolder_Click(object sender, RoutedEventArgs e)
+        {
+            string scFolder = WiisyScreenUIHelper.chooseFolder();
+            if(scFolder != null)
+            {
+                TheBoardApp.MainWindow.ScreenShotsFolder = scFolder;
+                textBlockScreenShotsPath.Text = scFolder;
+            }
+        }
     }
 }

@@ -37,7 +37,6 @@ namespace WiisyScreen
         public static double k_bubbleDiamater = 46;
         public static int k_bubbelsAnimation = 7;
 
-
         public MainWindow()
         {
             InitializeComponent();

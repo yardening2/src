@@ -81,13 +81,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="utils\ArithmeticConvertor.cs" />
     <Compile Include="utils\ImageBrushFromIconConverter.cs" />
     <Compile Include="SettingsCustomTabControl.xaml.cs">
       <DependentUpon>SettingsCustomTabControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="utils\PrecentageConverter.cs" />
     <Compile Include="utils\BoardRunner.cs" />
     <Compile Include="utils\IAppRunner.cs" />
+    <Compile Include="utils\PrecentageConverter.cs" />
     <Compile Include="WiisyScreenUIHelper.cs" />
     <Page Include="ActionBubble.xaml">
       <SubType>Designer</SubType>
@@ -212,6 +213,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\AddApp.png" />
+  </ItemGroup>
+   <ItemGroup>
+    <Resource Include="Resources\foldericon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

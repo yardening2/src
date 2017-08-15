@@ -43,5 +43,20 @@ namespace WiisyScreen
             return ab;
         }
 
+        public static string chooseFolder()
+        {
+            string res = null;
+
+            using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+            {
+                System.Windows.Forms.DialogResult result = dialog.ShowDialog();
+                if(result == System.Windows.Forms.DialogResult.OK)
+                {
+                    res = dialog.SelectedPath;
+                }
+            }
+
+            return res;
+        }
     }
 }
