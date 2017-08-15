@@ -34,48 +34,37 @@ namespace WiisyScreen
         private Point deltaPos = new Point();
         private List<Window> openedWindows = new List<Window>();
         private bool rightToLeft = true;
-        private List<ActionBubble> actionBubbles = new List<ActionBubble>();
-        private List<Ellipse> locationsEllipes = new List<Ellipse>();
+        public static double k_bubbleDiamater = 46;
+        public static int k_bubbelsAnimation = 7;
+
 
         public MainWindow()
         {
             InitializeComponent();
-            insertLocationEllipseToList();
             addApp(runBoard, createImageForEllipse("whiteboard-icon.png"));
             addApp(runMacroApp, createImageForEllipse("macroicon.png"));
+            initBubbelsAnimation();
             //actionBubble1.setApp(runBoard, createImageForEllipse("whiteboard-icon.png"));
             //actionBubble2.setApp(runMacroApp, createImageForEllipse("macroicon.png"));
         }
 
-        private void insertLocationEllipseToList()
+        private void initBubbelsAnimation()
         {
-            locationsEllipes.Add(Ellipse1);
-            locationsEllipes.Add(Ellipse2);
-            locationsEllipes.Add(Ellipse3);
-            locationsEllipes.Add(Ellipse4);
+            actionBubbleSlot1.InitAnimation(k_bubbelsAnimation);
+            actionBubbleSlot2.InitAnimation(k_bubbelsAnimation);
+            actionBubbleSlot3.InitAnimation(k_bubbelsAnimation);
+            actionBubbleSlot4.InitAnimation(k_bubbelsAnimation);
         }
 
         private void addApp(clickedHandler runFunction, ImageBrush imageBrush)
         {
             ActionBubble newActionBubble = new ActionBubble();
             newActionBubble.Visibility = Visibility.Hidden;
-            newActionBubble.Width = Ellipse1.Width;
-            newActionBubble.Height = Ellipse1.Height;
+            newActionBubble.Width = k_bubbleDiamater;
+            newActionBubble.Height = k_bubbleDiamater;
             newActionBubble.InitAnimation(7);
-            newActionBubble.VerticalAlignment = Ellipse1.VerticalAlignment;
-            newActionBubble.HorizontalAlignment = Ellipse1.HorizontalAlignment;
             newActionBubble.setApp(runFunction, imageBrush);
 
-
-            if (actionBubbles.Count < 4)
-            {
-                mainAppCanvas.Children.Add(newActionBubble);
-                newActionBubble.SetValue(Canvas.TopProperty, locationsEllipes[actionBubbles.Count].GetValue(Canvas.TopProperty));
-                newActionBubble.SetValue(Canvas.LeftProperty, locationsEllipes[actionBubbles.Count].GetValue(Canvas.LeftProperty));
-                newActionBubble.Visibility = Visibility.Visible;
-            }
-
-            actionBubbles.Add(newActionBubble);
         }
 
         private ImageBrush createImageForEllipse(string imageName)
@@ -287,6 +276,7 @@ namespace WiisyScreen
             }
 
         }
+
 
     }
 }

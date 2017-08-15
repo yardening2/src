@@ -35,7 +35,7 @@
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter TargetName="Border" Property="Background" Value="#FF353333" />
                                 </Trigger>
-                                
+
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>
@@ -51,6 +51,11 @@
             <TabItem.Tag>
                 <ImageSource>Resources/Matte-Applications-icon.png</ImageSource>
             </TabItem.Tag>
+            <Canvas>
+                <WrapPanel x:Name="apllicationStackPanel" Height="256" Canvas.Left="10" Canvas.Top="92" Width="291" Background="#FF915828"/>
+                <Button x:Name="buttonAddApp" Content="Button" Canvas.Left="226" Canvas.Top="67" Width="75" Click="buttonAddApp_Click"/>
+
+            </Canvas>
         </TabItem>
         <TabItem Header="Support">
             <TabItem.Tag>

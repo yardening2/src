@@ -24,5 +24,14 @@ namespace WiisyScreen
         {
             InitializeComponent();
         }
+
+        private void buttonAddApp_Click(object sender, RoutedEventArgs e)
+        {
+            ActionBubble ab = WiisyScreenUIHelper.CreateCustomizeActionBubble();
+            if(ab != null)
+            {
+                apllicationStackPanel.Children.Add(ab);
+            }
+        }
     }
 }

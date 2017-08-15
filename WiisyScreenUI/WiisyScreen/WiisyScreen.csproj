@@ -88,6 +88,7 @@
     <Compile Include="utils\PrecentageConverter.cs" />
     <Compile Include="utils\BoardRunner.cs" />
     <Compile Include="utils\IAppRunner.cs" />
+    <Compile Include="WiisyScreenUIHelper.cs" />
     <Page Include="ActionBubble.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
