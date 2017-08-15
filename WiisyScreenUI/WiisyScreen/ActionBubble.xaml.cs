@@ -161,7 +161,7 @@ namespace WiisyScreen
                 ActionBubble ab = (e.Data.GetData("Object") as ActionBubble);
                 this.FrontBrush = ab.FrontBrush;
                 this.BackBrush = ab.BackBrush;
-                this.clickHandler += ab.clickHandler;
+                this.clickHandler = ab.clickHandler;
                 this.Opacity = ab.Opacity;
 
                 //activat - null...

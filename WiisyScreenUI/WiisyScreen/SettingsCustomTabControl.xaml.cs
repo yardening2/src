@@ -23,14 +23,25 @@ namespace WiisyScreen
         public SettingsCustomTabControl()
         {
             InitializeComponent();
+            initBubbels();
         }
 
-        private void buttonAddApp_Click(object sender, RoutedEventArgs e)
+        private void initBubbels()
+        {
+            boardBubble.clickHandler += () => MainWindow.runBoard();
+            MacroBubble.clickHandler += () => MainWindow.runMacroApp();
+        }
+
+
+
+        private void addActionBubble_Click(object sender, RoutedEventArgs e)
         {
             ActionBubble ab = WiisyScreenUIHelper.CreateCustomizeActionBubble();
-            if(ab != null)
+            if (ab != null)
             {
+                apllicationStackPanel.Children.Remove(addActionBubble);
                 apllicationStackPanel.Children.Add(ab);
+                apllicationStackPanel.Children.Add(addActionBubble);
             }
         }
     }

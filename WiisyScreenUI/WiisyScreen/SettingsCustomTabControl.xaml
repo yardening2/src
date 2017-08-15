@@ -51,9 +51,28 @@
             <TabItem.Tag>
                 <ImageSource>Resources/Matte-Applications-icon.png</ImageSource>
             </TabItem.Tag>
-            <Canvas>
-                <WrapPanel x:Name="apllicationStackPanel" Height="256" Canvas.Left="10" Canvas.Top="92" Width="291" Background="#FF915828"/>
-                <Button x:Name="buttonAddApp" Content="Button" Canvas.Left="226" Canvas.Top="67" Width="75" Click="buttonAddApp_Click"/>
+            <Canvas x:Name="applicationCanvas">
+                <WrapPanel x:Name="apllicationStackPanel" Height="245" Canvas.Top="103"  Canvas.Left="10"  Width="291" Background="#FF5D5959">
+                    <local:ActionBubble x:Name="blankBubble" Height="46" Width="46" Margin="6"/>
+                    <local:ActionBubble x:Name="boardBubble" Height="46" Width="46"  Margin="6" Opacity="1">
+                        <local:ActionBubble.FrontBrush>
+                            <ImageBrush ImageSource="images/whiteboard-icon.png"/>
+                        </local:ActionBubble.FrontBrush>
+                        <local:ActionBubble.BorderBrush>
+                            <ImageBrush/>
+                        </local:ActionBubble.BorderBrush>
+                    </local:ActionBubble>
+                    <local:ActionBubble x:Name="MacroBubble" Height="46" Width="46" Margin="6" Opacity="1">
+                        <local:ActionBubble.FrontBrush>
+                            <ImageBrush ImageSource="Resources/macroicon.png"/>
+                        </local:ActionBubble.FrontBrush>
+                    </local:ActionBubble>
+                    <Button x:Name="addActionBubble"  Width="46" BorderBrush="{x:Null}" Height="46" Click="addActionBubble_Click">
+                        <Button.Background>
+                            <ImageBrush ImageSource="Resources/AddApp.png"/>
+                        </Button.Background>
+                    </Button>
+                </WrapPanel>
 
             </Canvas>
         </TabItem>

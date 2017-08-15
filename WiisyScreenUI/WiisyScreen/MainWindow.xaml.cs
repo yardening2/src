@@ -32,7 +32,7 @@ namespace WiisyScreen
     {
         //private WiiMoteToMouseCoverter m_WiimoteToMouse;
         private Point deltaPos = new Point();
-        private List<Window> openedWindows = new List<Window>();
+        private static List<Window> openedWindows = new List<Window>();
         private bool rightToLeft = true;
         public static double k_bubbleDiamater = 46;
         public static int k_bubbelsAnimation = 7;
@@ -46,6 +46,14 @@ namespace WiisyScreen
             initBubbelsAnimation();
             //actionBubble1.setApp(runBoard, createImageForEllipse("whiteboard-icon.png"));
             //actionBubble2.setApp(runMacroApp, createImageForEllipse("macroicon.png"));
+            initFirstUse();
+        }
+
+        private void initFirstUse()
+        {
+            actionBubbleSlot1.setApp(runBoard, createImageForEllipse("whiteboard-icon.png"));
+            actionBubbleSlot2.setApp(runMacroApp, createImageForEllipse("macroicon.png"));
+            actionBubbleSlot1.Opacity = actionBubbleSlot2.Opacity = 1;
         }
 
         private void initBubbelsAnimation()
@@ -176,23 +184,23 @@ namespace WiisyScreen
             rightToLeft = !rightToLeft;
         }
 
-        private void removeWindowFromOpenedWindows(object window, EventArgs e)
+        private static void removeWindowFromOpenedWindows(object window, EventArgs e)
         {
             openedWindows.Remove(window as Window);
         }
 
-        private void runBoard()
+        public static void runBoard()
         {
             runApp(TheBoardApp.MainWindow.Instance);
 
         }
 
-        private void runMacroApp()
+        public static void runMacroApp()
         {
             runApp(MacrosApp.MainWindow.Instance);
         }
 
-        private void runApp(Window windowApp)
+        private static void runApp(Window windowApp)
         {
             if (!openedWindows.Exists(window => window == windowApp))
             {
