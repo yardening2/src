@@ -67,13 +67,14 @@
                     </Border>
                     <Button x:Name="buttonGeneratePDF" Content="Generate PDF" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Width="297" Background="#FFCBCBCB" FontFamily="Comic Sans MS" Click="buttonGeneratePDF_Click"/>
                 </Grid>
+                <Button x:Name="buttonCalibrate" Content="Calibrate" Canvas.Left="103" Canvas.Top="63" Width="75"/>
             </Canvas>
         </TabItem>
         <TabItem Header="Applications">
             <TabItem.Tag>
                 <ImageSource>Resources/Matte-Applications-icon.png</ImageSource>
             </TabItem.Tag>
-            <Canvas x:Name="applicationCanvas">
+            <Canvas x:Name="applicationCanvas" Background="Black">
                 <WrapPanel x:Name="apllicationStackPanel" Height="245" Canvas.Top="103"  Canvas.Left="10"  Width="291" Background="#FF5D5959">
                     <local:ActionBubble x:Name="blankBubble" Height="46" Width="46" Margin="6"/>
                     <local:ActionBubble x:Name="boardBubble" Height="46" Width="46"  Margin="6" Opacity="1">

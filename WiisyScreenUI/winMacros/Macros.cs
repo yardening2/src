@@ -33,32 +33,54 @@ namespace winMacros
             Process.Start("osk");
         }
 
-        public static void ShiftLastWindow(int i_width, int i_heiget, int i_xSlot, int i_ySlot)
+        public static bool ShiftLastWindow(int i_width, int i_heiget, int i_xSlot, int i_ySlot)
         {
             IntPtr lastWindowHandle = getLastWindow();
+            bool validOp = checkIfWindowValid(lastWindowHandle);
 
-            if (lastWindowHandle.Equals(GetDesktopWindow()) == false && IsWindowVisible(lastWindowHandle))
+
+            if (lastWindowHandle.Equals(GetDesktopWindow()) == false && IsWindowVisible(lastWindowHandle) && validOp)
             {
                 ShowWindow(lastWindowHandle, ShowWindowCommands.Normal);
                 MoveWindow(lastWindowHandle, i_width * i_xSlot, i_heiget * i_ySlot, i_width, i_heiget, true);
                 SetForegroundWindow(lastWindowHandle);
             }
+
+            return validOp;
         }
 
-        public static void LastWindowShow(ShowWindowCommands i_swc)
+        public static bool LastWindowShow(ShowWindowCommands i_swc)
         {
             IntPtr lastWindowHandle = getLastWindow();
+            bool validOp = checkIfWindowValid(lastWindowHandle);
 
-            if (lastWindowHandle.Equals(GetDesktopWindow()) == false)
+
+
+            if (lastWindowHandle.Equals(GetDesktopWindow()) == false && validOp )
             {
                 ShowWindow(lastWindowHandle, i_swc);
                 SetForegroundWindow(lastWindowHandle);
             }
+
+            return validOp;
         }
 
-        public static void CloseLastWindow()
+        private static bool checkIfWindowValid(IntPtr hWnd)
         {
-            SendMessage(getLastWindow(), WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
+            StringBuilder sbWinText = new StringBuilder(256);
+            GetWindowText(hWnd, sbWinText, 256);
+            return !(sbWinText.ToString() == "Hidden Window");
+        }
+
+        public static bool CloseLastWindow()
+        {
+            IntPtr hWnd = getLastWindow();
+            bool validOp = checkIfWindowValid(hWnd);
+            if (validOp)
+            {
+                SendMessage(hWnd, WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
+            }
+            return validOp;
         }
 
         private static IntPtr getLastWindow()
@@ -74,6 +96,10 @@ namespace winMacros
             return lastWindowHandle;
         }
 
+
+
+        [DllImport("user32.dll", EntryPoint = "GetWindowText", CharSet = CharSet.Ansi)]
+        public static extern bool GetWindowText(IntPtr hWnd, [OutAttribute()] StringBuilder strNewWindowName, Int32 maxCharCount);
 
 
 
