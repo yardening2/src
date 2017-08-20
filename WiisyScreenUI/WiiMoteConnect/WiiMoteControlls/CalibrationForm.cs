@@ -23,10 +23,12 @@ namespace WiiMoteConnect.WiiMoteControlls
         private readonly int r_ScreenHeight;
         public float CalibrationTopMargin { get { return m_FormTopMargin; } }
         public event EventHandler CalibrationHeightChangedEvent;
+        private bool isTestingMode;
 
         public CalibrationForm(WiiMoteWrapper i_WiiMoteWrapper)
         {
             InitializeComponent();
+            isTestingMode = false;
             r_ScreenHeight = this.Height = Screen.PrimaryScreen.Bounds.Height;
             m_WiiMoteWrapper = i_WiiMoteWrapper;
             m_StepCounter = 0;
@@ -40,6 +42,7 @@ namespace WiiMoteConnect.WiiMoteControlls
         /// This ctor is for testing only!!
         public CalibrationForm()
         {
+            isTestingMode = true;
             InitializeComponent();
             this.Width = Screen.PrimaryScreen.Bounds.Width;
             r_ScreenHeight = this.Height = Screen.PrimaryScreen.Bounds.Height;
@@ -75,20 +78,27 @@ namespace WiiMoteConnect.WiiMoteControlls
         protected override void OnShown(EventArgs e)
         {
             base.OnShown(e);
-            m_WiiMoteWrapper.InfraRedAppearedEvent += nextCalibrationStep;
-            m_WiiMoteWrapper.BButtonPressed += onBButtonPressed;
-            m_WiiMoteWrapper.MinusButtonPressed += SmallerCalibrationButtom_Click;
-            m_WiiMoteWrapper.PlusButtonPressed += BiggerCalibrationButtom_Click;
+            if (!isTestingMode)
+            {
+                m_WiiMoteWrapper.InfraRedAppearedEvent += nextCalibrationStep;
+                m_WiiMoteWrapper.BButtonPressed += onBButtonPressed;
+                m_WiiMoteWrapper.MinusButtonPressed += SmallerCalibrationButtom_Click;
+                m_WiiMoteWrapper.PlusButtonPressed += BiggerCalibrationButtom_Click;
+
+            }
             this.TopMost = true;
             resetCalibration();
         }
 
         protected override void OnClosed(EventArgs e)
         {
-            m_WiiMoteWrapper.InfraRedAppearedEvent -= nextCalibrationStep;
-            m_WiiMoteWrapper.BButtonPressed -= onBButtonPressed;
-            m_WiiMoteWrapper.MinusButtonPressed -= SmallerCalibrationButtom_Click;
-            m_WiiMoteWrapper.PlusButtonPressed -= BiggerCalibrationButtom_Click;
+            if (!isTestingMode)
+            {
+                m_WiiMoteWrapper.InfraRedAppearedEvent -= nextCalibrationStep;
+                m_WiiMoteWrapper.BButtonPressed -= onBButtonPressed;
+                m_WiiMoteWrapper.MinusButtonPressed -= SmallerCalibrationButtom_Click;
+                m_WiiMoteWrapper.PlusButtonPressed -= BiggerCalibrationButtom_Click;
+            }
             base.OnClosed(e);
         }
 
