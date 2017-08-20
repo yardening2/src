@@ -89,6 +89,7 @@
     <Compile Include="utils\BoardRunner.cs" />
     <Compile Include="utils\IAppRunner.cs" />
     <Compile Include="utils\PrecentageConverter.cs" />
+    <Compile Include="WiisyScreenSavedData.cs" />
     <Compile Include="WiisyScreenUIHelper.cs" />
     <Page Include="ActionBubble.xaml">
       <SubType>Designer</SubType>
@@ -220,6 +221,18 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\foldericon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\drag.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\drag1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Drag 3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Drag2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

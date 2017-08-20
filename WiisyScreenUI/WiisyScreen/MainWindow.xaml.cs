@@ -27,31 +27,57 @@ namespace WiisyScreen
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    
+
     public partial class MainWindow : Window
     {
         //private WiiMoteToMouseCoverter m_WiimoteToMouse;
         private Point deltaPos = new Point();
         private static List<Window> openedWindows = new List<Window>();
         private bool rightToLeft = true;
-        public static double k_bubbleDiamater = 46;
-        public static int k_bubbelsAnimation = 7;
+        public static readonly double k_bubbleDiamater = 46;
+        public static readonly int k_bubbelsAnimation = 7;
+        public static readonly string k_savedDataFile = "savedData";
 
         public MainWindow()
         {
             InitializeComponent();
-            addApp(runBoard, createImageForEllipse("whiteboard-icon.png"));
-            addApp(runMacroApp, createImageForEllipse("macroicon.png"));
             initBubbelsAnimation();
-            //actionBubble1.setApp(runBoard, createImageForEllipse("whiteboard-icon.png"));
-            //actionBubble2.setApp(runMacroApp, createImageForEllipse("macroicon.png"));
-            initFirstUse();
+
+            //initFirstUse();
+            initApps();
+        }
+
+        private void initApps()
+        {
+            if (File.Exists(k_savedDataFile) == false)
+            {
+                initFirstUse();
+                //settings first use???
+            }
+            else
+            {
+                WiisyScreenSavedData savedData = WiisyScreenUIHelper.ReadFromBinaryFile<WiisyScreenSavedData>(k_savedDataFile);
+                initMainBubbels(savedData.MainBubbels);
+                settings.initRepository(savedData.RepositoryData);
+            }
+        }
+
+        private void initMainBubbels(List<ActionBubble.ActionBubbleData> mainBubbels)
+        {
+            //to do in a loop
+            actionBubbleSlot1.Copy(WiisyScreenUIHelper.CreateActionBubbleFromData(mainBubbels[0]));
+            actionBubbleSlot2.Copy(WiisyScreenUIHelper.CreateActionBubbleFromData(mainBubbels[1]));
+            actionBubbleSlot3.Copy(WiisyScreenUIHelper.CreateActionBubbleFromData(mainBubbels[2]));
+            actionBubbleSlot4.Copy(WiisyScreenUIHelper.CreateActionBubbleFromData(mainBubbels[3]));
+
         }
 
         private void initFirstUse()
         {
             actionBubbleSlot1.setApp(runBoard, createImageForEllipse("whiteboard-icon.png"));
+            actionBubbleSlot1.BubbleData = new ActionBubble.ActionBubbleData("BoardApp", eBubbleType.Board);
             actionBubbleSlot2.setApp(runMacroApp, createImageForEllipse("macroicon.png"));
+            actionBubbleSlot2.BubbleData = new ActionBubble.ActionBubbleData("MacroApp", eBubbleType.Macro);
             actionBubbleSlot1.Opacity = actionBubbleSlot2.Opacity = 1;
         }
 
@@ -63,18 +89,8 @@ namespace WiisyScreen
             actionBubbleSlot4.InitAnimation(k_bubbelsAnimation);
         }
 
-        private void addApp(clickedHandler runFunction, ImageBrush imageBrush)
-        {
-            ActionBubble newActionBubble = new ActionBubble();
-            newActionBubble.Visibility = Visibility.Hidden;
-            newActionBubble.Width = k_bubbleDiamater;
-            newActionBubble.Height = k_bubbleDiamater;
-            newActionBubble.InitAnimation(7);
-            newActionBubble.setApp(runFunction, imageBrush);
 
-        }
-
-        private ImageBrush createImageForEllipse(string imageName)
+        public static ImageBrush createImageForEllipse(string imageName)
         {
             return new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/WiisyScreen;component/Resources/" + imageName)));
         }
@@ -117,7 +133,7 @@ namespace WiisyScreen
         private void closeOpenedWindows()
         {
 
-            for(int i = openedWindows.Count - 1; i >= 0; i--)
+            for (int i = openedWindows.Count - 1; i >= 0; i--)
             {
                 openedWindows[i].Close();
             }
@@ -140,7 +156,7 @@ namespace WiisyScreen
                 translate.Y = e.GetPosition(container).Y - deltaPos.Y;
             }
 
-            if ((translate.X) + (mainAppCanvas.Width/2) > mainWindow.Width / 2)
+            if ((translate.X) + (mainAppCanvas.Width / 2) > mainWindow.Width / 2)
             {
                 if (rightToLeft)
                 {
@@ -236,7 +252,7 @@ namespace WiisyScreen
         {
             if (s.IsMouseCaptured)
             {
-               t.X = e.GetPosition(container).X - deltaPos.X;
+                t.X = e.GetPosition(container).X - deltaPos.X;
                 t.Y = e.GetPosition(container).Y - deltaPos.Y;
             }
         }
@@ -267,23 +283,25 @@ namespace WiisyScreen
             canvasSettings.Visibility = Visibility.Hidden;
         }
 
-       private void addCustomizeActionBubble()
+        public List<ActionBubble.ActionBubbleData> GetMainBubbelsData()
         {
-            ActionBubble ab = new ActionBubble();
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            List<ActionBubble.ActionBubbleData> theData = new List<ActionBubble.ActionBubbleData>();
+            theData.Add(actionBubbleSlot1.BubbleData);
+            theData.Add(actionBubbleSlot2.BubbleData);
+            theData.Add(actionBubbleSlot3.BubbleData);
+            theData.Add(actionBubbleSlot4.BubbleData);
 
-            dlg.DefaultExt = ".exe";
-            dlg.Filter = "exe Files (*.exe)|*.exe";
-
-            Nullable<bool> result = dlg.ShowDialog();
-            if (result == true)
-            {
-                ImageBrush theIcon = utils.ImageBrushFromIconConverter.createImageBrushFromIcon(GeneralWinUtils.GetLargeIcon(dlg.FileName));
-                addApp(() => { Process.Start(dlg.FileName); }, theIcon);
-            }
-
+            return theData;
         }
 
+        private void mainWindow_Closed(object sender, EventArgs e)
+        {
+            WiisyScreenSavedData dataToSave = new WiisyScreenSavedData();
+            dataToSave.MainBubbels = GetMainBubbelsData();
+            dataToSave.RepositoryData = settings.GetRepository();
 
+            WiisyScreenUIHelper.WriteToBinaryFile<WiisyScreenSavedData>(k_savedDataFile, dataToSave);
+            WiisyScreenSavedData iii = WiisyScreenUIHelper.ReadFromBinaryFile<WiisyScreenSavedData>(k_savedDataFile);
+        }
     }
 }

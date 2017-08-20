@@ -12,17 +12,40 @@ namespace WiisyScreen
     /// Interaction logic for ActionBubble.xaml
     /// </summary>
     /// 
+    public enum eBubbleType
+    {
+        Empty,
+        Exe,
+        Board,
+        Macro
+    }
+
     public delegate void clickedHandler();
 
     public partial class ActionBubble : UserControl
     {
+        [Serializable]
+        public class ActionBubbleData
+        {
+            public string ActionData { get; set; } = null;
+            public eBubbleType BubbleType { get; set; } = eBubbleType.Empty;
+
+            public ActionBubbleData() { }
+            public ActionBubbleData(string i_ActionData, eBubbleType i_BubbleType)
+            {
+                ActionData = i_ActionData;
+                BubbleType = i_BubbleType;
+            }
+        }
+
+
+
         public event clickedHandler clickHandler = null;
         private int onClickAnimationSize = 0;
         private double initWidth = 0;
         private double initHeight = 0;
-        //public bool isActive = false;
         public bool IsActive { get; set; } = false;
-
+        public ActionBubbleData BubbleData { get; set; } = new ActionBubbleData(null, eBubbleType.Empty);
 
 
         public ActionBubble()
@@ -152,19 +175,24 @@ namespace WiisyScreen
             e.Handled = true;
         }
 
+        public void Copy(ActionBubble i_BubbleToCopy)
+        {
+            this.FrontBrush = i_BubbleToCopy.FrontBrush;
+            this.BackBrush = i_BubbleToCopy.BackBrush;
+            this.clickHandler = i_BubbleToCopy.clickHandler;
+            this.Opacity = i_BubbleToCopy.Opacity;
+            this.BubbleData = i_BubbleToCopy.BubbleData;
+
+        }
+
 
         protected override void OnDrop(DragEventArgs e)
         {
             base.OnDrop(e);
             if (e.Data.GetData("Object") is ActionBubble)
             {
-                ActionBubble ab = (e.Data.GetData("Object") as ActionBubble);
-                this.FrontBrush = ab.FrontBrush;
-                this.BackBrush = ab.BackBrush;
-                this.clickHandler = ab.clickHandler;
-                this.Opacity = ab.Opacity;
-
-                //activat - null...
+                Copy((e.Data.GetData("Object") as ActionBubble));
+                //null checking
             }
 
             e.Handled = true;

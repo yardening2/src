@@ -74,28 +74,35 @@
             <TabItem.Tag>
                 <ImageSource>Resources/Matte-Applications-icon.png</ImageSource>
             </TabItem.Tag>
-            <Canvas x:Name="applicationCanvas" Background="Black">
-                <WrapPanel x:Name="apllicationStackPanel" Height="245" Canvas.Top="103"  Canvas.Left="10"  Width="291" Background="#FF5D5959">
-                    <local:ActionBubble x:Name="blankBubble" Height="46" Width="46" Margin="6"/>
-                    <local:ActionBubble x:Name="boardBubble" Height="46" Width="46"  Margin="6" Opacity="1">
-                        <local:ActionBubble.FrontBrush>
-                            <ImageBrush ImageSource="images/whiteboard-icon.png"/>
-                        </local:ActionBubble.FrontBrush>
-                        <local:ActionBubble.BorderBrush>
-                            <ImageBrush/>
-                        </local:ActionBubble.BorderBrush>
-                    </local:ActionBubble>
-                    <local:ActionBubble x:Name="MacroBubble" Height="46" Width="46" Margin="6" Opacity="1">
-                        <local:ActionBubble.FrontBrush>
-                            <ImageBrush ImageSource="Resources/macroicon.png"/>
-                        </local:ActionBubble.FrontBrush>
-                    </local:ActionBubble>
-                    <Button x:Name="addActionBubble"  Width="46" BorderBrush="{x:Null}" Height="46" Click="addActionBubble_Click">
-                        <Button.Background>
-                            <ImageBrush ImageSource="Resources/AddApp.png"/>
-                        </Button.Background>
-                    </Button>
-                </WrapPanel>
+            <Canvas x:Name="applicationCanvas" Background="#FF353333">
+                <ScrollViewer VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Canvas.Left="10" Canvas.Top="91" Width="291" Height="257">
+                    <WrapPanel x:Name="apllicationStackPanel"  Background="#FF5D5959">
+                        <local:ActionBubble x:Name="blankBubble" Height="46" Width="46" Margin="6"/>
+                        <local:ActionBubble x:Name="boardBubble" Height="46" Width="46"  Margin="6" Opacity="1">
+                            <local:ActionBubble.FrontBrush>
+                                <ImageBrush ImageSource="images/whiteboard-icon.png"/>
+                            </local:ActionBubble.FrontBrush>
+                            <local:ActionBubble.BorderBrush>
+                                <ImageBrush/>
+                            </local:ActionBubble.BorderBrush>
+                        </local:ActionBubble>
+                        <local:ActionBubble x:Name="MacroBubble" Height="46" Width="46" Margin="6" Opacity="1">
+                            <local:ActionBubble.FrontBrush>
+                                <ImageBrush ImageSource="Resources/macroicon.png"/>
+                            </local:ActionBubble.FrontBrush>
+                        </local:ActionBubble>
+                        <Button x:Name="addActionBubble"  Width="46" BorderBrush="{x:Null}" Height="46" Click="addActionBubble_Click">
+                            <Button.Background>
+                                <ImageBrush ImageSource="Resources/AddApp.png"/>
+                            </Button.Background>
+                        </Button>
+                    </WrapPanel>
+                </ScrollViewer>
+                <Rectangle Height="76" Canvas.Left="10" Canvas.Top="10" Width="291">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="Resources/Drag2.png"/>
+                    </Rectangle.Fill>
+                </Rectangle>
 
             </Canvas>
         </TabItem>
