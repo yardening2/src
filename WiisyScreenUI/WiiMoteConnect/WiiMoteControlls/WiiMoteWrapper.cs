@@ -4,6 +4,12 @@ using System.Linq;
 using System.Text;
 using WiimoteLib;
 using System.Threading;
+using System.IO;
+using InTheHand;
+using InTheHand.Net;
+using InTheHand.Net.Bluetooth;
+using InTheHand.Net.Sockets;
+using InTheHand.Net.Ports;
 
 namespace WiiMoteConnect.WiiMoteControlls
 {
@@ -12,12 +18,21 @@ namespace WiiMoteConnect.WiiMoteControlls
     {
         public delegate void WiimoteStateChangedEventHandler(object i_WiiMote, WiimoteState i_WiiMoteState);
         public delegate void WiiMoteValueChangedEventHandler(object i_WiiMote, int i_VisibleIRCount);
-        
+        public delegate void WiiMoteConnectionStatusChangedEventHandler(object i_WiiMote, eWiiConnectivityState i_state);
+        public enum eWiiConnectivityState
+        {
+            Searching, Not_Found, Connecting, Failed_To_Connect,Connected
+
+        }
+
         private WiimoteState m_CurrentWiiMoteState;
         private WiimoteState m_PreviousWiiMoteState;
         private Wiimote m_WiiMote;
         private Mutex m_StateChangedMutex;
-
+        private bool m_Connected;
+        private readonly Guid r_UUID = new Guid("00001000-0000-1000-8000-00805f9b34fb");
+        public event WiiMoteConnectionStatusChangedEventHandler ConnectionStateChangeEvent;
+        public event EventHandler ConnectionEstablishedEvent;
         public event WiimoteStateChangedEventHandler InfraRedAppearedEvent;
         public event WiimoteStateChangedEventHandler InfraRedDisppearedEvent;
         public event WiimoteStateChangedEventHandler InfraRedMovedEvent;
@@ -27,23 +42,53 @@ namespace WiiMoteConnect.WiiMoteControlls
         public event EventHandler BButtonPressed;
         public event EventHandler MinusButtonPressed;
         public event EventHandler PlusButtonPressed;
-
+        public bool Connected { get { return m_Connected; } }
         public WiimoteState CurrentWiiMoteState { get { return m_CurrentWiiMoteState; } }
         public int BatteryLevel { get { return (100 * m_CurrentWiiMoteState.Battery) / 192; } }
+
         public WiiMoteWrapper()
         {
+            m_Connected = false;
             m_WiiMote = new Wiimote();
             m_StateChangedMutex = new Mutex();
+        }
+        public void DisconnectFromWiiMote()
+        {
+            m_WiiMote.Disconnect();
         }
 
         public void ConnectToWiimote()
         {
-            m_WiiMote.Connect();
-            m_WiiMote.SetReportType(Wiimote.InputReport.IRAccel, true);
-            m_WiiMote.SetLEDs(true, false, false, false);
-            m_CurrentWiiMoteState = m_WiiMote.WiimoteState;
-            m_PreviousWiiMoteState = copyWiiMoteState(m_CurrentWiiMoteState);
-            m_WiiMote.WiimoteChanged += onWiimoteChanged;
+            fireConnectionStateChangeEvent(eWiiConnectivityState.Searching);
+            try
+            {
+                finelizeWiiMoteConnection();
+            }
+            catch (Exception)
+            {
+                Thread searchWiimoteThread = new Thread(new ThreadStart(SearchWiimote));
+                searchWiimoteThread.Start();
+            }
+        }
+
+        private void finelizeWiiMoteConnection()
+        {
+            if (!m_Connected)
+            {
+                m_WiiMote.Connect();
+                m_WiiMote.SetReportType(Wiimote.InputReport.IRAccel, true);
+                m_WiiMote.SetLEDs(true, false, false, false);
+                m_CurrentWiiMoteState = m_WiiMote.WiimoteState;
+                m_PreviousWiiMoteState = copyWiiMoteState(m_CurrentWiiMoteState);
+                m_WiiMote.WiimoteChanged += onWiimoteChanged;
+                m_Connected = true;
+                fireConnectionStateChangeEvent(eWiiConnectivityState.Connected);
+            }
+
+            if (ConnectionEstablishedEvent != null)
+            {
+                ConnectionEstablishedEvent.Invoke(this, null);
+            }
         }
 
         private void onWiimoteChanged(object i_WiiMote, WiimoteChangedEventArgs i_WiimoteChangedEventArgs)
@@ -213,6 +258,122 @@ namespace WiiMoteConnect.WiiMoteControlls
             resultState.IRState.RawX4 = i_WiiMoteState.IRState.RawX4;
             resultState.IRState.RawY4 = i_WiiMoteState.IRState.RawY4;
             return resultState;
+        }
+
+        //--------------Blue Tooth Connection Section-------------------
+        private void SearchWiimote()
+        {
+            if (m_Connected)
+            {
+                finelizeWiiMoteConnection();
+            }
+            else
+            {
+                BluetoothClient btClient = new BluetoothClient();
+                BluetoothDeviceInfo[] devices = btClient.DiscoverDevicesInRange();
+                BluetoothDeviceInfo DeviceToConnect = getWiiMoteBTDevice(devices);
+                if (DeviceToConnect == null)
+                {
+                    devices = btClient.DiscoverDevicesInRange();
+                    DeviceToConnect = getWiiMoteBTDevice(devices);
+                    if (DeviceToConnect == null)
+                    {
+                        fireConnectionStateChangeEvent(eWiiConnectivityState.Not_Found);
+                    }
+                }
+                else if (checkWiiMoteConnectionAbility(DeviceToConnect))
+                {
+                    fireConnectionStateChangeEvent(eWiiConnectivityState.Connecting);
+                    if (DeviceToConnect.InstalledServices.Length != 0)
+                    {
+                        BluetoothSecurity.RemoveDevice(DeviceToConnect.DeviceAddress);
+                    }
+
+                    if (!DeviceToConnect.Remembered)
+                    {
+                        DeviceToConnect.Refresh();
+                        btClient.BeginConnect(DeviceToConnect.DeviceAddress, r_UUID, connectionCallbackFunction, btClient);
+                        DeviceToConnect.SetServiceState(BluetoothService.HumanInterfaceDevice, true);
+                    }
+
+                    try
+                    {
+                        finelizeWiiMoteConnection();
+                    }
+                    catch (Exception)
+                    {
+                        fireConnectionStateChangeEvent(eWiiConnectivityState.Failed_To_Connect);
+                    }
+                }
+                else
+                {
+                    fireConnectionStateChangeEvent(eWiiConnectivityState.Failed_To_Connect);
+                }
+            }
+        }
+
+        public void connectionCallbackFunction(IAsyncResult i_ConnectionResult)
+        {
+            BluetoothClient client = i_ConnectionResult.AsyncState as BluetoothClient;
+        }
+
+        private bool checkWiiMoteConnectionAbility(BluetoothDeviceInfo i_Device)
+        {
+            if (i_Device != null && !i_Device.Authenticated && !i_Device.Remembered)
+            {
+                char[] chArray = i_Device.DeviceAddress.ToString().ToArray<char>();
+                chArray = hexReverse(chArray);
+                string pinCode = hexToAscii(new String(chArray));
+                if (!BluetoothSecurity.PairRequest(i_Device.DeviceAddress, pinCode))
+                {
+                    return false;
+                }
+            }
+            return i_Device != null;
+        }
+        private char[] hexReverse(char[] i_arrToReverse)
+        {
+            char[] resultArr = new char[i_arrToReverse.Length];
+            for (int i = 0; i < i_arrToReverse.Length - 1; i += 2)
+            {
+                resultArr[i_arrToReverse.Length - 1 - i] = i_arrToReverse[i + 1];
+                resultArr[i_arrToReverse.Length - 2 - i] = i_arrToReverse[i];
+            }
+            return resultArr;
+        }
+
+        private string hexToAscii(string i_hexString)
+        {
+            StringBuilder resultString = new StringBuilder();
+            for (int i = 0; i < i_hexString.Length; i += 2)
+            {
+                string hs = i_hexString.Substring(i, 2);
+                resultString.Append(Convert.ToChar(Convert.ToUInt32(hs, 16)));
+            }
+
+            return resultString.ToString();
+        }
+
+        private void fireConnectionStateChangeEvent(eWiiConnectivityState i_State)
+        {
+            if (ConnectionStateChangeEvent != null)
+            {
+                ConnectionStateChangeEvent.Invoke(this, i_State);
+            }
+
+        }
+
+        private BluetoothDeviceInfo getWiiMoteBTDevice(BluetoothDeviceInfo[] i_Devices)
+        {
+            BluetoothDeviceInfo returnDevice = null;
+            foreach (BluetoothDeviceInfo device in i_Devices)
+            {
+                if (device.DeviceName.Contains("Nintendo"))
+                {
+                    returnDevice = device;
+                }
+            }
+            return returnDevice;
         }
     }
 }

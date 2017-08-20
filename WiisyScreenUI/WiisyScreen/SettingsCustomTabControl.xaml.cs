@@ -12,7 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using WiiMoteConnect;
+using WiiMoteConnect.WiiMoteControlls;
 namespace WiisyScreen
 {
     /// <summary>
@@ -20,11 +21,20 @@ namespace WiisyScreen
     /// </summary>
     public partial class SettingsCustomTabControl : UserControl
     {
+
+        private WiiMoteWrapper m_WiiMoteWrapper;
+        private Calibrator m_Calibrator;
+        private WiiMoteToMouseCoverter m_WiimoteToMouse;
+
         public SettingsCustomTabControl()
         {
             InitializeComponent();
             initBubbels();
             textBlockScreenShotsPath.Text = TheBoardApp.MainWindow.ScreenShotsFolder;
+            m_WiiMoteWrapper = new WiiMoteWrapper();
+            m_Calibrator = new Calibrator(m_WiiMoteWrapper);
+            labelWiiConnectStatus.HorizontalContentAlignment = System.Windows.HorizontalAlignment.Left;
+            labelWiiConnectStatus.Content = "";
         }
 
         private void initBubbels()
@@ -102,6 +112,62 @@ namespace WiisyScreen
         {
             GetRepository();
         }
+
+        private void buttonCalibrate_Click(object sender, RoutedEventArgs e)
+        {
+            m_Calibrator.CalibrateFinishedEvent += onCalibrationFinished;
+            m_WiiMoteWrapper.ConnectionStateChangeEvent += onConnectionStateChange;
+            m_WiiMoteWrapper.ConnectToWiimote();
+        }
+
+        private void onConnectionStateChange(object i_Sender, WiiMoteWrapper.eWiiConnectivityState i_State)
+        {
+            switch (i_State)
+            {
+                case WiiMoteWrapper.eWiiConnectivityState.Connected:
+                    changeLableStringFromThread(labelWiiConnectStatus,"Connected To WiiMote");
+                    break;
+                case WiiMoteWrapper.eWiiConnectivityState.Connecting:
+                    changeLableStringFromThread(labelWiiConnectStatus, "Connecting...");
+                    break;
+                case WiiMoteWrapper.eWiiConnectivityState.Failed_To_Connect:
+                    changeLableStringFromThread(labelWiiConnectStatus, "Could Not connected To WiiMote");
+                    break;
+                case WiiMoteWrapper.eWiiConnectivityState.Not_Found:
+                    changeLableStringFromThread(labelWiiConnectStatus, "WiiMote not found");
+                    break;
+                case WiiMoteWrapper.eWiiConnectivityState.Searching:
+                    changeLableStringFromThread(labelWiiConnectStatus, "Searching...");
+                    break;
+            }
+        }
+
+        public void changeLableStringFromThread(Label i_labelToChange,string i_StateString)
+        {
+            Dispatcher.Invoke(new Action(() => { i_labelToChange.Content = i_StateString; }));
+        }
+
+        private void onCalibrationFinished(object i_Sender, EventArgs i_EventArgs)
+        {
+            m_WiimoteToMouse = new WiiMoteToMouseCoverter(m_Calibrator.getCalibratedWarper(), m_WiiMoteWrapper);
+        }
+
+        private void calibrateButton_Click(object sender, RoutedEventArgs e)
+        {
+            m_WiiMoteWrapper.ConnectionEstablishedEvent += onConnectionSuccessfull;
+            m_WiiMoteWrapper.ConnectToWiimote();
+        }
+
+        private void onConnectionSuccessfull(object sender, EventArgs e)
+        {
+            this.Dispatcher.Invoke(new Action(() => { m_Calibrator.CalibrateScreen(m_WiiMoteWrapper); }));
+        }
+
+        public void StopWiimoteWrapper()
+        {
+            m_WiiMoteWrapper.DisconnectFromWiiMote();
+        }
+
 
         /*
         private void WriteToFile_Click(object sender, RoutedEventArgs e)

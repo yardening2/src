@@ -30,7 +30,7 @@ namespace WiisyScreen
 
     public partial class MainWindow : Window
     {
-        //private WiiMoteToMouseCoverter m_WiimoteToMouse;
+        public static WiiMoteToMouseCoverter WiimoteToMouse { get; set; }
         private Point deltaPos = new Point();
         private static List<Window> openedWindows = new List<Window>();
         private bool rightToLeft = true;
@@ -299,7 +299,7 @@ namespace WiisyScreen
             WiisyScreenSavedData dataToSave = new WiisyScreenSavedData();
             dataToSave.MainBubbels = GetMainBubbelsData();
             dataToSave.RepositoryData = settings.GetRepository();
-
+            settings.StopWiimoteWrapper();
             WiisyScreenUIHelper.WriteToBinaryFile<WiisyScreenSavedData>(k_savedDataFile, dataToSave);
             WiisyScreenSavedData iii = WiisyScreenUIHelper.ReadFromBinaryFile<WiisyScreenSavedData>(k_savedDataFile);
         }

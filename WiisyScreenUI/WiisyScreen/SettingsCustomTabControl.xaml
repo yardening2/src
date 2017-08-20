@@ -66,8 +66,9 @@
                         <Button x:Name="buttonChooseSCFolder" Content="Browse" Canvas.Left="241" Canvas.Top="270" Margin="0,0,0.6,0.6" Click="buttonChooseSCFolder_Click" FontFamily="Comic Sans MS" Background="#FFCBCBCB"/>
                     </Border>
                     <Button x:Name="buttonGeneratePDF" Content="Generate PDF" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Width="297" Background="#FFCBCBCB" FontFamily="Comic Sans MS" Click="buttonGeneratePDF_Click"/>
+                    <Label x:Name="labelWiiConnectStatus" Content="WiiMoteState" FontWeight="Bold" FontFamily="Comic Sans MS" HorizontalContentAlignment="Right" Padding="0" Foreground="#FFCBCBC8" Margin="120,-203,37,0" VerticalAlignment="Top"/>
                 </Grid>
-                <Button x:Name="buttonCalibrate" Content="Calibrate" Canvas.Left="103" Canvas.Top="63" Width="75"/>
+                <Button x:Name="buttonCalibrate" Content="Calibrate" Canvas.Left="30" Canvas.Top="54" Width="75" Click="buttonCalibrate_Click"/>
             </Canvas>
         </TabItem>
         <TabItem Header="Applications">
