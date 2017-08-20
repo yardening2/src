@@ -9,7 +9,12 @@ namespace WiisyScreen
     [Serializable]
     public class WiisyScreenSavedData
     {
-        public List<ActionBubble.ActionBubbleData> MainBubbels { get; set; } = null;
-        public List<ActionBubble.ActionBubbleData> RepositoryData { get; set; } = null;
+        public List<ActionBubble.ActionBubbleData> MainBubbels { get; set; }
+        public List<ActionBubble.ActionBubbleData> RepositoryData { get; set; }
+        public WiisyScreenSavedData()
+        {
+        MainBubbels = null;
+        RepositoryData = null;
+        }
     }
 }

@@ -27,10 +27,15 @@ namespace WiisyScreen
         [Serializable]
         public class ActionBubbleData
         {
-            public string ActionData { get; set; } = null;
-            public eBubbleType BubbleType { get; set; } = eBubbleType.Empty;
+            public string ActionData { get; set; }
+            public eBubbleType BubbleType { get; set; }
 
-            public ActionBubbleData() { }
+            public ActionBubbleData()
+            {
+                ActionData = null;
+                BubbleType = eBubbleType.Empty;
+            }
+
             public ActionBubbleData(string i_ActionData, eBubbleType i_BubbleType)
             {
                 ActionData = i_ActionData;
@@ -44,13 +49,15 @@ namespace WiisyScreen
         private int onClickAnimationSize = 0;
         private double initWidth = 0;
         private double initHeight = 0;
-        public bool IsActive { get; set; } = false;
-        public ActionBubbleData BubbleData { get; set; } = new ActionBubbleData(null, eBubbleType.Empty);
+        public bool IsActive { get; set; }
+        public ActionBubbleData BubbleData { get; set; }
 
 
         public ActionBubble()
         {
             InitializeComponent();
+            BubbleData = new ActionBubbleData(null, eBubbleType.Empty);
+            IsActive = false;
         }
 
         public ActionBubble(ActionBubble ab)
