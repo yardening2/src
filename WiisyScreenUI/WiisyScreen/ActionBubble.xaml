@@ -6,16 +6,10 @@
              xmlns:local="clr-namespace:WiisyScreen"
              mc:Ignorable="d" 
              xmlns:converters="clr-namespace:WiisyScreen.Utils"
-             d:DesignHeight="300" d:DesignWidth="300" MouseDown="actionBubble_MouseDown" MouseUp="actionBubble_MouseUp" MouseLeave="actionBubble_MouseLeave" >
+             AllowDrop="false"
+             d:DesignHeight="300" d:DesignWidth="300" MouseDown="actionBubble_MouseDown" MouseUp="actionBubble_MouseUp" MouseLeave="actionBubble_MouseLeave" Opacity="0.4" >
     <Grid x:Name="grid" Width="{Binding Width, ElementName=userControl}" Height="{Binding Height, ElementName=actionBubble}">
-        <Ellipse x:Name="back" HorizontalAlignment="Center" Height="{Binding Height, ElementName=actionBubble}" Stroke="Black" VerticalAlignment="Center" Width="{Binding Width, ElementName=actionBubble}">
-            <Ellipse.Fill>
-                <RadialGradientBrush>
-                    <GradientStop Color="Black" Offset="1"/>
-                    <GradientStop Color="White"/>
-                </RadialGradientBrush>
-            </Ellipse.Fill>
-        </Ellipse>
+        <Ellipse x:Name="back" HorizontalAlignment="Center" Height="{Binding Height, ElementName=actionBubble}" Stroke="Black" VerticalAlignment="Center" Width="{Binding Width, ElementName=actionBubble}" Fill="#FF313030"/>
         <Rectangle Panel.ZIndex="1000" x:Name="front" Margin="0"  
                    Width="{Binding Path=ActualWidth, ElementName=back, Converter={converters:PercentageConverter}, ConverterParameter='0.7'}"
                    Height="{Binding Path=ActualHeight, ElementName=back, Converter={converters:PercentageConverter}, ConverterParameter='0.7'}" HorizontalAlignment="Center" VerticalAlignment="Center">

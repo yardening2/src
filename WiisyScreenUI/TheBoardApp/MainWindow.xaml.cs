@@ -26,7 +26,7 @@ namespace TheBoardApp
         private Boolean gridMinimized = false;
         private static MainWindow boardApp = null;
         private static readonly object sr_key = new object();
-        public string ScreenShotsTempFolder { get; set; }
+        static public string ScreenShotsFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
 
         public static MainWindow Instance
         {
@@ -50,7 +50,6 @@ namespace TheBoardApp
         public MainWindow()
         {
             InitializeComponent();
-            ScreenShotsTempFolder = "tmp";
         }
 
         private void Window_Activated(object sender, EventArgs e)
@@ -157,12 +156,11 @@ namespace TheBoardApp
         private void buttonSaveScreen_MouseUp(object sender, MouseButtonEventArgs e)
         {
             string theSavedPic;
-
-            System.IO.Directory.CreateDirectory(ScreenShotsTempFolder);
+            
             System.Threading.Thread.Sleep(250);
-            if (ScreenShotsTempFolder != null)
+            if (ScreenShotsFolder != null)
             {
-                theSavedPic = ScreenSaver.ScreenSaver.SaveAsImage(ScreenShotsTempFolder);
+                theSavedPic = ScreenSaver.ScreenSaver.SaveAsImage(MainWindow.ScreenShotsFolder);
                 animatePicTaken(addPicToScrollPanel(theSavedPic));
             }
             displayNotification("Screenshot saved");
