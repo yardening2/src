@@ -234,5 +234,8 @@
   <ItemGroup>
     <Resource Include="Resources\Drag2.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\MainBubble2.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
