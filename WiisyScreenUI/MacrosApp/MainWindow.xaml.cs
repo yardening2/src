@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using winMacros;
 using System.Windows.Interop;
 using System.Runtime.InteropServices;
+using System.Windows.Media.Animation;
 
 namespace MacrosApp
 {
@@ -147,5 +148,6 @@ namespace MacrosApp
 
             GeneralWinUtils.SetWindowToHideFromAltTab(new WindowInteropHelper(this).Handle);
         }
+
     }
 }

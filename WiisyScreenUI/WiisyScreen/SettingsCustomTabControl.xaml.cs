@@ -169,6 +169,45 @@ namespace WiisyScreen
         }
 
 
+
+        private void Rectangle_DragOver(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent("Object"))
+            {
+                // These Effects values are used in the drag source's
+                // GiveFeedback event handler to determine which cursor to display.
+                if (e.KeyStates == DragDropKeyStates.ControlKey)
+                {
+                    e.Effects = DragDropEffects.Copy;
+                }
+                else
+                {
+                    e.Effects = DragDropEffects.Move;
+                }
+            }
+        }
+
+        private void Rectangle_Drop(object sender, DragEventArgs e)
+        {
+            UIElement bubbleToRemove = null;
+            ActionBubble refBubble = e.Data.GetData("Object") as ActionBubble;
+
+            foreach (UIElement item in apllicationStackPanel.Children)
+            {
+                if(item is ActionBubble)
+                {
+                    if((item as ActionBubble).BubbleData.Equals(refBubble.BubbleData))
+                    {
+                        bubbleToRemove = item;
+                        break;
+                    }
+                }
+            }
+            apllicationStackPanel.Children.Remove(bubbleToRemove);
+        }
+
+
+
         /*
         private void WriteToFile_Click(object sender, RoutedEventArgs e)
         {

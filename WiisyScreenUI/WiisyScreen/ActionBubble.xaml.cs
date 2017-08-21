@@ -158,6 +158,7 @@ namespace WiisyScreen
 
                     // Inititate the drag-and-drop operation.
                     DragDrop.DoDragDrop(this, data, DragDropEffects.Copy | DragDropEffects.Move);
+
                 }
             }
         }
@@ -174,6 +175,7 @@ namespace WiisyScreen
             else if (e.Effects.HasFlag(DragDropEffects.Move))
             {
                 Mouse.SetCursor(Cursors.Pen);
+
             }
             else
             {

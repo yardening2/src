@@ -67,7 +67,7 @@
                     <ImageBrush ImageSource="images/alt-tab.png"/>
                 </Rectangle.Fill>
             </Rectangle>
-            <Label Content="Windows Macro's Manager" Canvas.Left="35" FontSize="20" FontWeight="Bold" FontFamily="Forte" FontStyle="Italic" Foreground="#98C1D9" Canvas.Top="-8"/>
+            <Label x:Name="labelMain" Content="Windows Macro's Manager" Canvas.Left="35" FontSize="20" FontWeight="Bold" FontFamily="Forte" FontStyle="Italic" Foreground="#98C1D9" Canvas.Top="-8"/>
             <Label Content="shift" Canvas.Left="26" Canvas.Top="26" FontFamily="Segoe UI Black" FontSize="16" Foreground="#FFB67AD3"/>
             <Label Content="controll" Canvas.Left="169" Canvas.Top="41" FontFamily="Segoe UI Black" FontSize="16" Foreground="#FFB67AD3"/>
 

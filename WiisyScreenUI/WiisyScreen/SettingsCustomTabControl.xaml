@@ -66,9 +66,9 @@
                         <Button x:Name="buttonChooseSCFolder" Content="Browse" Canvas.Left="241" Canvas.Top="270" Margin="0,0,0.6,0.6" Click="buttonChooseSCFolder_Click" FontFamily="Comic Sans MS" Background="#FFCBCBCB"/>
                     </Border>
                     <Button x:Name="buttonGeneratePDF" Content="Generate PDF" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Width="297" Background="#FFCBCBCB" FontFamily="Comic Sans MS" Click="buttonGeneratePDF_Click"/>
-                    <Label x:Name="labelWiiConnectStatus" Content="WiiMoteState" FontWeight="Bold" FontFamily="Comic Sans MS" HorizontalContentAlignment="Right" Padding="0" Foreground="#FFCBCBC8" Margin="120,-203,37,0" VerticalAlignment="Top"/>
                 </Grid>
                 <Button x:Name="buttonCalibrate" Content="Calibrate" Canvas.Left="30" Canvas.Top="54" Width="75" Click="buttonCalibrate_Click"/>
+                <Label x:Name="labelWiiConnectStatus" Content="WiiMoteState" FontWeight="Bold" FontFamily="Comic Sans MS" HorizontalContentAlignment="Right" Padding="0" Foreground="#FFCBCBC8" VerticalAlignment="Top" Canvas.Left="123" Canvas.Top="56" Width="153"/>
             </Canvas>
         </TabItem>
         <TabItem Header="Applications">
@@ -76,7 +76,7 @@
                 <ImageSource>Resources/Matte-Applications-icon.png</ImageSource>
             </TabItem.Tag>
             <Canvas x:Name="applicationCanvas" Background="#FF353333">
-                <ScrollViewer VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Canvas.Left="10" Canvas.Top="91" Width="291" Height="257">
+                <ScrollViewer VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Canvas.Left="10" Canvas.Top="83" Width="291" Height="206">
                     <WrapPanel x:Name="apllicationStackPanel"  Background="#FF5D5959">
                         <local:ActionBubble x:Name="blankBubble" Height="46" Width="46" Margin="6"/>
                         <local:ActionBubble x:Name="boardBubble" Height="46" Width="46"  Margin="6" Opacity="1">
@@ -99,9 +99,14 @@
                         </Button>
                     </WrapPanel>
                 </ScrollViewer>
-                <Rectangle Height="76" Canvas.Left="10" Canvas.Top="10" Width="291">
+                <Rectangle x:Name="picDrag" Height="81" Canvas.Left="10" Width="291" Canvas.Top="0">
                     <Rectangle.Fill>
                         <ImageBrush ImageSource="Resources/Drag2.png"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <Rectangle Height="46" Canvas.Left="248" Canvas.Top="302" Width="53" AllowDrop="True" DragOver="Rectangle_DragOver" Drop="Rectangle_Drop" >
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="Resources/garbage1.png"/>
                     </Rectangle.Fill>
                 </Rectangle>
 

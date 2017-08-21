@@ -301,7 +301,6 @@ namespace WiisyScreen
             dataToSave.RepositoryData = settings.GetRepository();
             settings.StopWiimoteWrapper();
             WiisyScreenUIHelper.WriteToBinaryFile<WiisyScreenSavedData>(k_savedDataFile, dataToSave);
-            WiisyScreenSavedData iii = WiisyScreenUIHelper.ReadFromBinaryFile<WiisyScreenSavedData>(k_savedDataFile);
         }
     }
 }
