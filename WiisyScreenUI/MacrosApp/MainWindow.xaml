@@ -10,7 +10,7 @@
         WindowStyle="None"
         AllowsTransparency="True" 
         WindowStartupLocation="Manual"
-        Title="MainWindow" MouseDown="Window_MouseDown" Height="243.985" Width="380.53" Loaded="Window_Loaded" Opacity="0.85" HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" >
+        Title="MainWindow" MouseDown="Window_MouseDown" MaxHeight="243.985" Height="243.985" MaxWidth="380.53" Width="380.53" Loaded="Window_Loaded" Opacity="0.85" HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" ResizeMode="NoResize" >
     <Grid>
         <Border ClipToBounds="True" CornerRadius="30" Background="#534D41" Width="381" Margin="0,30,0,37" Height="177" VerticalAlignment="Top" HorizontalAlignment="Left">
             <Canvas x:Name="MacrosCanvas" Background="#534D41" Margin="19,17,0,0" Width="341" Height="138" HorizontalAlignment="Left" VerticalAlignment="Top">
