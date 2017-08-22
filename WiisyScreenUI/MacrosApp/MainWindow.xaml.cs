@@ -94,7 +94,10 @@ namespace MacrosApp
             }
 
             Topmost = false;
-            Macros.ShiftLastWindow(width, height, xSlot, ySlot);
+            if(!Macros.ShiftLastWindow(width, height, xSlot, ySlot))
+            {
+                displayErrorMsg();
+            }
             Topmost = true;
         }
 
@@ -112,21 +115,30 @@ namespace MacrosApp
         private void buttonMacroMinimize_MouseUp(object sender, MouseButtonEventArgs e)
         {
             Topmost = false;
-            Macros.LastWindowShow(Macros.ShowWindowCommands.Minimize);
+            if (!Macros.LastWindowShow(Macros.ShowWindowCommands.Minimize))
+            {
+                displayErrorMsg();
+            }
             Topmost = true;
         }
 
         private void buttonMacroMaximize_MouseUp(object sender, MouseButtonEventArgs e)
         {
             Topmost = false;
-            Macros.LastWindowShow(Macros.ShowWindowCommands.ShowMaximized);
+            if (!Macros.LastWindowShow(Macros.ShowWindowCommands.ShowMaximized))
+            {
+                displayErrorMsg();
+            }
             Topmost = true;
         }
 
         private void buttonMacroClose_MouseUp(object sender, MouseButtonEventArgs e)
         {
             Topmost = false;
-            Macros.CloseLastWindow();
+            if (!Macros.CloseLastWindow())
+            {
+                displayErrorMsg();
+            }
             Topmost = true;
         }
 
@@ -147,6 +159,11 @@ namespace MacrosApp
             this.Top = desktopWorkingArea.Bottom - this.Height;
 
             GeneralWinUtils.SetWindowToHideFromAltTab(new WindowInteropHelper(this).Handle);
+        }
+
+        private void displayErrorMsg()
+        {
+            errorMsg.BeginAnimation(OpacityProperty, new DoubleAnimation(1, 0, new Duration(TimeSpan.FromSeconds(1.8))));
         }
 
     }

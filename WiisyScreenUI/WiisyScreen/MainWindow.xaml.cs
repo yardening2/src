@@ -276,6 +276,7 @@ namespace WiisyScreen
             translateSettingsCanvas.Y = translate.Y;
 
             canvasSettings.Visibility = Visibility.Visible;
+            canvasSettings.BeginAnimation(OpacityProperty, new DoubleAnimation(0, 1, TimeSpan.FromSeconds(0.5)));
         }
 
         private void buttonExitSettings_Click(object sender, RoutedEventArgs e)
