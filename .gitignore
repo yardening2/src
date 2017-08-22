@@ -263,6 +263,7 @@ _Pvt_Extensions
 .paket/paket.exe
 paket-files/
 
+!InTheHand.Net.Personal.dll
 # FAKE - F# Make
 .fake/
 

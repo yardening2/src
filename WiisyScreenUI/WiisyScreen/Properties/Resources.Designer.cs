@@ -143,6 +143,26 @@ namespace WiisyScreen.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap garbage {
+            get {
+                object obj = ResourceManager.GetObject("garbage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap garbage1 {
+            get {
+                object obj = ResourceManager.GetObject("garbage1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons_wrench {
             get {
                 object obj = ResourceManager.GetObject("icons_wrench", resourceCulture);
@@ -163,6 +183,16 @@ namespace WiisyScreen.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap MainBubble2 {
+            get {
+                object obj = ResourceManager.GetObject("MainBubble2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Matte_Applications_icon {
             get {
                 object obj = ResourceManager.GetObject("Matte_Applications_icon", resourceCulture);
@@ -176,6 +206,16 @@ namespace WiisyScreen.Properties {
         internal static System.Drawing.Bitmap Pencil {
             get {
                 object obj = ResourceManager.GetObject("Pencil", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap recycle {
+            get {
+                object obj = ResourceManager.GetObject("recycle", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

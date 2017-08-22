@@ -37,31 +37,39 @@ namespace WiisyScreen
             labelWiiConnectStatus.Content = "";
         }
 
+        public bool ToSaveData()
+        {
+            return checkBoxSaveData.IsChecked.Value;
+        }
+
         private void initBubbels()
         {
-            boardBubble.clickHandler += () => MainWindow.runBoard();
-            boardBubble.BubbleData = new ActionBubble.ActionBubbleData("BoardApp", eBubbleType.Board);
-            MacroBubble.clickHandler += () => MainWindow.runMacroApp();
-            MacroBubble.BubbleData = new ActionBubble.ActionBubbleData("MacroApp", eBubbleType.Macro);
+            apllicationStackPanel.Children.Clear();
+            apllicationStackPanel.Children.Add(addActionBubble);
+
+            addActionBubbleToRepasatory(WiisyScreenUIHelper.CreateActionBubbleFromData(new ActionBubble.ActionBubbleData("", eBubbleType.Empty)));
+            addActionBubbleToRepasatory(WiisyScreenUIHelper.CreateActionBubbleFromData(new ActionBubble.ActionBubbleData("BoardApp", eBubbleType.Board)));
+            addActionBubbleToRepasatory(WiisyScreenUIHelper.CreateActionBubbleFromData(new ActionBubble.ActionBubbleData("MacroApp", eBubbleType.Macro)));
+
         }
 
 
+        private void addActionBubbleToRepasatory(ActionBubble i_BubbleToAdd)
+        {
+            if (i_BubbleToAdd != null)
+            {
+                apllicationStackPanel.Children.Remove(addActionBubble);
+                apllicationStackPanel.Children.Add(i_BubbleToAdd);
+                apllicationStackPanel.Children.Add(addActionBubble);
+            }
+        }
 
         private void addActionBubble_Click(object sender, RoutedEventArgs e)
         {
             ActionBubble ab = WiisyScreenUIHelper.CreateCustomizeActionBubble();
-            if (ab != null)
-            {
-                addActionBubbleToRepository(ab);
-            }
+            addActionBubbleToRepasatory(ab);
         }
 
-        private void addActionBubbleToRepository(ActionBubble ab)
-        {
-            apllicationStackPanel.Children.Remove(addActionBubble);
-            apllicationStackPanel.Children.Add(ab);
-            apllicationStackPanel.Children.Add(addActionBubble);
-        }
 
         private void buttonChooseSCFolder_Click(object sender, RoutedEventArgs e)
         {
@@ -80,7 +88,7 @@ namespace WiisyScreen
 
             foreach (ActionBubble.ActionBubbleData bubbleData in repositoryData)
             {
-                addActionBubbleToRepository(WiisyScreenUIHelper.CreateActionBubbleFromData(bubbleData));
+                addActionBubbleToRepasatory(WiisyScreenUIHelper.CreateActionBubbleFromData(bubbleData));
             }
         }
 
@@ -169,22 +177,48 @@ namespace WiisyScreen
         }
 
 
-        /*
-        private void WriteToFile_Click(object sender, RoutedEventArgs e)
-        {
-            List<ActionBubble.ActionBubbleData> i = new List<ActionBubble.ActionBubbleData>();
-            
-            i.Add(new ActionBubble.ActionBubbleData("Test", eBubbleType.Macro));
-            i.Add(new ActionBubble.ActionBubbleData("234", eBubbleType.Empty));
-            i.Add(new ActionBubble.ActionBubbleData());
 
-            WiisyScreenUIHelper.WriteToBinaryFile<List<ActionBubble.ActionBubbleData>>("test", i);
+        private void Rectangle_DragOver(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent("Object"))
+            {
+                // These Effects values are used in the drag source's
+                // GiveFeedback event handler to determine which cursor to display.
+                if (e.KeyStates == DragDropKeyStates.ControlKey)
+                {
+                    e.Effects = DragDropEffects.Copy;
+                }
+                else
+                {
+                    e.Effects = DragDropEffects.Move;
+                }
+            }
         }
 
-        private void ReadToFile_Click(object sender, RoutedEventArgs e)
+        private void Rectangle_Drop(object sender, DragEventArgs e)
         {
-            List<ActionBubble.ActionBubbleData> i = WiisyScreenUIHelper.ReadFromBinaryFile< List<ActionBubble.ActionBubbleData>>("test");
+            UIElement bubbleToRemove = null;
+            ActionBubble refBubble = e.Data.GetData("Object") as ActionBubble;
+
+            foreach (UIElement item in apllicationStackPanel.Children)
+            {
+                if(item is ActionBubble)
+                {
+                    if((item as ActionBubble).BubbleData.Equals(refBubble.BubbleData))
+                    {
+                        bubbleToRemove = item;
+                        break;
+                    }
+                }
+            }
+            apllicationStackPanel.Children.Remove(bubbleToRemove);
         }
-        */
+
+
+
+        private void buttonResrote_Click(object sender, RoutedEventArgs e)
+        {
+            initBubbels();
+        }
     }
 }

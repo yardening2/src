@@ -276,6 +276,7 @@ namespace WiisyScreen
             translateSettingsCanvas.Y = translate.Y;
 
             canvasSettings.Visibility = Visibility.Visible;
+            canvasSettings.BeginAnimation(OpacityProperty, new DoubleAnimation(0, 1, TimeSpan.FromSeconds(0.5)));
         }
 
         private void buttonExitSettings_Click(object sender, RoutedEventArgs e)
@@ -296,12 +297,20 @@ namespace WiisyScreen
 
         private void mainWindow_Closed(object sender, EventArgs e)
         {
-            WiisyScreenSavedData dataToSave = new WiisyScreenSavedData();
-            dataToSave.MainBubbels = GetMainBubbelsData();
-            dataToSave.RepositoryData = settings.GetRepository();
+            hundleSaveData();
             settings.StopWiimoteWrapper();
-            WiisyScreenUIHelper.WriteToBinaryFile<WiisyScreenSavedData>(k_savedDataFile, dataToSave);
-            WiisyScreenSavedData iii = WiisyScreenUIHelper.ReadFromBinaryFile<WiisyScreenSavedData>(k_savedDataFile);
+        }
+
+        private void hundleSaveData()
+        {
+            File.Delete(k_savedDataFile);
+;           if (settings.ToSaveData())
+            {
+                WiisyScreenSavedData dataToSave = new WiisyScreenSavedData();
+                dataToSave.MainBubbels = GetMainBubbelsData();
+                dataToSave.RepositoryData = settings.GetRepository();
+                WiisyScreenUIHelper.WriteToBinaryFile<WiisyScreenSavedData>(k_savedDataFile, dataToSave);
+            }
         }
     }
 }
