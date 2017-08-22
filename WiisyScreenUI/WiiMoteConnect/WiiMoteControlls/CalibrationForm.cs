@@ -14,6 +14,7 @@ namespace WiiMoteConnect.WiiMoteControlls
     public partial class CalibrationForm : Form
     {
         private const float k_DefaultMargin = .1f;
+        private const float k_MaxMargin = .6f;
         private Pen m_Pen;
         private int k_CrossSize = 25;
         private WiiMoteWrapper m_WiiMoteWrapper;
@@ -24,6 +25,8 @@ namespace WiiMoteConnect.WiiMoteControlls
         public float CalibrationTopMargin { get { return m_FormTopMargin; } }
         public event EventHandler CalibrationHeightChangedEvent;
         private bool isTestingMode;
+        private bool v_IsDragged;
+        private Timer m_BlinkingTimer;
 
         public CalibrationForm(WiiMoteWrapper i_WiiMoteWrapper)
         {
@@ -36,7 +39,7 @@ namespace WiiMoteConnect.WiiMoteControlls
             m_Pen = new Pen(Color.Blue);
             this.Width = Screen.PrimaryScreen.Bounds.Width;
             CrossPictureBox.Left = CrossPictureBox.Top = 0;
-            CalibrationSizePanel.Location = new Point(Width / 2 - (CalibrationSizePanel.Width / 2), Height - CalibrationSizePanel.Height * 2);
+            v_IsDragged = false;
         }
 
         /// This ctor is for testing only!!
@@ -55,11 +58,11 @@ namespace WiiMoteConnect.WiiMoteControlls
         
         private void nextCalibrationStep(object i_WiiMoteWrapper, WiimoteState i_WiiMoteState)
         {
-            this.Invoke(new Action(() => { CalibrationSizePanel.Visible = false; }));
             switch (m_StepCounter)
             {
                 case 0:
                     drawCross(new Point((int)(Width * k_DefaultMargin), Height - (int)(r_ScreenHeight * k_DefaultMargin)));
+                    stopBlinking();
                     break;
                 case 1:
                     drawCross(new Point(Width - (int)(Width * k_DefaultMargin), (int)(r_ScreenHeight * k_DefaultMargin)));
@@ -82,12 +85,34 @@ namespace WiiMoteConnect.WiiMoteControlls
             {
                 m_WiiMoteWrapper.InfraRedAppearedEvent += nextCalibrationStep;
                 m_WiiMoteWrapper.BButtonPressed += onBButtonPressed;
-                m_WiiMoteWrapper.MinusButtonPressed += SmallerCalibrationButtom_Click;
-                m_WiiMoteWrapper.PlusButtonPressed += BiggerCalibrationButtom_Click;
-
+                this.TopMost = true;
             }
-            this.TopMost = true;
             resetCalibration();
+            labelStart.Location = new Point((int)(this.Width * k_DefaultMargin) - (labelStart.Width / 2), (int)(this.Height * k_DefaultMargin) + 30);
+            startBlink();
+        }
+
+        private void startBlink()
+        {
+            if (m_BlinkingTimer == null)
+            {
+                m_BlinkingTimer = new Timer();
+                m_BlinkingTimer.Interval = 500;
+                m_BlinkingTimer.Tick += onBlinkTick;
+            }
+
+            m_BlinkingTimer.Start();
+        }
+
+        private void onBlinkTick(object sender, EventArgs e)
+        {
+            labelStart.Visible = !labelStart.Visible;
+        }
+
+        private void stopBlinking()
+        {
+            m_BlinkingTimer.Stop();
+            labelStart.Visible = false;
         }
 
         protected override void OnClosed(EventArgs e)
@@ -96,8 +121,6 @@ namespace WiiMoteConnect.WiiMoteControlls
             {
                 m_WiiMoteWrapper.InfraRedAppearedEvent -= nextCalibrationStep;
                 m_WiiMoteWrapper.BButtonPressed -= onBButtonPressed;
-                m_WiiMoteWrapper.MinusButtonPressed -= SmallerCalibrationButtom_Click;
-                m_WiiMoteWrapper.PlusButtonPressed -= BiggerCalibrationButtom_Click;
             }
             base.OnClosed(e);
         }
@@ -107,11 +130,11 @@ namespace WiiMoteConnect.WiiMoteControlls
             m_StepCounter = 0;
             CrossPictureBox.Size = new Size(Width, Height);
             drawCross(new Point((int)(Width * k_DefaultMargin), (int)(r_ScreenHeight * k_DefaultMargin)));
+            startBlink();
         }
 
         public void drawCross(Point i_Location)
         {
-
             Graphics graphics;
             m_CrossBitmap = new Bitmap(Width, Height, PixelFormat.Format24bppRgb);
             graphics = Graphics.FromImage(m_CrossBitmap);
@@ -127,43 +150,12 @@ namespace WiiMoteConnect.WiiMoteControlls
             nextCalibrationStep(null, null);
         }
 
-        private void SmallerCalibrationButtom_Click(object sender, EventArgs e)
-        {
-            this.Invoke(new Action(() =>
-            {
-                int HeightDelta = (int)(.1f * Screen.PrimaryScreen.Bounds.Height);
-                this.Size = new Size(this.Size.Width, this.Size.Height - HeightDelta);
-                Location = new Point(Location.X, Location.Y + HeightDelta);
-                CalibrationSizePanel.Location = new Point(Width / 2 - (CalibrationSizePanel.Width / 2), Height - CalibrationSizePanel.Height * 2);
-                m_FormTopMargin += .1f;
-                resetCalibration();
-                fireHeightChangeEvent();
-            }));
-        }
-
         private void fireHeightChangeEvent()
         {
             if (CalibrationHeightChangedEvent != null)
             {
                 CalibrationHeightChangedEvent(this, EventArgs.Empty);
             }
-        }
-
-        private void BiggerCalibrationButtom_Click(object sender, EventArgs e)
-        {
-            this.Invoke(new Action(() =>
-            {
-                int HeightDelta = (int)(.1f * r_ScreenHeight);
-                if (this.Size.Height + HeightDelta <= r_ScreenHeight)
-                {
-                    this.Size = new Size(this.Size.Width, this.Size.Height + HeightDelta);
-                    Location = new Point(Location.X, Location.Y - HeightDelta);
-                    CalibrationSizePanel.Location = new Point(Width / 2 - (CalibrationSizePanel.Width / 2), Height - CalibrationSizePanel.Height * 2);
-                    m_FormTopMargin -= .1f;
-                    resetCalibration();
-                    fireHeightChangeEvent();
-                }
-            }));
         }
 
         private void onBButtonPressed(object i_Sender, EventArgs i_Args)
@@ -179,6 +171,46 @@ namespace WiiMoteConnect.WiiMoteControlls
                 return true;
             }
             return base.ProcessDialogKey(keyData);
+        }
+
+        private void buttonDrag_MouseDown(object sender, MouseEventArgs e)
+        {
+            v_IsDragged = true;
+            labelLine.Visible = true;
+        }
+
+        private void buttonDrag_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (v_IsDragged)
+            {
+                updateTopMargin(Cursor.Position.Y);
+                this.Size = new Size(this.Size.Width, (int)((1f - m_FormTopMargin) * r_ScreenHeight));
+                Location = new Point(Location.X, (int)(m_FormTopMargin * r_ScreenHeight));
+            }
+            labelLine.Visible = v_IsDragged = false;
+            resetCalibration();
+            fireHeightChangeEvent();
+        }
+
+
+        private void buttonDrag_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (v_IsDragged)
+            {
+                updateTopMargin(e.Y);
+                labelLine.Location = new Point(Location.X, (int)(m_FormTopMargin * r_ScreenHeight));
+            }
+        }
+
+        private float updateTopMargin(float newY)
+        {
+            float WindowNewHeightPrecent = ((float)(r_ScreenHeight - newY) / r_ScreenHeight) * 100;
+            if (WindowNewHeightPrecent >= 99)
+            {
+                WindowNewHeightPrecent = 100;
+            }
+            int newMargin = 100 - (int)WindowNewHeightPrecent;
+            return m_FormTopMargin = Math.Min((float)newMargin / 100, k_MaxMargin);
         }
     }
 }
