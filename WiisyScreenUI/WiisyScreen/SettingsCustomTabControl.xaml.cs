@@ -44,29 +44,32 @@ namespace WiisyScreen
 
         private void initBubbels()
         {
-            boardBubble.clickHandler += () => MainWindow.runBoard();
-            boardBubble.BubbleData = new ActionBubble.ActionBubbleData("BoardApp", eBubbleType.Board);
-            MacroBubble.clickHandler += () => MainWindow.runMacroApp();
-            MacroBubble.BubbleData = new ActionBubble.ActionBubbleData("MacroApp", eBubbleType.Macro);
+            apllicationStackPanel.Children.Clear();
+            apllicationStackPanel.Children.Add(addActionBubble);
+
+            addActionBubbleToRepasatory(WiisyScreenUIHelper.CreateActionBubbleFromData(new ActionBubble.ActionBubbleData("", eBubbleType.Empty)));
+            addActionBubbleToRepasatory(WiisyScreenUIHelper.CreateActionBubbleFromData(new ActionBubble.ActionBubbleData("BoardApp", eBubbleType.Board)));
+            addActionBubbleToRepasatory(WiisyScreenUIHelper.CreateActionBubbleFromData(new ActionBubble.ActionBubbleData("MacroApp", eBubbleType.Macro)));
+
         }
 
 
+        private void addActionBubbleToRepasatory(ActionBubble i_BubbleToAdd)
+        {
+            if (i_BubbleToAdd != null)
+            {
+                apllicationStackPanel.Children.Remove(addActionBubble);
+                apllicationStackPanel.Children.Add(i_BubbleToAdd);
+                apllicationStackPanel.Children.Add(addActionBubble);
+            }
+        }
 
         private void addActionBubble_Click(object sender, RoutedEventArgs e)
         {
             ActionBubble ab = WiisyScreenUIHelper.CreateCustomizeActionBubble();
-            if (ab != null)
-            {
-                addActionBubbleToRepository(ab);
-            }
+            addActionBubbleToRepasatory(ab);
         }
 
-        private void addActionBubbleToRepository(ActionBubble ab)
-        {
-            apllicationStackPanel.Children.Remove(addActionBubble);
-            apllicationStackPanel.Children.Add(ab);
-            apllicationStackPanel.Children.Add(addActionBubble);
-        }
 
         private void buttonChooseSCFolder_Click(object sender, RoutedEventArgs e)
         {
@@ -85,7 +88,7 @@ namespace WiisyScreen
 
             foreach (ActionBubble.ActionBubbleData bubbleData in repositoryData)
             {
-                addActionBubbleToRepository(WiisyScreenUIHelper.CreateActionBubbleFromData(bubbleData));
+                addActionBubbleToRepasatory(WiisyScreenUIHelper.CreateActionBubbleFromData(bubbleData));
             }
         }
 
@@ -216,7 +219,6 @@ namespace WiisyScreen
         private void buttonResrote_Click(object sender, RoutedEventArgs e)
         {
             initBubbels();
-            
         }
     }
 }

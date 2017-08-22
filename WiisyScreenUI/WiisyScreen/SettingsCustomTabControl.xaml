@@ -50,18 +50,18 @@
             <ScrollViewer>
                 <StackPanel>
                     <Grid Height="76" Background="#FFAC5656">
-                        <Label x:Name="labelCalibration" Content="Calibration" FontWeight="Bold" FontFamily="Comic Sans MS" HorizontalContentAlignment="Stretch" Padding="0" Foreground="#FFCBCBC8" VerticalAlignment="Top" RenderTransformOrigin="0.627,-3.331" Margin="41,9,157,0" FontSize="16"/>
+                        <Label x:Name="labelCalibration" Content="Calibration" FontWeight="Bold" FontFamily="Comic Sans MS" HorizontalContentAlignment="Stretch" Padding="0" Foreground="#FFCBCBC8" VerticalAlignment="Top" RenderTransformOrigin="0.627,-3.331" Margin="41,9,157,0" FontSize="16" FontStyle="Italic"/>
                         <Rectangle Fill="#FFF4F4F5" Stroke="Black"  Height="5" VerticalAlignment="Top" Width="147" Margin="132,19,15,0"/>
                         <Rectangle Fill="#FFF4F4F5" Stroke="Black"  Height="5" VerticalAlignment="Top" Width="26" Margin="7,18,261,0"/>
-                        <Button x:Name="buttonCalibrate" Content="Calibrate" Click="buttonCalibrate_Click"  VerticalAlignment="Top" Margin="10,40,207,0"/>
+                        <Button x:Name="buttonCalibrate" Content="Calibrate" Click="buttonCalibrate_Click"  VerticalAlignment="Top" Margin="10,40,207,0" FontWeight="Bold" FontFamily="Comic Sans MS"/>
                         <Label x:Name="labelWiiConnectStatus" Content="WiiMoteState" FontWeight="Bold" FontFamily="Comic Sans MS" HorizontalContentAlignment="Right" Padding="0" Foreground="#FFCBCBC8" VerticalAlignment="Top" Margin="109,43,32,0"/>
                     </Grid>
                     <Grid Height="84" Background="#FF8B3D3D" VerticalAlignment="Top">
-                        <Label x:Name="labelSofwere" Content="Softwere" FontWeight="Bold" FontFamily="Comic Sans MS" HorizontalContentAlignment="Stretch" Padding="0" Foreground="#FFCBCBC8" VerticalAlignment="Top" RenderTransformOrigin="0.627,-3.331" Margin="41,9,157,0" FontSize="16"/>
+                        <Label x:Name="labelSofwere" Content="Softwere" FontWeight="Bold" FontFamily="Comic Sans MS" HorizontalContentAlignment="Stretch" Padding="0" Foreground="#FFCBCBC8" VerticalAlignment="Top" RenderTransformOrigin="0.627,-3.331" Margin="41,9,157,0" FontSize="16" FontStyle="Italic"/>
                         <Rectangle Fill="#FFF4F4F5" Stroke="Black"  Height="5" VerticalAlignment="Top" Width="164" Margin="120,19,10,0"/>
                         <Rectangle Fill="#FFF4F4F5" Stroke="Black"  Height="5" VerticalAlignment="Top" Width="26" Margin="7,18,261,0"/>
-                        <CheckBox x:Name="checkBoxSaveData" Content="Save Data On Exit" HorizontalAlignment="Left" Margin="10,32,0,0" VerticalAlignment="Top" IsChecked="True"/>
-                        <Button x:Name="buttonResrote" Content="Restore Factory Settings" HorizontalAlignment="Left" Margin="10,52,0,0" VerticalAlignment="Top" Width="274" Click="buttonResrote_Click"/>
+                        <CheckBox x:Name="checkBoxSaveData" Content="Save Data On Exit" HorizontalAlignment="Left" Margin="10,32,0,0" VerticalAlignment="Top" IsChecked="True" Foreground="#FFCBCBC8" FontWeight="Bold" FontFamily="Comic Sans MS"/>
+                        <Button x:Name="buttonResrote" Content="Restore Factory Apps Container" HorizontalAlignment="Left" Margin="10,52,0,0" VerticalAlignment="Top" Width="274" Click="buttonResrote_Click" FontFamily="Comic Sans MS" FontWeight="Bold"/>
                     </Grid>
                     <Grid Height="120" Background="#FF932B2B">
                         <Border x:Name="borderScreenShots" BorderThickness="1,1,1,1" CornerRadius="5,5,5,5" Canvas.Top="269" 
@@ -77,8 +77,8 @@
                             </Canvas>
                         </Border>
                         <Label x:Name="labelScreenshotFolder" Content="Screenshots Folder" Canvas.Left="10" Canvas.Top="246" FontWeight="Bold" FontFamily="Comic Sans MS" HorizontalContentAlignment="Right" Padding="0" Foreground="#FFCBCBC8" Margin="14,36,167,0" VerticalAlignment="Top"/>
-                        <Button x:Name="buttonGeneratePDF" Content="Generate PDF" HorizontalAlignment="Left" Margin="10,89,0,0" VerticalAlignment="Top" Width="274" Background="#FFCBCBCB" FontFamily="Comic Sans MS" Click="buttonGeneratePDF_Click"/>
-                        <Label x:Name="labelPictures" Content="Pictures" FontWeight="Bold" FontFamily="Comic Sans MS" HorizontalContentAlignment="Stretch" Padding="0" Foreground="#FFCBCBC8" VerticalAlignment="Top" RenderTransformOrigin="0.627,-3.331" Margin="41,9,186,0" FontSize="16"/>
+                        <Button x:Name="buttonGeneratePDF" Content="Generate PDF" HorizontalAlignment="Left" Margin="10,89,0,0" VerticalAlignment="Top" Width="274" Background="#FFCBCBCB" FontFamily="Comic Sans MS" Click="buttonGeneratePDF_Click" FontWeight="Bold"/>
+                        <Label x:Name="labelPictures" Content="Pictures" FontWeight="Bold" FontFamily="Comic Sans MS" HorizontalContentAlignment="Stretch" Padding="0" Foreground="#FFCBCBC8" VerticalAlignment="Top" RenderTransformOrigin="0.627,-3.331" Margin="41,9,186,0" FontSize="16" FontStyle="Italic"/>
                         <Rectangle Fill="#FFF4F4F5" Stroke="Black"  Height="5" VerticalAlignment="Top" Width="171" Margin="113,18,10,0"/>
                         <Button x:Name="buttonChooseSCFolder" Content="Browse"  Click="buttonChooseSCFolder_Click" FontFamily="Comic Sans MS" Background="#FFCBCBCB" VerticalAlignment="Top" Width="44" Height="21" Margin="240,54,10,0"/>
                         <Rectangle Fill="#FFF4F4F5" Stroke="Black"  Height="5" VerticalAlignment="Top" Width="26" Margin="10,18,258,0"/>
@@ -94,20 +94,6 @@
             <Canvas x:Name="applicationCanvas" Background="#FF353333">
                 <ScrollViewer VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Canvas.Left="10" Canvas.Top="83" Width="291" Height="206">
                     <WrapPanel x:Name="apllicationStackPanel"  Background="#FF5D5959">
-                        <local:ActionBubble x:Name="blankBubble" Height="46" Width="46" Margin="6"/>
-                        <local:ActionBubble x:Name="boardBubble" Height="46" Width="46"  Margin="6" Opacity="1">
-                            <local:ActionBubble.FrontBrush>
-                                <ImageBrush ImageSource="images/whiteboard-icon.png"/>
-                            </local:ActionBubble.FrontBrush>
-                            <local:ActionBubble.BorderBrush>
-                                <ImageBrush/>
-                            </local:ActionBubble.BorderBrush>
-                        </local:ActionBubble>
-                        <local:ActionBubble x:Name="MacroBubble" Height="46" Width="46" Margin="6" Opacity="1">
-                            <local:ActionBubble.FrontBrush>
-                                <ImageBrush ImageSource="Resources/macroicon.png"/>
-                            </local:ActionBubble.FrontBrush>
-                        </local:ActionBubble>
                         <Button x:Name="addActionBubble"  Width="46" BorderBrush="{x:Null}" Height="46" Click="addActionBubble_Click">
                             <Button.Background>
                                 <ImageBrush ImageSource="Resources/AddApp.png"/>
