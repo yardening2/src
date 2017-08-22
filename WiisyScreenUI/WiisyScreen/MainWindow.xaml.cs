@@ -296,11 +296,20 @@ namespace WiisyScreen
 
         private void mainWindow_Closed(object sender, EventArgs e)
         {
-            WiisyScreenSavedData dataToSave = new WiisyScreenSavedData();
-            dataToSave.MainBubbels = GetMainBubbelsData();
-            dataToSave.RepositoryData = settings.GetRepository();
+            hundleSaveData();
             settings.StopWiimoteWrapper();
-            WiisyScreenUIHelper.WriteToBinaryFile<WiisyScreenSavedData>(k_savedDataFile, dataToSave);
+        }
+
+        private void hundleSaveData()
+        {
+            File.Delete(k_savedDataFile);
+;           if (settings.ToSaveData())
+            {
+                WiisyScreenSavedData dataToSave = new WiisyScreenSavedData();
+                dataToSave.MainBubbels = GetMainBubbelsData();
+                dataToSave.RepositoryData = settings.GetRepository();
+                WiisyScreenUIHelper.WriteToBinaryFile<WiisyScreenSavedData>(k_savedDataFile, dataToSave);
+            }
         }
     }
 }

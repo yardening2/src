@@ -37,6 +37,11 @@ namespace WiisyScreen
             labelWiiConnectStatus.Content = "";
         }
 
+        public bool ToSaveData()
+        {
+            return checkBoxSaveData.IsChecked.Value;
+        }
+
         private void initBubbels()
         {
             boardBubble.clickHandler += () => MainWindow.runBoard();
@@ -208,22 +213,10 @@ namespace WiisyScreen
 
 
 
-        /*
-        private void WriteToFile_Click(object sender, RoutedEventArgs e)
+        private void buttonResrote_Click(object sender, RoutedEventArgs e)
         {
-            List<ActionBubble.ActionBubbleData> i = new List<ActionBubble.ActionBubbleData>();
+            initBubbels();
             
-            i.Add(new ActionBubble.ActionBubbleData("Test", eBubbleType.Macro));
-            i.Add(new ActionBubble.ActionBubbleData("234", eBubbleType.Empty));
-            i.Add(new ActionBubble.ActionBubbleData());
-
-            WiisyScreenUIHelper.WriteToBinaryFile<List<ActionBubble.ActionBubbleData>>("test", i);
         }
-
-        private void ReadToFile_Click(object sender, RoutedEventArgs e)
-        {
-            List<ActionBubble.ActionBubbleData> i = WiisyScreenUIHelper.ReadFromBinaryFile< List<ActionBubble.ActionBubbleData>>("test");
-        }
-        */
     }
 }
