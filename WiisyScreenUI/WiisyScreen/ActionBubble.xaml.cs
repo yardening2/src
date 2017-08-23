@@ -157,7 +157,7 @@ namespace WiisyScreen
                     data.SetData("Object", this);
 
                     // Inititate the drag-and-drop operation.
-                    DragDrop.DoDragDrop(this, data, DragDropEffects.Copy | DragDropEffects.Move);
+                    DragDrop.DoDragDrop(this, data, DragDropEffects.Copy | DragDropEffects.Move | DragDropEffects.None);
 
                 }
             }

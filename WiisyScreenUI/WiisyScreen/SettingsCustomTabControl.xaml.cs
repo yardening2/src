@@ -133,7 +133,7 @@ namespace WiisyScreen
             switch (i_State)
             {
                 case WiiMoteWrapper.eWiiConnectivityState.Connected:
-                    changeLableStringFromThread(labelWiiConnectStatus,"Connected To WiiMote");
+                    changeLableStringFromThread(labelWiiConnectStatus, "Connected To WiiMote");
                     break;
                 case WiiMoteWrapper.eWiiConnectivityState.Connecting:
                     changeLableStringFromThread(labelWiiConnectStatus, "Connecting...");
@@ -150,7 +150,7 @@ namespace WiisyScreen
             }
         }
 
-        public void changeLableStringFromThread(Label i_labelToChange,string i_StateString)
+        public void changeLableStringFromThread(Label i_labelToChange, string i_StateString)
         {
             Dispatcher.Invoke(new Action(() => { i_labelToChange.Content = i_StateString; }));
         }
@@ -193,25 +193,30 @@ namespace WiisyScreen
                     e.Effects = DragDropEffects.Move;
                 }
             }
+
         }
+
 
         private void Rectangle_Drop(object sender, DragEventArgs e)
         {
             UIElement bubbleToRemove = null;
             ActionBubble refBubble = e.Data.GetData("Object") as ActionBubble;
 
-            foreach (UIElement item in apllicationStackPanel.Children)
+            if (refBubble.BubbleData.BubbleType == eBubbleType.Exe)
             {
-                if(item is ActionBubble)
+                foreach (UIElement item in apllicationStackPanel.Children)
                 {
-                    if((item as ActionBubble).BubbleData.Equals(refBubble.BubbleData))
+                    if (item is ActionBubble)
                     {
-                        bubbleToRemove = item;
-                        break;
+                        if ((item as ActionBubble).BubbleData.Equals(refBubble.BubbleData))
+                        {
+                            bubbleToRemove = item;
+                            break;
+                        }
                     }
                 }
+                apllicationStackPanel.Children.Remove(bubbleToRemove);
             }
-            apllicationStackPanel.Children.Remove(bubbleToRemove);
         }
 
 
