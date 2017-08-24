@@ -74,9 +74,9 @@ namespace WiisyScreen
 
         private void initFirstUse()
         {
-            actionBubbleSlot1.setApp(runBoard, createImageForEllipse("whiteboard-icon.png"));
+            actionBubbleSlot1.setApp(runBoard, WiisyScreenUIHelper.createImageForEllipse("whiteboard-icon.png"));
             actionBubbleSlot1.BubbleData = new ActionBubble.ActionBubbleData("BoardApp", eBubbleType.Board);
-            actionBubbleSlot2.setApp(runMacroApp, createImageForEllipse("macroicon.png"));
+            actionBubbleSlot2.setApp(runMacroApp, WiisyScreenUIHelper.createImageForEllipse("macroicon.png"));
             actionBubbleSlot2.BubbleData = new ActionBubble.ActionBubbleData("MacroApp", eBubbleType.Macro);
             actionBubbleSlot1.Opacity = actionBubbleSlot2.Opacity = 1;
         }
@@ -87,12 +87,6 @@ namespace WiisyScreen
             actionBubbleSlot2.InitAnimation(k_bubbelsAnimation);
             actionBubbleSlot3.InitAnimation(k_bubbelsAnimation);
             actionBubbleSlot4.InitAnimation(k_bubbelsAnimation);
-        }
-
-
-        public static ImageBrush createImageForEllipse(string imageName)
-        {
-            return new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/WiisyScreen;component/Resources/" + imageName)));
         }
 
         private void Window_Activated(object sender, EventArgs e)

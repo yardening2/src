@@ -111,6 +111,9 @@
                         <ImageBrush ImageSource="Resources/garbage1.png"/>
                     </Rectangle.Fill>
                 </Rectangle>
+                <Border x:Name="appsNotification" BorderBrush="Black" CornerRadius="13" BorderThickness="1" Height="46" Canvas.Left="23" Canvas.Top="302" Width="225" Background="#FFF56B6B" Opacity="0">
+                    <TextBlock x:Name="appsNotificationText" TextWrapping="Wrap" Text="" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" FontFamily="Segoe Print" FontWeight="Bold"/>
+                </Border>
 
             </Canvas>
         </TabItem>

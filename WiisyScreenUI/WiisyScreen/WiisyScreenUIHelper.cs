@@ -8,6 +8,7 @@ using System.Windows.Media;
 using winMacros;
 using System.Windows;
 using System.IO;
+using System.Windows.Media.Imaging;
 
 namespace WiisyScreen
 {
@@ -19,11 +20,16 @@ namespace WiisyScreen
             newActionBubble.Width = MainWindow.k_bubbleDiamater;
             newActionBubble.Height = MainWindow.k_bubbleDiamater;
             newActionBubble.Opacity = 1;
-            newActionBubble.Margin = new System.Windows.Thickness(6);
+            newActionBubble.Margin = new System.Windows.Thickness(4);
             newActionBubble.setApp(runFunction, imageBrush);
 
             return newActionBubble;
 
+        }
+
+        public static ImageBrush createImageForEllipse(string imageName)
+        {
+            return new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/WiisyScreen;component/Resources/" + imageName)));
         }
 
         public static ActionBubble CreateCustomizeActionBubble()
@@ -44,7 +50,7 @@ namespace WiisyScreen
             return ab;
         }
 
-        private static ActionBubble createBubbleFromExe(string i_FileName)
+        public static ActionBubble createBubbleFromExe(string i_FileName)
         {
             ActionBubble ab = null;
             ImageBrush theIcon = utils.ImageBrushFromIconConverter.createImageBrushFromIcon(GeneralWinUtils.GetLargeIcon(i_FileName));
@@ -70,12 +76,16 @@ namespace WiisyScreen
                     res = createBubbleFromExe(i_ActionBubbleData.ActionData);
                     break;
                 case eBubbleType.Board:
-                    res = CreateActionBubble(MainWindow.runBoard, MainWindow.createImageForEllipse("whiteboard-icon.png"));
+                    res = CreateActionBubble(MainWindow.runBoard, createImageForEllipse("whiteboard-icon.png"));
                     res.BubbleData = new ActionBubble.ActionBubbleData("BoardApp", eBubbleType.Board);
                     break;
                 case eBubbleType.Macro:
-                    res = CreateActionBubble(MainWindow.runMacroApp, MainWindow.createImageForEllipse("macroicon.png"));
+                    res = CreateActionBubble(MainWindow.runMacroApp, createImageForEllipse("macroicon.png"));
                     res.BubbleData = new ActionBubble.ActionBubbleData("MacroApp", eBubbleType.Macro);
+                    break;
+                case eBubbleType.Osk:
+                    res = CreateActionBubble(() => winMacros.Macros.osk(), createImageForEllipse("keyboard1.png"));
+                    res.BubbleData = new ActionBubble.ActionBubbleData("osk", eBubbleType.Osk);
                     break;
                 default:
                     break;

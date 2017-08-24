@@ -30,7 +30,7 @@ namespace winMacros
 
         public static void osk()
         {
-            Process.Start("osk");
+            Process.Start("TabTip");
         }
 
         public static bool ShiftLastWindow(int i_width, int i_heiget, int i_xSlot, int i_ySlot)

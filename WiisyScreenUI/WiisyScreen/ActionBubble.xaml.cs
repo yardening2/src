@@ -17,7 +17,8 @@ namespace WiisyScreen
         Empty,
         Exe,
         Board,
-        Macro
+        Macro,
+        Osk
     }
 
     public delegate void clickedHandler();
@@ -41,6 +42,33 @@ namespace WiisyScreen
                 ActionData = i_ActionData;
                 BubbleType = i_BubbleType;
             }
+
+            // override object.Equals
+            public override bool Equals(object obj)
+            {
+                //       
+                // See the full list of guidelines at
+                //   http://go.microsoft.com/fwlink/?LinkID=85237  
+                // and also the guidance for operator== at
+                //   http://go.microsoft.com/fwlink/?LinkId=85238
+                //
+
+                if (obj == null || GetType() != obj.GetType())
+                {
+                    return false;
+                }
+
+                // TODO: write your implementation of Equals() here
+                ActionBubbleData refBubble = (obj as ActionBubbleData);
+                return (ActionData.Equals(refBubble.ActionData) && BubbleType == refBubble.BubbleType);
+            }
+
+            // override object.GetHashCode
+            public override int GetHashCode()
+            {
+                // TODO: write your implementation of GetHashCode() here
+                return ActionData.GetHashCode();
+            }
         }
 
 
@@ -56,7 +84,7 @@ namespace WiisyScreen
         public ActionBubble()
         {
             InitializeComponent();
-            BubbleData = new ActionBubbleData(null, eBubbleType.Empty);
+            BubbleData = new ActionBubbleData("", eBubbleType.Empty);
             IsActive = false;
         }
 
@@ -67,6 +95,7 @@ namespace WiisyScreen
             this.Width = ab.Width;
             this.front = ab.front;
             this.back = ab.back;
+            this.BubbleData = ab.BubbleData;
             this.clickHandler = ab.clickHandler;
         }
 

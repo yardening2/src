@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -50,6 +51,8 @@ namespace WiisyScreen
             addActionBubbleToRepasatory(WiisyScreenUIHelper.CreateActionBubbleFromData(new ActionBubble.ActionBubbleData("", eBubbleType.Empty)));
             addActionBubbleToRepasatory(WiisyScreenUIHelper.CreateActionBubbleFromData(new ActionBubble.ActionBubbleData("BoardApp", eBubbleType.Board)));
             addActionBubbleToRepasatory(WiisyScreenUIHelper.CreateActionBubbleFromData(new ActionBubble.ActionBubbleData("MacroApp", eBubbleType.Macro)));
+            addActionBubbleToRepasatory(WiisyScreenUIHelper.CreateActionBubbleFromData(new ActionBubble.ActionBubbleData("Osk", eBubbleType.Osk)));
+
 
         }
 
@@ -67,7 +70,14 @@ namespace WiisyScreen
         private void addActionBubble_Click(object sender, RoutedEventArgs e)
         {
             ActionBubble ab = WiisyScreenUIHelper.CreateCustomizeActionBubble();
-            addActionBubbleToRepasatory(ab);
+            if (findActionBubbleInReposeory(ab) == null)
+            {
+                addActionBubbleToRepasatory(ab);
+            }
+            else
+            {
+                notifayAppsError("App Alredy Exists");
+            }
         }
 
 
@@ -196,30 +206,50 @@ namespace WiisyScreen
 
         }
 
-
-        private void Rectangle_Drop(object sender, DragEventArgs e)
+        private ActionBubble findActionBubbleInReposeory(ActionBubble i_BubbleToFind)
         {
-            UIElement bubbleToRemove = null;
-            ActionBubble refBubble = e.Data.GetData("Object") as ActionBubble;
+            ActionBubble res = null;
 
-            if (refBubble.BubbleData.BubbleType == eBubbleType.Exe)
+            if (i_BubbleToFind.BubbleData.BubbleType == eBubbleType.Exe)
             {
                 foreach (UIElement item in apllicationStackPanel.Children)
                 {
                     if (item is ActionBubble)
                     {
-                        if ((item as ActionBubble).BubbleData.Equals(refBubble.BubbleData))
+                        if ((item as ActionBubble).BubbleData.Equals(i_BubbleToFind.BubbleData))
                         {
-                            bubbleToRemove = item;
+                            res = (item as ActionBubble);
                             break;
                         }
                     }
                 }
-                apllicationStackPanel.Children.Remove(bubbleToRemove);
             }
+
+            return res;
         }
 
 
+        private void Rectangle_Drop(object sender, DragEventArgs e)
+        {
+            ActionBubble refBubble = e.Data.GetData("Object") as ActionBubble;
+
+            if (refBubble.BubbleData.BubbleType == eBubbleType.Exe)
+            {
+        
+                apllicationStackPanel.Children.Remove(findActionBubbleInReposeory(refBubble));
+            }
+            else
+            {
+                notifayAppsError("Cant Delete This Item");
+            }
+        }
+
+        private void notifayAppsError(string i_Msg)
+        {
+            appsNotificationText.Text = i_Msg;
+            appsNotification.BeginAnimation(OpacityProperty, new DoubleAnimation(1, 0, new Duration(TimeSpan.FromSeconds(2.5))));
+
+        }
 
         private void buttonResrote_Click(object sender, RoutedEventArgs e)
         {
