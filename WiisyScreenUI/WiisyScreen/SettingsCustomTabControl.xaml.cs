@@ -72,13 +72,17 @@ namespace WiisyScreen
         private void addActionBubble_Click(object sender, RoutedEventArgs e)
         {
             ActionBubble ab = WiisyScreenUIHelper.CreateCustomizeActionBubble();
-            if (findActionBubbleInReposeory(ab) == null)
+
+            if (ab != null)
             {
-                addActionBubbleToRepasatory(ab);
-            }
-            else
-            {
-                notifayAppsError("App Alredy Exists");
+                if (findActionBubbleInReposeory(ab) == null)
+                {
+                    addActionBubbleToRepasatory(ab);
+                }
+                else
+                {
+                    notifayAppsError("App Alredy Exists");
+                }
             }
         }
 
