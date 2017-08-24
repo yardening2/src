@@ -84,8 +84,12 @@ namespace WiisyScreen
                     res.BubbleData = new ActionBubble.ActionBubbleData("MacroApp", eBubbleType.Macro);
                     break;
                 case eBubbleType.Osk:
-                    res = CreateActionBubble(() => winMacros.Macros.osk(), createImageForEllipse("keyboard1.png"));
+                    res = CreateActionBubble(() => Macros.osk(), createImageForEllipse("keyboard1.png"));
                     res.BubbleData = new ActionBubble.ActionBubbleData("osk", eBubbleType.Osk);
+                    break;
+                case eBubbleType.Calc:
+                    res = CreateActionBubble(() => winMacros.Macros.calc(), createImageForEllipse("calc.png"));
+                    res.BubbleData = new ActionBubble.ActionBubbleData("calc", eBubbleType.Calc);
                     break;
                 default:
                     break;

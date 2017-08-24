@@ -73,6 +73,16 @@ namespace WiisyScreen.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap calc {
+            get {
+                object obj = ResourceManager.GetObject("calc", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap delete_error_exit_remove_stop_x_cross_icon__28 {
             get {
                 object obj = ResourceManager.GetObject("delete_error_exit_remove_stop_x_cross_icon__28", resourceCulture);

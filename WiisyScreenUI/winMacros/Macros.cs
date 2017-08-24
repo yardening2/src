@@ -5,7 +5,7 @@ using System.Text;
 using WindowsInput;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-
+using System.Threading;
 
 namespace winMacros
 {
@@ -26,6 +26,12 @@ namespace winMacros
         public static void Taskmgr()
         {
             Process.Start("taskmgr");
+        }
+
+        public static void calc()
+        {
+            Process.Start("Calc");
+            Thread.Sleep(250);
         }
 
         public static void osk()

@@ -228,5 +228,8 @@
   <ItemGroup>
     <Resource Include="Resources\keyboard1.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\calc.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

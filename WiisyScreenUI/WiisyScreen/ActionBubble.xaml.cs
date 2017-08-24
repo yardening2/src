@@ -18,7 +18,8 @@ namespace WiisyScreen
         Exe,
         Board,
         Macro,
-        Osk
+        Osk,
+        Calc
     }
 
     public delegate void clickedHandler();
