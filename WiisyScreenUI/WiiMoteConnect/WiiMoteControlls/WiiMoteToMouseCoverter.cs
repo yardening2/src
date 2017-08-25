@@ -32,16 +32,25 @@ namespace WiiMoteConnect.WiiMoteControlls
 
         private Warper m_Warper;
         private Smoother m_Smoother;
+        private WiiMoteWrapper m_WiiMoteWrapper;
+
 
         public WiiMoteToMouseCoverter(Warper i_Warper, WiiMoteWrapper i_WiiMoteWrapper)
         {
             m_Warper = i_Warper;
             m_Smoother = new Smoother();
             registerEventsListeners(i_WiiMoteWrapper);
+            m_WiiMoteWrapper = i_WiiMoteWrapper;
             ScreenWidth = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width;
             ScreenHeight =  System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height;
             ControlledAreaTopOffset = 0;
             ControlledAreaBottomOffset = 0;
+        }
+        public void DisconnectWiiMoteConvertor()
+        {
+            m_WiiMoteWrapper.InfraRedAppearedEvent -= onPenAppeared;
+            m_WiiMoteWrapper.InfraRedDisppearedEvent -= onPenDisappeared;
+            m_WiiMoteWrapper.InfraRedMovedEvent -= onPenMoved;
         }
 
         private void registerEventsListeners(WiiMoteWrapper i_WiiMoteWrapper)

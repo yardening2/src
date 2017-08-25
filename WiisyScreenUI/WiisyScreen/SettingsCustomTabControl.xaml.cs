@@ -183,6 +183,10 @@ namespace WiisyScreen
 
         private void onCalibrationFinished(object i_Sender, EventArgs i_EventArgs)
         {
+            if (m_WiimoteToMouse != null)
+            {
+                m_WiimoteToMouse.DisconnectWiiMoteConvertor();
+            }
             m_WiimoteToMouse = new WiiMoteToMouseCoverter(m_Calibrator.getCalibratedWarper(), m_WiiMoteWrapper);
         }
 

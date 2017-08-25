@@ -112,7 +112,7 @@ namespace WiiMoteConnect.WiiMoteControlls
         private void stopBlinking()
         {
             m_BlinkingTimer.Stop();
-            labelStart.Visible = false;
+            labelStart.Invoke(new Action(() => { try { labelStart.Visible = false; } catch (Exception) { }; }));
         }
 
         protected override void OnClosed(EventArgs e)
