@@ -76,12 +76,12 @@ namespace WiiMoteConnect.WiiMoteControlls
             if (!m_Connected)
             {
                 m_WiiMote.Connect();
+                m_Connected = true;
                 m_WiiMote.SetReportType(Wiimote.InputReport.IRAccel, true);
                 m_WiiMote.SetLEDs(true, false, false, false);
                 m_CurrentWiiMoteState = m_WiiMote.WiimoteState;
                 m_PreviousWiiMoteState = copyWiiMoteState(m_CurrentWiiMoteState);
                 m_WiiMote.WiimoteChanged += onWiimoteChanged;
-                m_Connected = true;
                 fireConnectionStateChangeEvent(eWiiConnectivityState.Connected);
             }
 

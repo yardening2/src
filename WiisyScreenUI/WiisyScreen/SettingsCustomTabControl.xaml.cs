@@ -140,8 +140,16 @@ namespace WiisyScreen
 
         private void buttonCalibrate_Click(object sender, RoutedEventArgs e)
         {
-            m_WiiMoteWrapper.ConnectionStateChangeEvent += onConnectionStateChange;
-            m_WiiMoteWrapper.ConnectToWiimote();
+            if (m_WiiMoteWrapper.Connected)
+            {
+                m_Calibrator.CalibrateScreen(m_WiiMoteWrapper);
+            }
+            else
+            {
+                m_WiiMoteWrapper.ConnectionStateChangeEvent += onConnectionStateChange;
+                m_WiiMoteWrapper.ConnectToWiimote();
+                m_WiiMoteWrapper.ConnectionEstablishedEvent += onConnectionSuccessfull;
+            }
         }
 
         private void onConnectionStateChange(object i_Sender, WiiMoteWrapper.eWiiConnectivityState i_State)
@@ -150,6 +158,8 @@ namespace WiisyScreen
             {
                 case WiiMoteWrapper.eWiiConnectivityState.Connected:
                     changeLableStringFromThread(labelWiiConnectStatus, "Connected To WiiMote");
+                    m_WiiMoteWrapper.ConnectionStateChangeEvent -= onConnectionStateChange;
+                    m_Calibrator.CalibrateScreen(m_WiiMoteWrapper);
                     break;
                 case WiiMoteWrapper.eWiiConnectivityState.Connecting:
                     changeLableStringFromThread(labelWiiConnectStatus, "Connecting...");
@@ -176,23 +186,15 @@ namespace WiisyScreen
             m_WiimoteToMouse = new WiiMoteToMouseCoverter(m_Calibrator.getCalibratedWarper(), m_WiiMoteWrapper);
         }
 
-        private void calibrateButton_Click(object sender, RoutedEventArgs e)
-        {
-            m_WiiMoteWrapper.ConnectionEstablishedEvent += onConnectionSuccessfull;
-            m_WiiMoteWrapper.ConnectToWiimote();
-        }
-
         private void onConnectionSuccessfull(object sender, EventArgs e)
         {
-            this.Dispatcher.Invoke(new Action(() => { m_Calibrator.CalibrateScreen(m_WiiMoteWrapper); }));
+            //this.Dispatcher.Invoke(new Action(() => { m_Calibrator.CalibrateScreen(m_WiiMoteWrapper); }));
         }
 
         public void StopWiimoteWrapper()
         {
             m_WiiMoteWrapper.DisconnectFromWiiMote();
         }
-
-
 
         private void Rectangle_DragOver(object sender, DragEventArgs e)
         {
