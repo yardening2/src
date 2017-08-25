@@ -34,6 +34,7 @@ namespace WiisyScreen
             textBlockScreenShotsPath.Text = TheBoardApp.MainWindow.ScreenShotsFolder;
             m_WiiMoteWrapper = new WiiMoteWrapper();
             m_Calibrator = new Calibrator(m_WiiMoteWrapper);
+            m_Calibrator.CalibrateFinishedEvent += onCalibrationFinished;
             labelWiiConnectStatus.HorizontalContentAlignment = System.Windows.HorizontalAlignment.Left;
             labelWiiConnectStatus.Content = "";
         }
@@ -139,7 +140,6 @@ namespace WiisyScreen
 
         private void buttonCalibrate_Click(object sender, RoutedEventArgs e)
         {
-            m_Calibrator.CalibrateFinishedEvent += onCalibrationFinished;
             m_WiiMoteWrapper.ConnectionStateChangeEvent += onConnectionStateChange;
             m_WiiMoteWrapper.ConnectToWiimote();
         }
