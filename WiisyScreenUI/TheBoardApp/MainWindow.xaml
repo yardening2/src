@@ -45,7 +45,7 @@
         </Canvas>
         <Grid x:Name="gridBoardToolBar" Margin="0,435,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="100" Width="800" >
             <Border BorderThickness="0,0,0,0" CornerRadius="30,30,0,0" HorizontalAlignment="Center" Width="800" Height="100" Background="#FF6162C7" />
-            <StackPanel x:Name="colorsPanel" Height="50" Margin="346,33,285,17" Orientation="Horizontal" Opacity="0">
+            <StackPanel x:Name="colorsPanel" Margin="325,21,195,10" Orientation="Horizontal" Opacity="0">
                 <Ellipse x:Name="redBucketEllipse" Height="40" Margin="0,5,3,5" Width="40" MouseUp="changeColor_MouseUp">
                     <Ellipse.Fill>
                         <RadialGradientBrush Center="0.5,0.5" GradientOrigin="0.5,0.5">
@@ -79,7 +79,29 @@
                         <SolidColorBrush Color="Black" Opacity="0"/>
                     </Ellipse.Stroke>
                 </Ellipse>
-                <Ellipse x:Name="blackBucketEllipse" Height="40" Margin="0,5,3,5" Width="40" MouseUp="changeColor_MouseUp">
+                <Ellipse x:Name="blackBucketEllipse" Height="40" Margin="0,14,3,15" Width="40" MouseUp="changeColor_MouseUp">
+                    <Ellipse.Fill>
+                        <RadialGradientBrush>
+                            <GradientStop Color="Black" Offset="1"/>
+                            <GradientStop Color="#FF343030"/>
+                        </RadialGradientBrush>
+                    </Ellipse.Fill>
+                    <Ellipse.Stroke>
+                        <SolidColorBrush Color="Black" Opacity="0"/>
+                    </Ellipse.Stroke>
+                </Ellipse>
+                <Ellipse x:Name="fontSizeUpButton" Height="40" Margin="20,14.5,3,14.5" Width="40" MouseUp="fontSizeUpButton_MouseUp">
+                    <Ellipse.Fill>
+                        <RadialGradientBrush>
+                            <GradientStop Color="Black" Offset="1"/>
+                            <GradientStop Color="#FF343030"/>
+                        </RadialGradientBrush>
+                    </Ellipse.Fill>
+                    <Ellipse.Stroke>
+                        <SolidColorBrush Color="Black" Opacity="0"/>
+                    </Ellipse.Stroke>
+                </Ellipse>
+                <Ellipse x:Name="fontSizeDownButton" Height="40" Margin="0,14.5,3,14.5" Width="40" MouseUp="fontSizeDownButton_MouseUp">
                     <Ellipse.Fill>
                         <RadialGradientBrush>
                             <GradientStop Color="Black" Offset="1"/>
@@ -111,6 +133,9 @@
                 </Rectangle.Fill>
             </Rectangle>
             <Rectangle x:Name="buttonPointer" HorizontalAlignment="Left" Width="50" VerticalAlignment="Top" Height="50" MouseUp="buttonPointer_Click" Margin="204,29,0,0">
+                <ToolTipService.ToolTip>
+                    <ToolTip Content="asdasdsa"/>
+                </ToolTipService.ToolTip>
                 <Rectangle.Stroke>
                     <SolidColorBrush Color="Black"/>
                 </Rectangle.Stroke>

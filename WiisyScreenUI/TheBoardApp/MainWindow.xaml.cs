@@ -259,5 +259,22 @@ namespace TheBoardApp
         {
             return new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/TheBoardApp;component/Resources/" + i_imgName)));
         }
+
+
+        private void fontSizeUpButton_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (inkCanvasBoard.DefaultDrawingAttributes.Width < 50 )
+            {
+                inkCanvasBoard.DefaultDrawingAttributes.Width = inkCanvasBoard.DefaultDrawingAttributes.Height += 5;
+            }
+        }
+
+        private void fontSizeDownButton_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (inkCanvasBoard.DefaultDrawingAttributes.Width > 5)
+            {
+                inkCanvasBoard.DefaultDrawingAttributes.Width = inkCanvasBoard.DefaultDrawingAttributes.Height -= 5;
+            }
+        }
     }
 }
