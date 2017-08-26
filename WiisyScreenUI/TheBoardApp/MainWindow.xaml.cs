@@ -27,6 +27,7 @@ namespace TheBoardApp
         private static MainWindow boardApp = null;
         private static readonly object sr_key = new object();
         static public string ScreenShotsFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+        private int markerSize = 1;
 
         public static MainWindow Instance
         {
@@ -266,7 +267,9 @@ namespace TheBoardApp
             if (inkCanvasBoard.DefaultDrawingAttributes.Width < 50 )
             {
                 inkCanvasBoard.DefaultDrawingAttributes.Width = inkCanvasBoard.DefaultDrawingAttributes.Height += 5;
+                markerSize++;
             }
+            displayNotification("Marker Size: " + markerSize);
         }
 
         private void fontSizeDownButton_MouseUp(object sender, MouseButtonEventArgs e)
@@ -274,7 +277,9 @@ namespace TheBoardApp
             if (inkCanvasBoard.DefaultDrawingAttributes.Width > 5)
             {
                 inkCanvasBoard.DefaultDrawingAttributes.Width = inkCanvasBoard.DefaultDrawingAttributes.Height -= 5;
+                markerSize--;
             }
+            displayNotification("Marker Size: " + markerSize);
         }
     }
 }

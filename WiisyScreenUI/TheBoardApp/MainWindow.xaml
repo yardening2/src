@@ -29,7 +29,7 @@
                 <SolidColorBrush Color="white" Opacity="{Binding Value, ElementName=sliderOpacity}"/>
             </InkCanvas.Background>
             <InkCanvas.DefaultDrawingAttributes>
-                <DrawingAttributes IsHighlighter="True" StylusTip="Ellipse" FitToCurve="True" Color="Black" Width="20" Height="20"/>
+                <DrawingAttributes IsHighlighter="True" StylusTip="Ellipse" FitToCurve="True" Color="Black" Width="5" Height="5"/>
             </InkCanvas.DefaultDrawingAttributes>
         </InkCanvas>
         <Canvas x:Name="canvasScreenshotWrapper" Visibility="Visible" Width="800" Height="0" Margin="90,461,89.2,0" VerticalAlignment="Bottom">
@@ -90,23 +90,17 @@
                         <SolidColorBrush Color="Black" Opacity="0"/>
                     </Ellipse.Stroke>
                 </Ellipse>
-                <Ellipse x:Name="fontSizeUpButton" Height="40" Margin="20,14.5,3,14.5" Width="40" MouseUp="fontSizeUpButton_MouseUp">
+                <Ellipse x:Name="fontSizeUpButton" Margin="15,0,0,0" Width="31" MouseUp="fontSizeUpButton_MouseUp" VerticalAlignment="Center" HorizontalAlignment="Center" Height="31">
                     <Ellipse.Fill>
-                        <RadialGradientBrush>
-                            <GradientStop Color="Black" Offset="1"/>
-                            <GradientStop Color="#FF343030"/>
-                        </RadialGradientBrush>
+                        <ImageBrush ImageSource="Resources/Plus1.png"/>
                     </Ellipse.Fill>
                     <Ellipse.Stroke>
                         <SolidColorBrush Color="Black" Opacity="0"/>
                     </Ellipse.Stroke>
                 </Ellipse>
-                <Ellipse x:Name="fontSizeDownButton" Height="40" Margin="0,14.5,3,14.5" Width="40" MouseUp="fontSizeDownButton_MouseUp">
+                <Ellipse x:Name="fontSizeDownButton" Height="31" Margin="5,0,0,0" Width="31" MouseUp="fontSizeDownButton_MouseUp">
                     <Ellipse.Fill>
-                        <RadialGradientBrush>
-                            <GradientStop Color="Black" Offset="1"/>
-                            <GradientStop Color="#FF343030"/>
-                        </RadialGradientBrush>
+                        <ImageBrush ImageSource="Resources/Min1.png"/>
                     </Ellipse.Fill>
                     <Ellipse.Stroke>
                         <SolidColorBrush Color="Black" Opacity="0"/>
@@ -123,7 +117,7 @@
                     <SolidColorBrush Color="Black" Opacity="0.7"/>
                 </Rectangle.OpacityMask>
             </Rectangle>
-            <Rectangle x:Name="buttonEraser" Width="50" Height="50" Margin="82,29,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" MouseUp="buttonEraser_Click" >
+            <Rectangle x:Name="buttonEraser" Width="50" Height="50" Margin="73,29,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" MouseUp="buttonEraser_Click" >
                 <Rectangle.Stroke>
                     <SolidColorBrush Color="Black" Opacity="0"/>
                 </Rectangle.Stroke>
@@ -132,10 +126,7 @@
                     <ImageBrush ImageSource="Resources/Eraser.png"/>
                 </Rectangle.Fill>
             </Rectangle>
-            <Rectangle x:Name="buttonPointer" HorizontalAlignment="Left" Width="50" VerticalAlignment="Top" Height="50" MouseUp="buttonPointer_Click" Margin="204,29,0,0">
-                <ToolTipService.ToolTip>
-                    <ToolTip Content="asdasdsa"/>
-                </ToolTipService.ToolTip>
+            <Rectangle x:Name="buttonPointer" HorizontalAlignment="Left" Width="50" VerticalAlignment="Top" Height="50" MouseUp="buttonPointer_Click" Margin="181,29,0,0">
                 <Rectangle.Stroke>
                     <SolidColorBrush Color="Black"/>
                 </Rectangle.Stroke>
@@ -146,7 +137,7 @@
                     <ImageBrush ImageSource="Resources/Hand.png" Stretch="UniformToFill"/>
                 </Rectangle.Fill>
             </Rectangle>
-            <Rectangle x:Name="buttonPencil" Width="50" Height="50" Margin="270,29,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" MouseUp="buttonPencil_Click">
+            <Rectangle x:Name="buttonPencil" Width="50" Height="50" Margin="241,29,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" MouseUp="buttonPencil_Click">
                 <Rectangle.Stroke>
                     <SolidColorBrush Color="Black" Opacity="0"/>
                 </Rectangle.Stroke>
@@ -154,7 +145,7 @@
                     <ImageBrush ImageSource="Resources/BlackMarker.png"/>
                 </Rectangle.Fill>
             </Rectangle>
-            <Rectangle x:Name="buttonLaser" HorizontalAlignment="Left" Width="50" VerticalAlignment="Top" Height="50" MouseUp="buttonLaser_Click" Margin="143,29,0,0">
+            <Rectangle x:Name="buttonLaser" HorizontalAlignment="Left" Width="50" VerticalAlignment="Top" Height="50" MouseUp="buttonLaser_Click" Margin="127,29,0,0">
                 <Rectangle.Stroke>
                     <SolidColorBrush Color="Black" Opacity="0"/>
                 </Rectangle.Stroke>
@@ -175,17 +166,17 @@
                     </TransformGroup>
                 </Slider.RenderTransform>
             </Slider>
-            <Rectangle x:Name="buttonSaveScreen" HorizontalAlignment="Right" Height="50" Margin="0,25,140,0" VerticalAlignment="Top" Width="50" MouseUp="buttonSaveScreen_MouseUp">
+            <Rectangle x:Name="buttonSaveScreen" HorizontalAlignment="Right" Height="50" Margin="0,25,125,0" VerticalAlignment="Top" Width="50" MouseUp="buttonSaveScreen_MouseUp">
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="Resources/Camera.png"/>
                 </Rectangle.Fill>
             </Rectangle>
-            <Rectangle x:Name="buttonScreenshotFiles" HorizontalAlignment="Right" Height="50" Margin="0,25,65,0" VerticalAlignment="Top" Width="50" MouseUp="buttonScreenshotFiles_MouseUp">
+            <Rectangle x:Name="buttonScreenshotFiles" HorizontalAlignment="Right" Height="50" Margin="0,25,63,0" VerticalAlignment="Top" Width="50" MouseUp="buttonScreenshotFiles_MouseUp">
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="Resources/folder-images-icon.png"/>
                 </Rectangle.Fill>
             </Rectangle>
-            <Rectangle x:Name="buttonClearPage" Margin="27,29,0,0" HorizontalAlignment="Left" Width="50" VerticalAlignment="Top" Height="50" MouseUp="buttonClearPage_Click" >
+            <Rectangle x:Name="buttonClearPage" Margin="25,29,0,0" HorizontalAlignment="Left" Width="50" VerticalAlignment="Top" Height="50" MouseUp="buttonClearPage_Click" >
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="Resources/ClearPage.png" Stretch="Uniform"/>
                 </Rectangle.Fill>

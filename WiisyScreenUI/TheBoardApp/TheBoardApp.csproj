@@ -190,5 +190,11 @@
       <Name>winMacros</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Min1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Plus1.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

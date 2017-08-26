@@ -18,7 +18,6 @@ namespace WiisyScreen
         Exe,
         Board,
         Macro,
-        Osk,
         Calc
     }
 

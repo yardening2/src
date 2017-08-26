@@ -52,7 +52,6 @@ namespace WiisyScreen
             addActionBubbleToRepasatory(WiisyScreenUIHelper.CreateActionBubbleFromData(new ActionBubble.ActionBubbleData("", eBubbleType.Empty)));
             addActionBubbleToRepasatory(WiisyScreenUIHelper.CreateActionBubbleFromData(new ActionBubble.ActionBubbleData("BoardApp", eBubbleType.Board)));
             addActionBubbleToRepasatory(WiisyScreenUIHelper.CreateActionBubbleFromData(new ActionBubble.ActionBubbleData("MacroApp", eBubbleType.Macro)));
-            addActionBubbleToRepasatory(WiisyScreenUIHelper.CreateActionBubbleFromData(new ActionBubble.ActionBubbleData("Osk", eBubbleType.Osk)));
             addActionBubbleToRepasatory(WiisyScreenUIHelper.CreateActionBubbleFromData(new ActionBubble.ActionBubbleData("Calc", eBubbleType.Calc)));
 
 
