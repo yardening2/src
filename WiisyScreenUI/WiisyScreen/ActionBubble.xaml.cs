@@ -129,7 +129,14 @@ namespace WiisyScreen
                 }
                 if (clickHandler != null)
                 {
-                    clickHandler.Invoke();
+                    try
+                    {
+                        clickHandler.Invoke();
+                    }
+                    catch (Exception)
+                    {
+
+                    }
                 }
             }
         }
