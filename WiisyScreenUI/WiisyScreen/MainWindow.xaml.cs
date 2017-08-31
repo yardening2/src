@@ -31,6 +31,7 @@ namespace WiisyScreen
 
     public partial class MainWindow : Window
     {
+        private const int SEC_TO_HIDE_MAIN_BUBBLE = 3;
         public static WiiMoteToMouseCoverter WiimoteToMouse { get; set; }
         private Point deltaPos = new Point();
         private static List<Window> openedWindows = new List<Window>();
@@ -57,7 +58,7 @@ namespace WiisyScreen
 
         private void initTimer()
         {
-            timerMainBubble.Interval = TimeSpan.FromSeconds(2);
+            timerMainBubble.Interval = TimeSpan.FromSeconds(SEC_TO_HIDE_MAIN_BUBBLE);
             timerMainBubble.Tick += hideMainBubble;
         }
 
@@ -79,17 +80,24 @@ namespace WiisyScreen
                     newLocation = (-1) * mainAppCanvas.Width * 0.5;
                 }
 
-                setAllOpacityExceptOfMainBubble(0);
+                hideAllExceptOfMainBubble();
                 translate.X = newLocation;
                 translate.BeginAnimation(TranslateTransform.XProperty, new DoubleAnimation(oldLocation, newLocation, TimeSpan.FromSeconds(0.3)));
             }
         }
 
-        private void setAllOpacityExceptOfMainBubble(int opacity)
+        private void hideAllExceptOfMainBubble()
         {
-            actionBubbles.ForEach(actionBubble => actionBubble.Opacity = opacity);
-            buttonExit.Opacity = opacity;
-            buttonSetting.Opacity = opacity;
+            actionBubbles.ForEach(actionBubble => actionBubble.Visibility = Visibility.Hidden);
+            buttonExit.Visibility = Visibility.Hidden;
+            buttonSetting.Visibility = Visibility.Hidden;
+        }
+
+        private void showAll()
+        {
+            actionBubbles.ForEach(actionBubble => actionBubble.Visibility = Visibility.Visible);
+            buttonExit.Visibility = Visibility.Visible;
+            buttonSetting.Visibility = Visibility.Visible;
         }
 
         private void initApps()
@@ -180,7 +188,7 @@ namespace WiisyScreen
 
         private void centerBubble_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            setAllOpacityExceptOfMainBubble(1);
+            showAll();
             timerMainBubble.Stop();
             centerBubble.CaptureMouse();
             translate.BeginAnimation(TranslateTransform.XProperty, null);
