@@ -161,16 +161,14 @@
                     <ImageBrush ImageSource="Resources/laserBlack.png" Stretch="Uniform"/>
                 </Rectangle.Fill>
             </Rectangle>
-<<<<<<< HEAD
-            <Slider  x:Name="sliderOpacity" Maximum="1" HorizontalAlignment="Right"  Margin="0,45,-10,0" VerticalAlignment="Top" Width="80" RenderTransformOrigin="0.5,0.5"  IsMoveToPointEnabled="True" SmallChange="0">
-=======
+
             <Rectangle x:Name="rectanglePin" Margin="0,74,775,0" MouseDown="rectanglePin_MouseDown">
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="Resources/unpinned.png"/>
                 </Rectangle.Fill>
             </Rectangle>
             <Slider  x:Name="sliderOpacity" Maximum="1" HorizontalAlignment="Right" Margin="0,45,-10,0" VerticalAlignment="Top" Width="80" RenderTransformOrigin="0.5,0.5"  IsMoveToPointEnabled="True" SmallChange="0">
->>>>>>> qwe
+
                 <Slider.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
