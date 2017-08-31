@@ -31,6 +31,7 @@ namespace TheBoardApp
         static public string ScreenShotsFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
         private int markerSize = 1;
         private DispatcherTimer timerCommandGrid = new DispatcherTimer { Interval = TimeSpan.FromSeconds(5) };
+        private bool isPinned = false;
 
 
         public static MainWindow Instance
@@ -164,8 +165,19 @@ namespace TheBoardApp
             {
                 theSavedPic = ScreenSaver.ScreenSaver.SaveAsImage(MainWindow.ScreenShotsFolder);
                 animatePicTaken(addPicToScrollPanel(theSavedPic));
+                updatePicsAmount();
             }
             displayNotification("Screenshot saved");
+        }
+
+        private void updatePicsAmount()
+        {
+            string picsAmount = savedPicsPanel.Children.Count <= 50 ? savedPicsPanel.Children.Count.ToString() : "50+";
+
+            textboxPicsAmount.BeginAnimation(OpacityProperty, null);
+            wraperPicsAmount.Opacity = 1;
+            textboxPicsAmount.Text = picsAmount;
+            textboxPicsAmount.BeginAnimation(OpacityProperty, new DoubleAnimation(0, 1, TimeSpan.FromSeconds(1.7)));
         }
 
         private void animatePicTaken(Image i_Pic)
@@ -326,5 +338,18 @@ namespace TheBoardApp
             toggleCommandGrid();
         }
 
+        private void buttonSaveScreen_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DoubleAnimation clickAnimation = new DoubleAnimation(1, 0.3, TimeSpan.FromSeconds(0.4));
+            clickAnimation.AutoReverse = true;
+            buttonSaveScreen.BeginAnimation(OpacityProperty, clickAnimation);
+        }
+
+        private void rectanglePin_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            isPinned = !isPinned;
+
+            rectanglePin.Fill = isPinned ? getImgFromResource("pinned.png") : getImgFromResource("unpinned.png");
+        }
     }
 }

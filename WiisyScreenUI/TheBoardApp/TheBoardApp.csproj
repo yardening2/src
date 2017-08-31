@@ -196,5 +196,20 @@
   <ItemGroup>
     <Resource Include="Resources\Plus1.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\pin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\RedPinFree.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\RedPinLock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\pinned.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\unpinned.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

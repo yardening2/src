@@ -46,8 +46,8 @@
         </Canvas>
         <Grid x:Name="gridBoardToolBar" Margin="0,435,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="100" Width="800" MouseDown="gridBoardToolBar_MouseDown" >
             <Border BorderThickness="0,0,0,0" CornerRadius="30,30,0,0" HorizontalAlignment="Center" Width="800" Height="100" Background="#FF6785D4" />
-            <StackPanel x:Name="colorsPanel" Margin="325,21,195,10" Orientation="Horizontal" Opacity="0" IsEnabled="False">
-                <Ellipse x:Name="redBucketEllipse" Height="40" Margin="0,5,3,5" Width="40" MouseUp="changeColor_MouseUp">
+            <StackPanel x:Name="colorsPanel" Margin="325,35,195,0" Orientation="Horizontal"  IsEnabled="False" VerticalAlignment="Top" Opacity="0">
+                <Ellipse x:Name="redBucketEllipse" Height="40" Margin="0,0,3,0" Width="40" MouseUp="changeColor_MouseUp" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <Ellipse.Fill>
                         <RadialGradientBrush Center="0.5,0.5" GradientOrigin="0.5,0.5">
                             <GradientStop Color="Black" Offset="1"/>
@@ -58,7 +58,7 @@
                         <SolidColorBrush Color="Black" Opacity="0"/>
                     </Ellipse.Stroke>
                 </Ellipse>
-                <Ellipse x:Name="greenBucketEllipse" Height="40" Margin="0,5,3,5" Width="40" MouseUp="changeColor_MouseUp">
+                <Ellipse x:Name="greenBucketEllipse" Height="40" Margin="0,0,3,0" Width="40" MouseUp="changeColor_MouseUp" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <Ellipse.Fill>
                         <RadialGradientBrush>
                             <GradientStop Color="Black" Offset="1"/>
@@ -69,7 +69,7 @@
                         <SolidColorBrush Color="Black" Opacity="0"/>
                     </Ellipse.Stroke>
                 </Ellipse>
-                <Ellipse x:Name="blueBucketEllipse" Height="40" Margin="0,5,3,5" Width="40" MouseUp="changeColor_MouseUp">
+                <Ellipse x:Name="blueBucketEllipse" Height="40" Margin="0,0,3,0" Width="40" MouseUp="changeColor_MouseUp" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Ellipse.Fill>
                         <RadialGradientBrush>
                             <GradientStop Color="Black" Offset="1"/>
@@ -80,7 +80,7 @@
                         <SolidColorBrush Color="Black" Opacity="0"/>
                     </Ellipse.Stroke>
                 </Ellipse>
-                <Ellipse x:Name="blackBucketEllipse" Height="40" Margin="0,14,3,15" Width="40" MouseUp="changeColor_MouseUp">
+                <Ellipse x:Name="blackBucketEllipse" Height="40" Margin="0,0,3,0" Width="40" MouseUp="changeColor_MouseUp" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Ellipse.Fill>
                         <RadialGradientBrush>
                             <GradientStop Color="Black" Offset="1"/>
@@ -99,7 +99,7 @@
                         <SolidColorBrush Color="Black" Opacity="0"/>
                     </Ellipse.Stroke>
                 </Ellipse>
-                <Ellipse x:Name="fontSizeDownButton" Height="31" Margin="5,0,0,0" Width="31" MouseUp="fontSizeDownButton_MouseUp">
+                <Ellipse x:Name="fontSizeDownButton" Height="31" Margin="5,0,0,0" Width="31" MouseUp="fontSizeDownButton_MouseUp" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Ellipse.Fill>
                         <ImageBrush ImageSource="Resources/Min1.png"/>
                     </Ellipse.Fill>
@@ -108,6 +108,10 @@
                     </Ellipse.Stroke>
                 </Ellipse>
             </StackPanel>
+            <Border x:Name="wraperPicsAmount" Background="#FFF93F3F" CornerRadius="10" Width="27" Height="20" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,55,86,0" Panel.ZIndex="1" Opacity="0" >
+                <TextBlock x:Name="textboxPicsAmount" TextWrapping="Wrap" Text="" TextAlignment="Center" FontWeight="Bold" FontSize="14"/>
+
+            </Border>
             <Rectangle x:Name="buttonExit" HorizontalAlignment="Center" Height="20" VerticalAlignment="Top" Width="20" Panel.ZIndex="10000" Canvas.Left="247" Canvas.Top="84" MouseUp="buttonExit_Click" Margin="12,0,736,0" >
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="Resources/delete-error-exit-remove-stop-x-cross-icon--28.png"/>
@@ -157,7 +161,16 @@
                     <ImageBrush ImageSource="Resources/laserBlack.png" Stretch="Uniform"/>
                 </Rectangle.Fill>
             </Rectangle>
+<<<<<<< HEAD
             <Slider  x:Name="sliderOpacity" Maximum="1" HorizontalAlignment="Right"  Margin="0,45,-10,0" VerticalAlignment="Top" Width="80" RenderTransformOrigin="0.5,0.5"  IsMoveToPointEnabled="True" SmallChange="0">
+=======
+            <Rectangle x:Name="rectanglePin" Margin="0,74,775,0" MouseDown="rectanglePin_MouseDown">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="Resources/unpinned.png"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Slider  x:Name="sliderOpacity" Maximum="1" HorizontalAlignment="Right" Margin="0,45,-10,0" VerticalAlignment="Top" Width="80" RenderTransformOrigin="0.5,0.5"  IsMoveToPointEnabled="True" SmallChange="0">
+>>>>>>> qwe
                 <Slider.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -167,7 +180,7 @@
                     </TransformGroup>
                 </Slider.RenderTransform>
             </Slider>
-            <Rectangle x:Name="buttonSaveScreen" HorizontalAlignment="Right" Height="50" Margin="0,25,125,0" VerticalAlignment="Top" Width="50" MouseUp="buttonSaveScreen_MouseUp">
+            <Rectangle x:Name="buttonSaveScreen" HorizontalAlignment="Right" Height="50" Margin="0,25,125,0" VerticalAlignment="Top" Width="50" MouseUp="buttonSaveScreen_MouseUp" MouseDown="buttonSaveScreen_MouseDown">
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="Resources/Camera.png"/>
                 </Rectangle.Fill>
