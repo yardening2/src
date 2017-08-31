@@ -62,7 +62,7 @@ namespace TheBoardApp
         private void initCommandTimer()
         {
             timerCommandGrid.Interval = TimeSpan.FromSeconds(6);
-            timerCommandGrid.Tick += (sender, args) => toggleCommandGrid();
+            timerCommandGrid.Tick += (sender, args) => autoScroll();
         }
 
 
@@ -348,8 +348,15 @@ namespace TheBoardApp
         private void rectanglePin_MouseDown(object sender, MouseButtonEventArgs e)
         {
             isPinned = !isPinned;
-
             rectanglePin.Fill = isPinned ? getImgFromResource("pinned.png") : getImgFromResource("unpinned.png");
+        }
+
+        private void autoScroll()
+        {
+            if (!isPinned)
+            {
+                toggleCommandGrid();
+            }
         }
     }
 }

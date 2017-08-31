@@ -269,7 +269,7 @@
 
     <Grid>
         <Canvas x:Name="imageCanvas"/>
-        <Canvas x:Name="animateCanvas" RenderTransformOrigin="0.67,1">
+        <Canvas x:Name="animateCanvas" RenderTransformOrigin="0.67,1" Panel.ZIndex="1">
             <Canvas.RenderTransform>
                 <TransformGroup >
                     <ScaleTransform x:Name="animateCanvasST" CenterX="0.5" CenterY="0.5"/>
@@ -298,7 +298,7 @@
                 </Rectangle.Fill>
             </Rectangle>
         </Canvas>
-        <Grid x:Name="gridBoardToolBar" Margin="0,435,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="100" Width="800" MouseDown="gridBoardToolBar_MouseDown" >
+        <Grid x:Name="gridBoardToolBar" Margin="0,435,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="100" Width="800" MouseDown="gridBoardToolBar_MouseDown" Panel.ZIndex="2" >
             <Border BorderThickness="0,0,0,0" CornerRadius="30,30,0,0" HorizontalAlignment="Center" Width="800" Height="100" Background="#FF6785D4" />
             <StackPanel x:Name="colorsPanel" Margin="325,35,195,0" Orientation="Horizontal"  IsEnabled="False" VerticalAlignment="Top" Opacity="0">
                 <Ellipse x:Name="redBucketEllipse" Height="40" Margin="0,0,3,0" Width="40" MouseUp="changeColor_MouseUp" VerticalAlignment="Center" HorizontalAlignment="Center">
