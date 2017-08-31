@@ -127,8 +127,10 @@ namespace WiisyScreen
                     this.Width = initWidth;
                     this.Height = initHeight;
                 }
+
                 if (clickHandler != null)
                 {
+                    
                     try
                     {
                         clickHandler.Invoke();
@@ -137,6 +139,7 @@ namespace WiisyScreen
                     {
 
                     }
+                    
                 }
             }
         }

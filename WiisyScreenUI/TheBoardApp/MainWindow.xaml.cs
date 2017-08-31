@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Ink;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -14,6 +15,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using winMacros;
 
 namespace TheBoardApp
@@ -28,6 +30,8 @@ namespace TheBoardApp
         private static readonly object sr_key = new object();
         static public string ScreenShotsFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
         private int markerSize = 1;
+        private DispatcherTimer timerCommandGrid = new DispatcherTimer { Interval = TimeSpan.FromSeconds(5) };
+
 
         public static MainWindow Instance
         {
@@ -51,7 +55,15 @@ namespace TheBoardApp
         public MainWindow()
         {
             InitializeComponent();
+            initCommandTimer();
         }
+
+        private void initCommandTimer()
+        {
+            timerCommandGrid.Interval = TimeSpan.FromSeconds(6);
+            timerCommandGrid.Tick += (sender, args) => toggleCommandGrid();
+        }
+
 
         private void Window_Activated(object sender, EventArgs e)
         {
@@ -73,6 +85,8 @@ namespace TheBoardApp
             this.Top = desktopWorkingArea.Bottom - this.Height;
 
             GeneralWinUtils.SetWindowToHideFromAltTab(new WindowInteropHelper(this).Handle);
+            timerCommandGrid.Start();
+
         }
 
         private void buttonEraser_Click(object sender, RoutedEventArgs e)
@@ -96,6 +110,7 @@ namespace TheBoardApp
         private void hideColorsChooser()
         {
             colorsPanel.Opacity = 0;
+            colorsPanel.IsEnabled = false;
             colorsPanel.BeginAnimation(OpacityProperty, new DoubleAnimation(1, 0, new Duration(TimeSpan.FromSeconds(0.8))));
         }
 
@@ -108,20 +123,6 @@ namespace TheBoardApp
         private void setBoardToScetchable()
         {
             sliderOpacity.Minimum = 0.01;
-        }
-
-        private void buttonMinimize_Click(object sender, RoutedEventArgs e)
-        {
-            if (gridMinimized)
-            {
-                gridBoardToolBar.Height = 100;
-                gridMinimized = false;
-            }
-            else
-            {
-                gridBoardToolBar.Height = 20;
-                gridMinimized = true;
-            }
         }
 
         private void buttonLaser_Click(object sender, RoutedEventArgs e)
@@ -195,9 +196,11 @@ namespace TheBoardApp
 
         private void buttonScreenshotFiles_MouseUp(object sender, MouseButtonEventArgs e)
         {
+            gridBoardToolBar.BeginAnimation(HeightProperty, null);
             gridBoardToolBar.Height = 0;
             canvasScreenshotWrapper.Height = 100;
             inkCanvasBoard.Visibility = Visibility.Hidden;
+            timerCommandGrid.Stop();
         }
 
         private void buttonReturnFromScreenshots_MouseUp(object sender, MouseButtonEventArgs e)
@@ -206,6 +209,7 @@ namespace TheBoardApp
             imageCanvas.Background = null;
             gridBoardToolBar.Height = 100;
             inkCanvasBoard.Visibility = Visibility.Visible;
+            timerCommandGrid.Start();
         }
 
         private void buttonPencil_Click(object sender, MouseButtonEventArgs e)
@@ -220,6 +224,7 @@ namespace TheBoardApp
         private void showColorsChooser()
         {
             colorsPanel.Opacity = 1;
+            colorsPanel.IsEnabled = true;
             colorsPanel.BeginAnimation(OpacityProperty, new DoubleAnimation(0, 1, new Duration(TimeSpan.FromSeconds(0.8))));
         }
 
@@ -281,5 +286,45 @@ namespace TheBoardApp
             }
             displayNotification("Marker Size: " + markerSize);
         }
+
+        private async void inkCanvasBoard_Gesture(object sender, InkCanvasGestureEventArgs e)
+        {
+            inkCanvasBoard.Strokes.Add(e.Strokes);
+            await Task.Delay(TimeSpan.FromSeconds(1));
+            inkCanvasBoard.Strokes.Remove(e.Strokes);
+        }
+
+        private void gridBoardToolBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (gridMinimized == false)
+            {
+                timerCommandGrid.Stop();
+                timerCommandGrid.Start();
+            }
+        }
+
+        private void toggleCommandGrid()
+        {
+            if (gridMinimized)
+            {
+                //gridBoardToolBar.Height = 100;
+                gridBoardToolBar.BeginAnimation(HeightProperty, new DoubleAnimation(100, TimeSpan.FromSeconds(0.18)));
+                gridMinimized = false;
+                timerCommandGrid.Start();
+            }
+            else
+            {
+                //gridBoardToolBar.Height = 20;
+                gridBoardToolBar.BeginAnimation(HeightProperty, new DoubleAnimation(20, TimeSpan.FromSeconds(0.18)));
+                gridMinimized = true;
+                timerCommandGrid.Stop();
+            }
+        }
+
+        private void buttonMinimize_Click(object sender, RoutedEventArgs e)
+        {
+            toggleCommandGrid();
+        }
+
     }
 }
