@@ -21,6 +21,7 @@ using winMacros;
 using WiiMoteConnect.WiiMoteControlls;
 using System.Diagnostics;
 using System.IO;
+using System.Windows.Threading;
 
 namespace WiisyScreen
 {
@@ -37,14 +38,58 @@ namespace WiisyScreen
         public static readonly double k_bubbleDiamater = 46;
         public static readonly int k_bubbelsAnimation = 7;
         public static readonly string k_savedDataFile = "savedData";
+        private DispatcherTimer timerMainBubble = new DispatcherTimer();
+        private List<ActionBubble> actionBubbles = new List<ActionBubble>();
 
         public MainWindow()
         {
             InitializeComponent();
             initBubbelsAnimation();
-
+            
             //initFirstUse();
             initApps();
+            actionBubbles.Add(actionBubbleSlot1);
+            actionBubbles.Add(actionBubbleSlot2);
+            actionBubbles.Add(actionBubbleSlot3);
+            actionBubbles.Add(actionBubbleSlot4);
+            initTimer();
+        }
+
+        private void initTimer()
+        {
+            timerMainBubble.Interval = TimeSpan.FromSeconds(2);
+            timerMainBubble.Tick += hideMainBubble;
+        }
+
+        private void hideMainBubble(object sender, EventArgs e)
+        {
+
+            if(canvasSettings.Visibility == Visibility.Hidden)
+            {
+                translate.BeginAnimation(TranslateTransform.XProperty, null);
+                double oldLocation, newLocation;
+
+                oldLocation = translate.X;
+                if (isMainBubbleInRightScreen(translate.X))
+                {
+                    newLocation = mainWindow.Width - (mainAppCanvas.Width * 0.5);
+                }
+                else
+                {
+                    newLocation = (-1) * mainAppCanvas.Width * 0.5;
+                }
+
+                setAllOpacityExceptOfMainBubble(0);
+                translate.X = newLocation;
+                translate.BeginAnimation(TranslateTransform.XProperty, new DoubleAnimation(oldLocation, newLocation, TimeSpan.FromSeconds(0.3)));
+            }
+        }
+
+        private void setAllOpacityExceptOfMainBubble(int opacity)
+        {
+            actionBubbles.ForEach(actionBubble => actionBubble.Opacity = opacity);
+            buttonExit.Opacity = opacity;
+            buttonSetting.Opacity = opacity;
         }
 
         private void initApps()
@@ -109,7 +154,7 @@ namespace WiisyScreen
             this.Top = desktopWorkingArea.Bottom - this.Height;
 
             GeneralWinUtils.SetWindowToHideFromAltTab(new WindowInteropHelper(this).Handle);
-
+            timerMainBubble.Start();
 
         }
 
@@ -135,6 +180,8 @@ namespace WiisyScreen
 
         private void centerBubble_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            setAllOpacityExceptOfMainBubble(1);
+            timerMainBubble.Stop();
             centerBubble.CaptureMouse();
             translate.BeginAnimation(TranslateTransform.XProperty, null);
             deltaPos.X = e.GetPosition(container).X - translate.X;
@@ -150,7 +197,7 @@ namespace WiisyScreen
                 translate.Y = e.GetPosition(container).Y - deltaPos.Y;
             }
 
-            if ((translate.X) + (mainAppCanvas.Width / 2) > mainWindow.Width / 2)
+            if (isMainBubbleInRightScreen(translate.X))
             {
                 if (rightToLeft)
                 {
@@ -166,6 +213,11 @@ namespace WiisyScreen
             }
         }
 
+        private bool isMainBubbleInRightScreen(double x)
+        {
+                return (x + (mainAppCanvas.Width / 2) > mainWindow.Width / 2);
+        }
+
         private void centerBubble_MouseUp(object sender, MouseButtonEventArgs e)
         {
             centerBubble.ReleaseMouseCapture();
@@ -174,6 +226,7 @@ namespace WiisyScreen
 
             translate.X = newXLocation;
             translate.BeginAnimation(TranslateTransform.XProperty, new DoubleAnimation(oldXLocation, newXLocation, TimeSpan.FromSeconds(0.3)));
+            timerMainBubble.Start();
         }
 
         private void flipControllers()
@@ -275,6 +328,8 @@ namespace WiisyScreen
 
         private void buttonExitSettings_Click(object sender, RoutedEventArgs e)
         {
+            timerMainBubble.Stop();
+            timerMainBubble.Start();
             canvasSettings.Visibility = Visibility.Hidden;
         }
 

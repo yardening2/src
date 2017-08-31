@@ -49,21 +49,21 @@
             </TabItem.Tag>
             <ScrollViewer>
                 <StackPanel>
-                    <Grid Height="76" Background="#FFAC5656">
+                    <Grid Height="76">
                         <Label x:Name="labelCalibration" Content="Calibration" FontWeight="Bold" FontFamily="Comic Sans MS" HorizontalContentAlignment="Stretch" Padding="0" Foreground="#FFCBCBC8" VerticalAlignment="Top" RenderTransformOrigin="0.627,-3.331" Margin="41,9,157,0" FontSize="16" FontStyle="Italic"/>
                         <Rectangle Fill="#FFF4F4F5" Stroke="Black"  Height="5" VerticalAlignment="Top" Width="147" Margin="132,19,15,0"/>
                         <Rectangle Fill="#FFF4F4F5" Stroke="Black"  Height="5" VerticalAlignment="Top" Width="26" Margin="7,18,261,0"/>
                         <Button x:Name="buttonCalibrate" Content="Calibrate" Click="buttonCalibrate_Click"  VerticalAlignment="Top" Margin="10,40,207,0" FontWeight="Bold" FontFamily="Comic Sans MS"/>
                         <Label x:Name="labelWiiConnectStatus" Content="WiiMoteState" FontWeight="Bold" FontFamily="Comic Sans MS" HorizontalContentAlignment="Right" Padding="0" Foreground="#FFCBCBC8" VerticalAlignment="Top" Margin="109,43,32,0"/>
                     </Grid>
-                    <Grid Height="84" Background="#FF8B3D3D" VerticalAlignment="Top">
+                    <Grid Height="84" VerticalAlignment="Top">
                         <Label x:Name="labelSofwere" Content="Softwere" FontWeight="Bold" FontFamily="Comic Sans MS" HorizontalContentAlignment="Stretch" Padding="0" Foreground="#FFCBCBC8" VerticalAlignment="Top" RenderTransformOrigin="0.627,-3.331" Margin="41,9,157,0" FontSize="16" FontStyle="Italic"/>
                         <Rectangle Fill="#FFF4F4F5" Stroke="Black"  Height="5" VerticalAlignment="Top" Width="164" Margin="120,19,10,0"/>
                         <Rectangle Fill="#FFF4F4F5" Stroke="Black"  Height="5" VerticalAlignment="Top" Width="26" Margin="7,18,261,0"/>
                         <CheckBox x:Name="checkBoxSaveData" Content="Save Data On Exit" HorizontalAlignment="Left" Margin="10,32,0,0" VerticalAlignment="Top" IsChecked="True" Foreground="#FFCBCBC8" FontWeight="Bold" FontFamily="Comic Sans MS"/>
                         <Button x:Name="buttonResrote" Content="Restore Factory Apps Container" HorizontalAlignment="Left" Margin="10,52,0,0" VerticalAlignment="Top" Width="274" Click="buttonResrote_Click" FontFamily="Comic Sans MS" FontWeight="Bold"/>
                     </Grid>
-                    <Grid Height="120" Background="#FF932B2B">
+                    <Grid Height="120">
                         <Border x:Name="borderScreenShots" BorderThickness="1,1,1,1" CornerRadius="5,5,5,5" Canvas.Top="269" 
                             Width="223" Height="21" BorderBrush="#FF969696" Margin="10,55,61,0" HorizontalAlignment="Center" VerticalAlignment="Top">
                             <Canvas Width="{Binding Width, ElementName=borderScreenShots}" Height="{Binding Height, ElementName=borderScreenShots}" VerticalAlignment="Top">
@@ -121,6 +121,17 @@
             <TabItem.Tag>
                 <ImageSource>Resources/supportIcon.ico</ImageSource>
             </TabItem.Tag>
+            <Canvas>
+                <TextBlock x:Name="textBlock" Canvas.Left="164" TextWrapping="Wrap" Canvas.Top="68" Height="39" Width="136" FontSize="14" FontFamily="Comic Sans MS" Foreground="#FFCBCBC8">
+                    <Run Text="+972-52-7365755"/>
+                    <LineBreak/>
+                    <Run Text="+972-54-3095569"/>
+                </TextBlock>
+                <TextBlock x:Name="textBlock1" Canvas.Left="34" TextWrapping="Wrap" Text="Contact Us:" Canvas.Top="68" Height="38" Width="87" FontSize="14" FontFamily="Comic Sans MS" Foreground="#FFCBCBC8"/>
+                <TextBlock x:Name="textBlock2" Canvas.Left="10" TextWrapping="Wrap" Text="Wiisy Screen" Canvas.Top="10" Height="41" Width="290" FontSize="24" TextAlignment="Center" TextDecorations="{x:Null}" FontWeight="Bold" FontFamily="Comic Sans MS" Foreground="#FFCBCBC8"/>
+                <Rectangle Fill="#FFF4F4F5" Stroke="Black"  Height="5" VerticalAlignment="Top" Width="64" Canvas.Left="239" Canvas.Top="28"/>
+                <Rectangle Fill="#FFF4F4F5" Stroke="Black"  Height="5" VerticalAlignment="Top" Width="64" Canvas.Left="7" Canvas.Top="28"/>
+            </Canvas>
         </TabItem>
     </TabControl>
 </UserControl>
