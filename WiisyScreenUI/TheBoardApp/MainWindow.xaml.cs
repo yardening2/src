@@ -32,6 +32,7 @@ namespace TheBoardApp
         private int markerSize = 1;
         private DispatcherTimer timerCommandGrid = new DispatcherTimer { Interval = TimeSpan.FromSeconds(5) };
         private bool isPinned = false;
+        public double laserDelay { get; set; } = 1;
 
 
         public static MainWindow Instance
@@ -52,6 +53,8 @@ namespace TheBoardApp
                 return boardApp;
             }
         }
+
+       
 
         public MainWindow()
         {
@@ -305,7 +308,7 @@ namespace TheBoardApp
         private async void inkCanvasBoard_Gesture(object sender, InkCanvasGestureEventArgs e)
         {
             inkCanvasBoard.Strokes.Add(e.Strokes);
-            await Task.Delay(TimeSpan.FromSeconds(1));
+            await Task.Delay(TimeSpan.FromSeconds(laserDelay));
             inkCanvasBoard.Strokes.Remove(e.Strokes);
         }
 

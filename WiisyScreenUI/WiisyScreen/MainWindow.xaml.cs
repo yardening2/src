@@ -54,6 +54,7 @@ namespace WiisyScreen
             actionBubbles.Add(actionBubbleSlot3);
             actionBubbles.Add(actionBubbleSlot4);
             initTimer();
+            settings.changeLaserDelay += changeLaserDelay;
         }
 
         private void initTimer()
@@ -267,7 +268,6 @@ namespace WiisyScreen
         public static void runBoard()
         {
             runApp(TheBoardApp.MainWindow.Instance);
-
         }
 
         public static void runMacroApp()
@@ -373,6 +373,11 @@ namespace WiisyScreen
                 dataToSave.RepositoryData = settings.GetRepository();
                 WiisyScreenUIHelper.WriteToBinaryFile<WiisyScreenSavedData>(k_savedDataFile, dataToSave);
             }
+        }
+
+        private void changeLaserDelay(double sec)
+        {
+            TheBoardApp.MainWindow.Instance.laserDelay = sec;
         }
     }
 }

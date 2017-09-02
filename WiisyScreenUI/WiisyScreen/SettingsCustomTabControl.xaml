@@ -50,14 +50,14 @@
             <ScrollViewer>
                 <StackPanel>
                     <Grid Height="76">
-                        <Label x:Name="labelCalibration" Content="Calibration" FontWeight="Bold" FontFamily="Comic Sans MS" HorizontalContentAlignment="Stretch" Padding="0" Foreground="#FFCBCBC8" VerticalAlignment="Top" RenderTransformOrigin="0.627,-3.331" Margin="41,9,157,0" FontSize="16" FontStyle="Italic"/>
+                        <Label x:Name="labelCalibration" Content="Calibration" FontWeight="Bold" FontFamily="Comic Sans MS" HorizontalContentAlignment="Stretch" Padding="0" Foreground="#FFCBCBC8" VerticalAlignment="Top" RenderTransformOrigin="0.627,-3.331" Margin="41,9,162.112,0" FontSize="16" FontStyle="Italic"/>
                         <Rectangle Fill="#FFF4F4F5" Stroke="Black"  Height="5" VerticalAlignment="Top" Width="147" Margin="132,19,15,0"/>
                         <Rectangle Fill="#FFF4F4F5" Stroke="Black"  Height="5" VerticalAlignment="Top" Width="26" Margin="7,18,261,0"/>
                         <Button x:Name="buttonCalibrate" Content="Calibrate" Click="buttonCalibrate_Click"  VerticalAlignment="Top" Margin="10,40,207,0" FontWeight="Bold" FontFamily="Comic Sans MS"/>
                         <Label x:Name="labelWiiConnectStatus" Content="WiiMoteState" FontWeight="Bold" FontFamily="Comic Sans MS" HorizontalContentAlignment="Right" Padding="0" Foreground="#FFCBCBC8" VerticalAlignment="Top" Margin="109,43,32,0"/>
                     </Grid>
                     <Grid Height="84" VerticalAlignment="Top">
-                        <Label x:Name="labelSofwere" Content="Softwere" FontWeight="Bold" FontFamily="Comic Sans MS" HorizontalContentAlignment="Stretch" Padding="0" Foreground="#FFCBCBC8" VerticalAlignment="Top" RenderTransformOrigin="0.627,-3.331" Margin="41,9,157,0" FontSize="16" FontStyle="Italic"/>
+                        <Label x:Name="labelSofwere" Content="Softwere" FontWeight="Bold" FontFamily="Comic Sans MS" HorizontalContentAlignment="Stretch" Padding="0" Foreground="#FFCBCBC8" VerticalAlignment="Top" RenderTransformOrigin="0.627,-3.331" Margin="41,9,174.112,0" FontSize="16" FontStyle="Italic"/>
                         <Rectangle Fill="#FFF4F4F5" Stroke="Black"  Height="5" VerticalAlignment="Top" Width="164" Margin="120,19,10,0"/>
                         <Rectangle Fill="#FFF4F4F5" Stroke="Black"  Height="5" VerticalAlignment="Top" Width="26" Margin="7,18,261,0"/>
                         <CheckBox x:Name="checkBoxSaveData" Content="Save Data On Exit" HorizontalAlignment="Left" Margin="10,32,0,0" VerticalAlignment="Top" IsChecked="True" Foreground="#FFCBCBC8" FontWeight="Bold" FontFamily="Comic Sans MS"/>
@@ -78,12 +78,19 @@
                         </Border>
                         <Label x:Name="labelScreenshotFolder" Content="Screenshots Folder" Canvas.Left="10" Canvas.Top="246" FontWeight="Bold" FontFamily="Comic Sans MS" HorizontalContentAlignment="Right" Padding="0" Foreground="#FFCBCBC8" Margin="14,36,167,0" VerticalAlignment="Top"/>
                         <Button x:Name="buttonGeneratePDF" Content="Generate PDF" HorizontalAlignment="Left" Margin="10,89,0,0" VerticalAlignment="Top" Width="274" Background="#FFCBCBCB" FontFamily="Comic Sans MS" Click="buttonGeneratePDF_Click" FontWeight="Bold"/>
-                        <Label x:Name="labelPictures" Content="Pictures" FontWeight="Bold" FontFamily="Comic Sans MS" HorizontalContentAlignment="Stretch" Padding="0" Foreground="#FFCBCBC8" VerticalAlignment="Top" RenderTransformOrigin="0.627,-3.331" Margin="41,9,186,0" FontSize="16" FontStyle="Italic"/>
+                        <Label x:Name="labelPictures" Content="Pictures" FontWeight="Bold" FontFamily="Comic Sans MS" HorizontalContentAlignment="Stretch" Padding="0" Foreground="#FFCBCBC8" VerticalAlignment="Top" RenderTransformOrigin="0.627,-3.331" Margin="41,9,181.112,0" FontSize="16" FontStyle="Italic"/>
                         <Rectangle Fill="#FFF4F4F5" Stroke="Black"  Height="5" VerticalAlignment="Top" Width="171" Margin="113,18,10,0"/>
                         <Button x:Name="buttonChooseSCFolder" Content="Browse"  Click="buttonChooseSCFolder_Click" FontFamily="Comic Sans MS" Background="#FFCBCBCB" VerticalAlignment="Top" Width="44" Height="21" Margin="240,54,10,0"/>
                         <Rectangle Fill="#FFF4F4F5" Stroke="Black"  Height="5" VerticalAlignment="Top" Width="26" Margin="10,18,258,0"/>
                     </Grid>
-
+                    <Grid Height="76">
+                        <Label x:Name="labelBoard" Content="Board" FontWeight="Bold" FontFamily="Comic Sans MS" HorizontalContentAlignment="Stretch" Padding="0" Foreground="#FFCBCBC8" VerticalAlignment="Top" RenderTransformOrigin="0.627,-3.331" Margin="41,9,190.224,0" FontSize="16" FontStyle="Italic"/>
+                        <Rectangle Fill="#FFF4F4F5" Stroke="Black"  Height="5" VerticalAlignment="Top" Margin="104,19,14.6,0"/>
+                        <Rectangle Fill="#FFF4F4F5" Stroke="Black"  Height="5" VerticalAlignment="Top" Width="26" Margin="7,18,261,0"/>
+                        <Label Margin="17,36,190.6,10" Content="Laser Delay" Foreground="#FFCBCBC8" FontFamily="Comic Sans MS" FontSize="14"></Label>
+                        <Label Margin="116,39,91.6,13" Content="Seconds" Foreground="#FFCBCBC8" FontFamily="Comic Sans MS" FontSize="12"/>
+                        <TextBox Name="textBoxlaserDelay" Margin="101,42,175.6,12" Text="1" PreviewTextInput="PreviewTextInputHandler" DataObject.Pasting="PastingHandler" MaxLength="1" Foreground="#FFCBCBC8" FontFamily="Comic Sans MS" FontSize="12" Background="#FF525252" TextAlignment="Center" LostFocus="textBoxlaserDelay_LostFocus"/>
+                    </Grid>
                 </StackPanel>
             </ScrollViewer>
         </TabItem>

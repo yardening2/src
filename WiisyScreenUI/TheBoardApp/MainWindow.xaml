@@ -438,7 +438,7 @@
                     <ImageBrush ImageSource="Resources/ClearPage.png" Stretch="Uniform"/>
                 </Rectangle.Fill>
             </Rectangle>
-            <Label x:Name="notificationLabel"  HorizontalAlignment="Left" Margin="371,-48,0,0" VerticalAlignment="Top" Background="#FF1E83B2" RenderTransformOrigin="0.5,0.5" FontSize="18" FontWeight="Bold" FontFamily="Kristen ITC" Opacity="0">
+            <Label x:Name="notificationLabel"  HorizontalAlignment="Left" Margin="321,-48,0,0" VerticalAlignment="Top" Background="#FF1E83B2" RenderTransformOrigin="0.5,0.5" FontSize="18" FontWeight="Bold" FontFamily="Kristen ITC" Opacity="0">
                 <Label.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -448,7 +448,7 @@
                     </TransformGroup>
                 </Label.RenderTransform>
             </Label>
-            <Border x:Name="sampleMarker"  Background="White" Width="55" Height="55" Margin="371,-110,374,155" BorderBrush="Black" CornerRadius="13" Opacity="0">
+            <Border x:Name="sampleMarker"  Background="#FF1E83B2" Width="55" Height="55" Margin="518,-60,227,105" BorderBrush="Black" CornerRadius="13" Opacity="0">
                 <Ellipse Opacity="0.7" Width="{Binding DefaultDrawingAttributes.Width, ElementName=inkCanvasBoard}" Height="{Binding DefaultDrawingAttributes.Height, ElementName=inkCanvasBoard}">
                     <Ellipse.Fill>
                         <SolidColorBrush Color="{Binding DefaultDrawingAttributes.Color, ElementName=inkCanvasBoard}"/>

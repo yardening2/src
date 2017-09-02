@@ -16,17 +16,21 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WiiMoteConnect;
 using WiiMoteConnect.WiiMoteControlls;
+
 namespace WiisyScreen
 {
     /// <summary>
     /// Interaction logic for SettingsCustomTabControl.xaml
     /// </summary>
+    /// 
+    public delegate void ChangeLaserDelay(double sec);
+
     public partial class SettingsCustomTabControl : UserControl
     {
-
         private WiiMoteWrapper m_WiiMoteWrapper;
         private Calibrator m_Calibrator;
         private WiiMoteToMouseCoverter m_WiimoteToMouse;
+        public event ChangeLaserDelay changeLaserDelay;
 
         public SettingsCustomTabControl()
         {
@@ -54,11 +58,7 @@ namespace WiisyScreen
             addActionBubbleToRepasatory(WiisyScreenUIHelper.CreateActionBubbleFromData(new ActionBubble.ActionBubbleData("BoardApp", eBubbleType.Board)));
             addActionBubbleToRepasatory(WiisyScreenUIHelper.CreateActionBubbleFromData(new ActionBubble.ActionBubbleData("MacroApp", eBubbleType.Macro)));
             addActionBubbleToRepasatory(WiisyScreenUIHelper.CreateActionBubbleFromData(new ActionBubble.ActionBubbleData("Calc", eBubbleType.Calc)));
-
-
-
         }
-
 
         private void addActionBubbleToRepasatory(ActionBubble i_BubbleToAdd)
         {
@@ -266,6 +266,47 @@ namespace WiisyScreen
         private void buttonResrote_Click(object sender, RoutedEventArgs e)
         {
             initBubbels();
+        }
+
+        private Boolean IsTextAllowed(String text)
+        {
+            return Array.TrueForAll<Char>(text.ToCharArray(),
+                delegate (Char c) { return Char.IsDigit(c) || Char.IsControl(c); });
+        }
+
+        // Use the PreviewTextInputHandler to respond to key presses 
+        private void PreviewTextInputHandler(Object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsTextAllowed(e.Text);
+        }
+
+        // Use the DataObject.Pasting Handler  
+        private void PastingHandler(object sender, DataObjectPastingEventArgs e)
+        {
+            if (e.DataObject.GetDataPresent(typeof(String)))
+            {
+                String text = (String)e.DataObject.GetData(typeof(String));
+                if (!IsTextAllowed(text)) e.CancelCommand();
+            }
+            else e.CancelCommand();
+        }
+
+        private void textBoxlaserDelay_LostFocus(object sender, RoutedEventArgs e)
+        {
+            double sec;
+
+            if (textBoxlaserDelay.Text.Equals(""))
+            {
+                textBoxlaserDelay.Text = "0";
+            }
+
+            if (Double.TryParse(textBoxlaserDelay.Text, out sec))
+            {
+                if (changeLaserDelay != null)
+                {
+                    changeLaserDelay.Invoke(sec);
+                }
+            }
         }
     }
 }
