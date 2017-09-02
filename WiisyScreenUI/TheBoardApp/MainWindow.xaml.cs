@@ -243,7 +243,7 @@ namespace TheBoardApp
         private void displayNotification(string i_msg)
         {
             notificationLabel.Content = i_msg;
-            notificationLabel.BeginAnimation(OpacityProperty, new DoubleAnimation(1, 0, new Duration(TimeSpan.FromSeconds(2.3))));
+            notificationLabel.BeginAnimation(OpacityProperty, new DoubleAnimation(1, 0, new Duration(TimeSpan.FromSeconds(1.8))));
         }
 
         private void changeColor_MouseUp(object sender, MouseButtonEventArgs e)
@@ -271,6 +271,7 @@ namespace TheBoardApp
                     buttonLaser.Fill = getImgFromResource("laserBlack.png");
                     break;
             }
+            showMarkerPreview();
         }
 
         private ImageBrush getImgFromResource(string i_imgName)
@@ -287,6 +288,7 @@ namespace TheBoardApp
                 markerSize++;
             }
             displayNotification("Marker Size: " + markerSize);
+            showMarkerPreview();
         }
 
         private void fontSizeDownButton_MouseUp(object sender, MouseButtonEventArgs e)
@@ -297,6 +299,7 @@ namespace TheBoardApp
                 markerSize--;
             }
             displayNotification("Marker Size: " + markerSize);
+            showMarkerPreview();
         }
 
         private async void inkCanvasBoard_Gesture(object sender, InkCanvasGestureEventArgs e)
@@ -365,6 +368,11 @@ namespace TheBoardApp
             {
                 displayNotification("Screen Opacitiy Is Not Zero!!");
             }
+        }
+
+        private void showMarkerPreview()
+        {
+            sampleMarker.BeginAnimation(OpacityProperty, new DoubleAnimation(1, 0, TimeSpan.FromSeconds(1.8)));
         }
     }
 }

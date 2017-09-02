@@ -448,6 +448,13 @@
                     </TransformGroup>
                 </Label.RenderTransform>
             </Label>
+            <Border x:Name="sampleMarker"  Background="White" Width="55" Height="55" Margin="371,-110,374,155" BorderBrush="Black" CornerRadius="13" Opacity="0">
+                <Ellipse Opacity="0.7" Width="{Binding DefaultDrawingAttributes.Width, ElementName=inkCanvasBoard}" Height="{Binding DefaultDrawingAttributes.Height, ElementName=inkCanvasBoard}">
+                    <Ellipse.Fill>
+                        <SolidColorBrush Color="{Binding DefaultDrawingAttributes.Color, ElementName=inkCanvasBoard}"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+            </Border>
 
         </Grid>
     </Grid>
