@@ -217,7 +217,7 @@
                             <Rectangle x:Name="PART_SelectionRange" Fill="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" Visibility="Hidden" Width="4.0"/>
                         </Canvas>
                     </Border>
-                    <Track x:Name="PART_Track" Grid.Column="1">
+                    <Track x:Name="PART_Track" Grid.Column="1" >
                         <Track.DecreaseRepeatButton>
                             <RepeatButton Command="{x:Static Slider.DecreaseLarge}" Style="{StaticResource RepeatButtonTransparent}"/>
                         </Track.DecreaseRepeatButton>
@@ -300,155 +300,162 @@
         </Canvas>
         <Grid x:Name="gridBoardToolBar" Margin="0,435,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="100" Width="800" MouseDown="gridBoardToolBar_MouseDown" Panel.ZIndex="2" >
             <Border BorderThickness="0,0,0,0" CornerRadius="30,30,0,0" HorizontalAlignment="Center" Width="800" Height="100" Background="#FF6785D4" />
-            <StackPanel x:Name="colorsPanel" Margin="325,35,195,0" Orientation="Horizontal"  IsEnabled="False" VerticalAlignment="Top" Opacity="0">
-                <Ellipse x:Name="redBucketEllipse" Height="40" Margin="0,0,3,0" Width="40" MouseUp="changeColor_MouseUp" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <Ellipse.Fill>
-                        <RadialGradientBrush Center="0.5,0.5" GradientOrigin="0.5,0.5">
-                            <GradientStop Color="Black" Offset="1"/>
-                            <GradientStop Color="Red" Offset="0.593"/>
-                        </RadialGradientBrush>
-                    </Ellipse.Fill>
-                    <Ellipse.Stroke>
-                        <SolidColorBrush Color="Black" Opacity="0"/>
-                    </Ellipse.Stroke>
-                </Ellipse>
-                <Ellipse x:Name="greenBucketEllipse" Height="40" Margin="0,0,3,0" Width="40" MouseUp="changeColor_MouseUp" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <Ellipse.Fill>
-                        <RadialGradientBrush>
-                            <GradientStop Color="Black" Offset="1"/>
-                            <GradientStop Color="Green" Offset="0.6"/>
-                        </RadialGradientBrush>
-                    </Ellipse.Fill>
-                    <Ellipse.Stroke>
-                        <SolidColorBrush Color="Black" Opacity="0"/>
-                    </Ellipse.Stroke>
-                </Ellipse>
-                <Ellipse x:Name="blueBucketEllipse" Height="40" Margin="0,0,3,0" Width="40" MouseUp="changeColor_MouseUp" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Ellipse.Fill>
-                        <RadialGradientBrush>
-                            <GradientStop Color="Black" Offset="1"/>
-                            <GradientStop Color="Blue" Offset="0.6"/>
-                        </RadialGradientBrush>
-                    </Ellipse.Fill>
-                    <Ellipse.Stroke>
-                        <SolidColorBrush Color="Black" Opacity="0"/>
-                    </Ellipse.Stroke>
-                </Ellipse>
-                <Ellipse x:Name="blackBucketEllipse" Height="40" Margin="0,0,3,0" Width="40" MouseUp="changeColor_MouseUp" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Ellipse.Fill>
-                        <RadialGradientBrush>
-                            <GradientStop Color="Black" Offset="1"/>
-                            <GradientStop Color="#FF343030"/>
-                        </RadialGradientBrush>
-                    </Ellipse.Fill>
-                    <Ellipse.Stroke>
-                        <SolidColorBrush Color="Black" Opacity="0"/>
-                    </Ellipse.Stroke>
-                </Ellipse>
-                <Ellipse x:Name="fontSizeUpButton" Margin="15,0,0,0" Width="31" MouseUp="fontSizeUpButton_MouseUp" VerticalAlignment="Center" HorizontalAlignment="Center" Height="31">
-                    <Ellipse.Fill>
-                        <ImageBrush ImageSource="Resources/Plus1.png"/>
-                    </Ellipse.Fill>
-                    <Ellipse.Stroke>
-                        <SolidColorBrush Color="Black" Opacity="0"/>
-                    </Ellipse.Stroke>
-                </Ellipse>
-                <Ellipse x:Name="fontSizeDownButton" Height="31" Margin="5,0,0,0" Width="31" MouseUp="fontSizeDownButton_MouseUp" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Ellipse.Fill>
-                        <ImageBrush ImageSource="Resources/Min1.png"/>
-                    </Ellipse.Fill>
-                    <Ellipse.Stroke>
-                        <SolidColorBrush Color="Black" Opacity="0"/>
-                    </Ellipse.Stroke>
-                </Ellipse>
-            </StackPanel>
-            <Border x:Name="wraperPicsAmount" Background="#FFF93F3F" CornerRadius="10" Width="27" Height="20" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,55,86,0" Panel.ZIndex="1" Opacity="0" >
-                <TextBlock x:Name="textboxPicsAmount" TextWrapping="Wrap" Text="" TextAlignment="Center" FontWeight="Bold" FontSize="14"/>
-
-            </Border>
             <Rectangle x:Name="buttonExit" HorizontalAlignment="Center" Height="20" VerticalAlignment="Top" Width="20" Panel.ZIndex="10000" Canvas.Left="247" Canvas.Top="84" MouseUp="buttonExit_Click" Margin="12,0,736,0" >
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="Resources/delete-error-exit-remove-stop-x-cross-icon--28.png"/>
                 </Rectangle.Fill>
             </Rectangle>
+
             <Rectangle x:Name="buttonMinimize" HorizontalAlignment="Center" Height="20" Margin="336,1,336,0" VerticalAlignment="Top" Width="128" MouseUp="buttonMinimize_Click" Fill="#FF383838" Stroke="#FF9F9B9B">
                 <Rectangle.OpacityMask>
                     <SolidColorBrush Color="Black" Opacity="0.7"/>
                 </Rectangle.OpacityMask>
             </Rectangle>
-            <Rectangle x:Name="buttonEraser" Width="50" Height="50" Margin="73,29,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" MouseUp="buttonEraser_Click" >
-                <Rectangle.Stroke>
-                    <SolidColorBrush Color="Black" Opacity="0"/>
-                </Rectangle.Stroke>
+            <Grid Name="gridControllersWrapper" Visibility="Visible">
+                <StackPanel x:Name="colorsPanel" Margin="325,35,195,0" Orientation="Horizontal"  IsEnabled="False" VerticalAlignment="Top" Opacity="0">
+                    <Ellipse x:Name="redBucketEllipse" Height="40" Margin="0,0,3,0" Width="40" MouseUp="changeColor_MouseUp" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Ellipse.Fill>
+                            <RadialGradientBrush Center="0.5,0.5" GradientOrigin="0.5,0.5">
+                                <GradientStop Color="Black" Offset="1"/>
+                                <GradientStop Color="Red" Offset="0.593"/>
+                            </RadialGradientBrush>
+                        </Ellipse.Fill>
+                        <Ellipse.Stroke>
+                            <SolidColorBrush Color="Black" Opacity="0"/>
+                        </Ellipse.Stroke>
+                    </Ellipse>
+                    <Ellipse x:Name="greenBucketEllipse" Height="40" Margin="0,0,3,0" Width="40" MouseUp="changeColor_MouseUp" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Ellipse.Fill>
+                            <RadialGradientBrush>
+                                <GradientStop Color="Black" Offset="1"/>
+                                <GradientStop Color="Green" Offset="0.6"/>
+                            </RadialGradientBrush>
+                        </Ellipse.Fill>
+                        <Ellipse.Stroke>
+                            <SolidColorBrush Color="Black" Opacity="0"/>
+                        </Ellipse.Stroke>
+                    </Ellipse>
+                    <Ellipse x:Name="blueBucketEllipse" Height="40" Margin="0,0,3,0" Width="40" MouseUp="changeColor_MouseUp" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Ellipse.Fill>
+                            <RadialGradientBrush>
+                                <GradientStop Color="Black" Offset="1"/>
+                                <GradientStop Color="Blue" Offset="0.6"/>
+                            </RadialGradientBrush>
+                        </Ellipse.Fill>
+                        <Ellipse.Stroke>
+                            <SolidColorBrush Color="Black" Opacity="0"/>
+                        </Ellipse.Stroke>
+                    </Ellipse>
+                    <Ellipse x:Name="blackBucketEllipse" Height="40" Margin="0,0,3,0" Width="40" MouseUp="changeColor_MouseUp" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Ellipse.Fill>
+                            <RadialGradientBrush>
+                                <GradientStop Color="Black" Offset="1"/>
+                                <GradientStop Color="#FF343030"/>
+                            </RadialGradientBrush>
+                        </Ellipse.Fill>
+                        <Ellipse.Stroke>
+                            <SolidColorBrush Color="Black" Opacity="0"/>
+                        </Ellipse.Stroke>
+                    </Ellipse>
+                    <Ellipse x:Name="fontSizeUpButton" Margin="15,0,0,0" Width="31" MouseUp="fontSizeUpButton_MouseUp" VerticalAlignment="Center" HorizontalAlignment="Center" Height="31">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="Resources/Plus1.png"/>
+                        </Ellipse.Fill>
+                        <Ellipse.Stroke>
+                            <SolidColorBrush Color="Black" Opacity="0"/>
+                        </Ellipse.Stroke>
+                    </Ellipse>
+                    <Ellipse x:Name="fontSizeDownButton" Height="31" Margin="5,0,0,0" Width="31" MouseUp="fontSizeDownButton_MouseUp" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="Resources/Min1.png"/>
+                        </Ellipse.Fill>
+                        <Ellipse.Stroke>
+                            <SolidColorBrush Color="Black" Opacity="0"/>
+                        </Ellipse.Stroke>
+                    </Ellipse>
+                </StackPanel>
+                <Border x:Name="wraperPicsAmount" Background="#FFF93F3F" CornerRadius="10" Width="27" Height="20" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,55,86,0" Panel.ZIndex="1" Opacity="0" >
+                    <TextBlock x:Name="textboxPicsAmount" TextWrapping="Wrap" Text="" TextAlignment="Center" FontWeight="Bold" FontSize="14"/>
 
-                <Rectangle.Fill>
-                    <ImageBrush ImageSource="Resources/Eraser.png"/>
-                </Rectangle.Fill>
-            </Rectangle>
-            <Rectangle x:Name="buttonPointer" HorizontalAlignment="Left" Width="50" VerticalAlignment="Top" Height="50" MouseUp="buttonPointer_Click" Margin="181,29,0,0">
-                <Rectangle.Stroke>
-                    <SolidColorBrush Color="Black"/>
-                </Rectangle.Stroke>
-                <Rectangle.BindingGroup>
-                    <BindingGroup Name="group1" ValidatesOnNotifyDataError="False"/>
-                </Rectangle.BindingGroup>
-                <Rectangle.Fill>
-                    <ImageBrush ImageSource="Resources/Hand.png" Stretch="UniformToFill"/>
-                </Rectangle.Fill>
-            </Rectangle>
-            <Rectangle x:Name="buttonPencil" Width="50" Height="50" Margin="241,29,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" MouseUp="buttonPencil_Click">
-                <Rectangle.Stroke>
-                    <SolidColorBrush Color="Black" Opacity="0"/>
-                </Rectangle.Stroke>
-                <Rectangle.Fill>
-                    <ImageBrush ImageSource="Resources/BlackMarker.png"/>
-                </Rectangle.Fill>
-            </Rectangle>
-            <Rectangle x:Name="buttonLaser" HorizontalAlignment="Left" Width="50" VerticalAlignment="Top" Height="50" MouseUp="buttonLaser_Click" Margin="127,29,0,0">
-                <Rectangle.Stroke>
-                    <SolidColorBrush Color="Black" Opacity="0"/>
-                </Rectangle.Stroke>
-                <Rectangle.BindingGroup>
-                    <BindingGroup Name="group1"/>
-                </Rectangle.BindingGroup>
-                <Rectangle.Fill>
-                    <ImageBrush ImageSource="Resources/laserBlack.png" Stretch="Uniform"/>
-                </Rectangle.Fill>
-            </Rectangle>
+                </Border>
 
-            <Rectangle x:Name="rectanglePin" Margin="0,74,775,0" MouseDown="rectanglePin_MouseDown">
-                <Rectangle.Fill>
-                    <ImageBrush ImageSource="Resources/unpinned.png"/>
-                </Rectangle.Fill>
-            </Rectangle>
-            <Slider  x:Name="sliderOpacity" Maximum="1" Orientation="Vertical" HorizontalAlignment="Right" Margin="0,21,20,0" VerticalAlignment="Top" Width="32" RenderTransformOrigin="0.5,0.5"   SmallChange="0" Height="65" Style="{DynamicResource SliderStyle1}">
-            </Slider>
-            <Rectangle x:Name="buttonSaveScreen" HorizontalAlignment="Right" Height="50" Margin="0,25,125,0" VerticalAlignment="Top" Width="50" MouseUp="buttonSaveScreen_MouseUp" MouseDown="buttonSaveScreen_MouseDown">
-                <Rectangle.Fill>
-                    <ImageBrush ImageSource="Resources/Camera.png"/>
-                </Rectangle.Fill>
-            </Rectangle>
-            <Rectangle x:Name="buttonScreenshotFiles" HorizontalAlignment="Right" Height="50" Margin="0,25,63,0" VerticalAlignment="Top" Width="50" MouseUp="buttonScreenshotFiles_MouseUp">
-                <Rectangle.Fill>
-                    <ImageBrush ImageSource="Resources/folder-images-icon.png"/>
-                </Rectangle.Fill>
-            </Rectangle>
-            <Rectangle x:Name="buttonClearPage" Margin="25,29,0,0" HorizontalAlignment="Left" Width="50" VerticalAlignment="Top" Height="50" MouseUp="buttonClearPage_Click" >
-                <Rectangle.Fill>
-                    <ImageBrush ImageSource="Resources/ClearPage.png" Stretch="Uniform"/>
-                </Rectangle.Fill>
-            </Rectangle>
-            <Label x:Name="notificationLabel"  HorizontalAlignment="Left" Margin="321,-48,0,0" VerticalAlignment="Top" Background="#FF1E83B2" RenderTransformOrigin="0.5,0.5" FontSize="18" FontWeight="Bold" FontFamily="Kristen ITC" Opacity="0">
-                <Label.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform X="0.5" Y="0.5"/>
-                    </TransformGroup>
-                </Label.RenderTransform>
-            </Label>
-            <Border x:Name="sampleMarker"  Background="#FF1E83B2" Width="55" Height="55" Margin="518,-60,227,105" BorderBrush="Black" CornerRadius="13" Opacity="0">
+                <Rectangle x:Name="buttonEraser" Width="50" Height="50" Margin="73,29,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" MouseUp="buttonEraser_Click" >
+                    <Rectangle.Stroke>
+                        <SolidColorBrush Color="Black" Opacity="0"/>
+                    </Rectangle.Stroke>
+
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="Resources/Eraser.png"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <Rectangle x:Name="buttonPointer" HorizontalAlignment="Left" Width="50" VerticalAlignment="Top" Height="50" MouseUp="buttonPointer_Click" Margin="181,29,0,0">
+                    <Rectangle.Stroke>
+                        <SolidColorBrush Color="Black"/>
+                    </Rectangle.Stroke>
+                    <Rectangle.BindingGroup>
+                        <BindingGroup Name="group1" ValidatesOnNotifyDataError="False"/>
+                    </Rectangle.BindingGroup>
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="Resources/Hand.png" Stretch="UniformToFill"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <Rectangle x:Name="buttonPencil" Width="50" Height="50" Margin="241,29,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" MouseUp="buttonPencil_Click">
+                    <Rectangle.Stroke>
+                        <SolidColorBrush Color="Black" Opacity="0"/>
+                    </Rectangle.Stroke>
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="Resources/BlackMarker.png"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <Rectangle x:Name="buttonLaser" HorizontalAlignment="Left" Width="50" VerticalAlignment="Top" Height="50" MouseUp="buttonLaser_Click" Margin="127,29,0,0">
+                    <Rectangle.Stroke>
+                        <SolidColorBrush Color="Black" Opacity="0"/>
+                    </Rectangle.Stroke>
+                    <Rectangle.BindingGroup>
+                        <BindingGroup Name="group1"/>
+                    </Rectangle.BindingGroup>
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="Resources/laserBlack.png" Stretch="Uniform"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+
+                <Rectangle x:Name="rectanglePin" Margin="0,74,775,0" MouseDown="rectanglePin_MouseDown">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="Resources/unpinned.png"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <Slider  x:Name="sliderOpacity" Maximum="1" Orientation="Vertical" HorizontalAlignment="Right" Margin="0,18,20,0" VerticalAlignment="Top" Width="32" RenderTransformOrigin="0.5,0.5"   SmallChange="0" Height="65" Style="{DynamicResource SliderStyle1}">
+                </Slider>
+                <Rectangle x:Name="buttonSaveScreen" HorizontalAlignment="Right" Height="50" Margin="0,25,125,0" VerticalAlignment="Top" Width="50" MouseUp="buttonSaveScreen_MouseUp" MouseDown="buttonSaveScreen_MouseDown">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="Resources/Camera.png"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <Rectangle x:Name="buttonScreenshotFiles" HorizontalAlignment="Right" Height="50" Margin="0,25,63,0" VerticalAlignment="Top" Width="50" MouseUp="buttonScreenshotFiles_MouseUp">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="Resources/folder-images-icon.png"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <Rectangle x:Name="buttonClearPage" Margin="25,29,0,0" HorizontalAlignment="Left" Width="50" VerticalAlignment="Top" Height="50" MouseUp="buttonClearPage_Click" >
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="Resources/ClearPage.png" Stretch="Uniform"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <Label x:Name="notificationLabel"  HorizontalAlignment="Left" Margin="321,-48,0,0" VerticalAlignment="Top" Background="#FF1E83B2" RenderTransformOrigin="0.5,0.5" FontSize="18" FontWeight="Bold" FontFamily="Kristen ITC" Opacity="0">
+                    <Label.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform X="0.5" Y="0.5"/>
+                        </TransformGroup>
+                    </Label.RenderTransform>
+                </Label>
+            </Grid>
+            <Border x:Name="sampleMarker" Width="55" Height="55" Margin="518,-60,227,105" BorderBrush="Black" CornerRadius="13" Opacity="0">
+                <Border.Background>
+                    <SolidColorBrush Color="#FF6785D4"/>
+                </Border.Background>
                 <Ellipse Opacity="0.7" Width="{Binding DefaultDrawingAttributes.Width, ElementName=inkCanvasBoard}" Height="{Binding DefaultDrawingAttributes.Height, ElementName=inkCanvasBoard}">
                     <Ellipse.Fill>
                         <SolidColorBrush Color="{Binding DefaultDrawingAttributes.Color, ElementName=inkCanvasBoard}"/>

@@ -290,7 +290,6 @@ namespace TheBoardApp
                 inkCanvasBoard.DefaultDrawingAttributes.Width = inkCanvasBoard.DefaultDrawingAttributes.Height += 5;
                 markerSize++;
             }
-            displayNotification("Marker Size: " + markerSize);
             showMarkerPreview();
         }
 
@@ -301,7 +300,6 @@ namespace TheBoardApp
                 inkCanvasBoard.DefaultDrawingAttributes.Width = inkCanvasBoard.DefaultDrawingAttributes.Height -= 5;
                 markerSize--;
             }
-            displayNotification("Marker Size: " + markerSize);
             showMarkerPreview();
         }
 
@@ -325,6 +323,7 @@ namespace TheBoardApp
         {
             if (gridMinimized)
             {
+                gridControllersWrapper.Visibility = Visibility.Visible;
                 //gridBoardToolBar.Height = 100;
                 gridBoardToolBar.BeginAnimation(HeightProperty, new DoubleAnimation(100, TimeSpan.FromSeconds(0.18)));
                 gridMinimized = false;
@@ -332,6 +331,7 @@ namespace TheBoardApp
             }
             else
             {
+                gridControllersWrapper.Visibility = Visibility.Hidden;
                 //gridBoardToolBar.Height = 20;
                 gridBoardToolBar.BeginAnimation(HeightProperty, new DoubleAnimation(20, TimeSpan.FromSeconds(0.18)));
                 gridMinimized = true;
