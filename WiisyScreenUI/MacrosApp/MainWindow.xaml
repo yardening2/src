@@ -31,11 +31,12 @@
                     <Button x:Name="buttonShift1" Height="40" Width="80"  Click="buttonShift_Click" />
                     <Button x:Name="buttonShift2" Height="40" Width="80" Click="buttonShift_Click" />
                 </StackPanel>
-                <Button x:Name="buttonChangeOrientation" Canvas.Left="60" Canvas.Top="100" Width="59" Height="56" BorderBrush="{x:Null}" Click="buttonChangeOrientation_Click">
-                    <Button.Background>
+                <Rectangle x:Name="buttonChangeOrientation" Canvas.Left="60" Canvas.Top="100" Width="59" Height="56" MouseUp="buttonChangeOrientation_MouseUp" MouseDown="mouseDownHandle" >
+                    <Rectangle.Fill>
                         <ImageBrush ImageSource="images/flip.png"/>
-                    </Button.Background>
-                </Button>
+                    </Rectangle.Fill>
+
+                </Rectangle>
                 <Rectangle x:Name="buttonMacroMinimize" Height="50" Canvas.Left="124" Canvas.Top="65" Width="50" MouseUp="buttonMacroMinimize_MouseUp" MouseDown="mouseDownHandle">
                     <Rectangle.Effect>
                         <DropShadowEffect/>

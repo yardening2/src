@@ -243,7 +243,7 @@ namespace TheBoardApp
         private void displayNotification(string i_msg)
         {
             notificationLabel.Content = i_msg;
-            notificationLabel.BeginAnimation(OpacityProperty, new DoubleAnimation(1, 0, new Duration(TimeSpan.FromSeconds(1.8))));
+            notificationLabel.BeginAnimation(OpacityProperty, new DoubleAnimation(1, 0, new Duration(TimeSpan.FromSeconds(2.3))));
         }
 
         private void changeColor_MouseUp(object sender, MouseButtonEventArgs e)
@@ -356,6 +356,14 @@ namespace TheBoardApp
             if (!isPinned)
             {
                 toggleCommandGrid();
+            }
+        }
+
+        private void inkCanvasBoard_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if(inkCanvasBoard.Opacity != 0 && inkCanvasBoard.EditingMode == InkCanvasEditingMode.None)
+            {
+                displayNotification("Screen Opacitiy Is Not Zero!!");
             }
         }
     }

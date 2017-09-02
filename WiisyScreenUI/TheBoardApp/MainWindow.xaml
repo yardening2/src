@@ -279,7 +279,7 @@
                 </TransformGroup>
             </Canvas.RenderTransform>
         </Canvas>
-        <InkCanvas x:Name="inkCanvasBoard" Cursor="Arrow" ResizeEnabled="False" UseLayoutRounding="True" EditingMode="None" Gesture="inkCanvasBoard_Gesture" >
+        <InkCanvas x:Name="inkCanvasBoard" Cursor="Arrow" ResizeEnabled="False" UseLayoutRounding="True" EditingMode="None" Gesture="inkCanvasBoard_Gesture" MouseDown="inkCanvasBoard_MouseDown" >
             <InkCanvas.Background>
                 <SolidColorBrush Color="white" Opacity="{Binding Value, ElementName=sliderOpacity}"/>
             </InkCanvas.Background>

@@ -173,8 +173,13 @@ namespace WiisyScreen
 
         private void buttonExit_Click(object sender, RoutedEventArgs e)
         {
-            closeOpenedWindows();
-            this.Close();
+            MessageBoxResult result = System.Windows.MessageBox.Show("Do you really want to exit?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                closeOpenedWindows();
+                this.Close();
+            }
         }
 
         private void closeOpenedWindows()

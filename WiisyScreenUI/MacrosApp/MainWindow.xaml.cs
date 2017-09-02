@@ -67,12 +67,6 @@ namespace MacrosApp
             this.Close();
         }
 
-        private void buttonChangeOrientation_Click(object sender, RoutedEventArgs e)
-        {
-            shiftOriention = shiftOriention == eOriention.vertical ? eOriention.horizontal : eOriention.vertical;
-            RotateTransform rt = new RotateTransform((int)shiftOriention);
-            shiftButtonsContainer.RenderTransform = rt;
-        }
 
         private void buttonShift_Click(object sender, RoutedEventArgs e)
         {
@@ -165,6 +159,14 @@ namespace MacrosApp
         {
             errorMsg.BeginAnimation(OpacityProperty, new DoubleAnimation(1, 0, new Duration(TimeSpan.FromSeconds(1.8))));
         }
+
+        private void buttonChangeOrientation_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            shiftOriention = shiftOriention == eOriention.vertical ? eOriention.horizontal : eOriention.vertical;
+            RotateTransform rt = new RotateTransform((int)shiftOriention);
+            shiftButtonsContainer.RenderTransform = rt;
+        }
+
 
     }
 }
