@@ -305,9 +305,24 @@ namespace TheBoardApp
 
         private async void inkCanvasBoard_Gesture(object sender, InkCanvasGestureEventArgs e)
         {
+            bool removeStrokes = true;
+
             inkCanvasBoard.Strokes.Add(e.Strokes);
             await Task.Delay(TimeSpan.FromSeconds(laserDelay));
-            inkCanvasBoard.Strokes.Remove(e.Strokes);
+
+            foreach (Stroke s in e.Strokes)
+            {
+                if (!inkCanvasBoard.Strokes.Contains(s))
+                {
+                    removeStrokes = false;
+                    break;
+                }
+            }
+
+            if (removeStrokes)
+            {
+                inkCanvasBoard.Strokes.Remove(e.Strokes);
+            }
         }
 
         private void gridBoardToolBar_MouseDown(object sender, MouseButtonEventArgs e)
