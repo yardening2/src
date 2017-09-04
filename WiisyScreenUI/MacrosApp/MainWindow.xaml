@@ -61,7 +61,7 @@
                         <ImageBrush ImageSource="images/MacroClose.png"/>
                     </Rectangle.Fill>
                 </Rectangle>
-                <Rectangle Height="59" Canvas.Left="282" Canvas.Top="60" Width="68" MouseDown="mouseDownHandle" MouseUp="Rectangle_MouseUp">
+                <Rectangle Height="59" Canvas.Left="282" Canvas.Top="60" Width="68" MouseDown="mouseDownHandle" MouseUp="Rectangle_MouseUp" Visibility="Hidden">
                     <Rectangle.Effect>
                         <DropShadowEffect/>
                     </Rectangle.Effect>
