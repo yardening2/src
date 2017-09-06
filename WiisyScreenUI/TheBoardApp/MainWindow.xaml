@@ -424,7 +424,7 @@
                         <ImageBrush ImageSource="Resources/unpinned.png"/>
                     </Rectangle.Fill>
                 </Rectangle>
-                <Slider  x:Name="sliderOpacity" Maximum="1" Orientation="Vertical" HorizontalAlignment="Right" Margin="0,18,20,0" VerticalAlignment="Top" Width="32" RenderTransformOrigin="0.5,0.5"   SmallChange="0" Height="65" Style="{DynamicResource SliderStyle1}">
+                <Slider  x:Name="sliderOpacity" Maximum="1" Orientation="Vertical" HorizontalAlignment="Right" Margin="0,10,20,0" VerticalAlignment="Top" Width="32" RenderTransformOrigin="0.5,0.5"   SmallChange="0" Height="80" Style="{DynamicResource SliderStyle1}">
                 </Slider>
                 <Rectangle x:Name="buttonSaveScreen" HorizontalAlignment="Right" Height="50" Margin="0,25,125,0" VerticalAlignment="Top" Width="50" MouseUp="buttonSaveScreen_MouseUp" MouseDown="buttonSaveScreen_MouseDown">
                     <Rectangle.Fill>
