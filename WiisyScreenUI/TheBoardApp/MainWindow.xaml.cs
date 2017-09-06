@@ -32,7 +32,7 @@ namespace TheBoardApp
         private int markerSize = 1;
         private DispatcherTimer timerCommandGrid = new DispatcherTimer { Interval = TimeSpan.FromSeconds(5) };
         private bool isPinned = false;
-        public double laserDelay { get; set; } = 1;
+        public double laserDelay { get; set; }
 
 
         public static MainWindow Instance
@@ -59,6 +59,7 @@ namespace TheBoardApp
         public MainWindow()
         {
             InitializeComponent();
+            laserDelay = 1;
             initCommandTimer();
         }
 

@@ -163,16 +163,6 @@ namespace WiiMoteConnect.WiiMoteControlls
             this.Invoke(new Action(() => { this.Close(); }));
         }
 
-        protected override bool ProcessDialogKey(Keys keyData)
-        {
-            if(keyData == Keys.Escape)
-            {
-                this.Close();
-                return true;
-            }
-            return base.ProcessDialogKey(keyData);
-        }
-
         private void buttonDrag_MouseDown(object sender, MouseEventArgs e)
         {
             v_IsDragged = true;
@@ -211,6 +201,19 @@ namespace WiiMoteConnect.WiiMoteControlls
             }
             int newMargin = 100 - (int)WindowNewHeightPrecent;
             return m_FormTopMargin = Math.Min((float)newMargin / 100, k_MaxMargin);
+        }
+
+        //private void CalibrationForm_KeyPress(object sender, KeyPressEventArgs e)
+        //{
+
+        //}
+
+        private void CalibrationForm_KeyPress(object sender, KeyEventArgs e)
+        {
+            if(e.KeyData == Keys.Escape)
+            {
+                this.Close();
+            }
         }
     }
 }

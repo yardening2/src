@@ -139,8 +139,10 @@
             this.Controls.Add(this.TitlePictureBox);
             this.Controls.Add(this.CrossPictureBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.KeyPreview = true;
             this.Name = "CalibrationForm";
             this.Text = "Calibrating...";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CalibrationForm_KeyPress);
             ((System.ComponentModel.ISupportInitialize)(this.TitlePictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CrossPictureBox)).EndInit();
             this.ResumeLayout(false);
